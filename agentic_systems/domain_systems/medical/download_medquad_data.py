@@ -69,7 +69,6 @@ def main() -> None:
         raise RuntimeError("No MedQuAD records parsed.")
     with OUT_PATH.open("w", encoding="utf-8") as f:
         json.dump(docs, f, indent=2, ensure_ascii=False)
-    print(f"Wrote {len(docs)} records to {OUT_PATH}")
 
 
 if __name__ == "__main__":
