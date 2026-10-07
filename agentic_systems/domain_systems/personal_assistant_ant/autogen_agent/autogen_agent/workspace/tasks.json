@@ -1,0 +1,114 @@
+[
+  {
+    "id": "task001",
+    "title": "Review project proposal",
+    "due_date": "2026-09-20",
+    "status": "pending",
+    "priority": "high",
+    "details": "Review Marco's updated Q2 Feature Launch proposal (section 3 updated with ClientCo requirements) and provide written feedback."
+  },
+  {
+    "id": "task002",
+    "title": "Prepare Q2 budget summary",
+    "due_date": "2026-09-20",
+    "status": "in_progress",
+    "priority": "medium",
+    "details": "Compile Q1 actuals and draft Q2 projections using Leo's Q1 report. Budget target is $165k. VendorCo renewal may increase by 15%."
+  },
+  {
+    "id": "task003",
+    "title": "Send onboarding docs to Sofia Bauer",
+    "due_date": "2026-09-11",
+    "status": "pending",
+    "priority": "high",
+    "details": "Send the onboarding packet received from Rachel Torres to Sofia Bauer before her start date (September 16). OVERDUE."
+  },
+  {
+    "id": "task004",
+    "title": "Respond to Tom Fischer about contract renewal",
+    "due_date": "2026-09-12",
+    "status": "pending",
+    "priority": "high",
+    "details": "Send updated renewal terms and confirm next steps with Tom Fischer (VendorCo). Contract expires November 9. OVERDUE."
+  },
+  {
+    "id": "task005",
+    "title": "Update Q2 product roadmap",
+    "due_date": "2026-09-26",
+    "status": "pending",
+    "priority": "medium",
+    "details": "Update the roadmap based on David Chen's draft, current sprint status, and ClientCo integration requirements."
+  },
+  {
+    "id": "task006",
+    "title": "Fix critical payment flow bug",
+    "due_date": "2026-09-19",
+    "status": "pending",
+    "priority": "high",
+    "details": "Fix payment confirmation bug reported by Owen Murray. Fails silently with promo codes. Assigned to Marco Elkins. Must be resolved before September 19 project review."
+  },
+  {
+    "id": "task007",
+    "title": "Review legal compliance documentation",
+    "due_date": "2026-09-20",
+    "status": "pending",
+    "priority": "high",
+    "details": "Review data processing and security compliance docs flagged by Natalie Brooks. Two sections need attention. Send updated version before legal review on September 20."
+  },
+  {
+    "id": "task008",
+    "title": "Write performance self-review",
+    "due_date": "2026-09-25",
+    "status": "pending",
+    "priority": "medium",
+    "details": "Complete self-review form in the HR portal before the performance review with James on September 18. Covers achievements, goals, and development areas."
+  },
+  {
+    "id": "task009",
+    "title": "Schedule Q2 team offsite",
+    "due_date": "2026-10-01",
+    "status": "pending",
+    "priority": "low",
+    "details": "Coordinate venue and date for Q2 team offsite. Check availability with Marco, Priya, and Dana first. Offsite planning meeting already on September 25."
+  },
+  {
+    "id": "task010",
+    "title": "Complete infrastructure audit",
+    "due_date": "2026-09-26",
+    "status": "in_progress",
+    "priority": "high",
+    "details": "Work with Ben Nakamura on post-outage infrastructure audit. Review API gateway config, memory limits, and deployment pipeline."
+  },
+  {
+    "id": "task011",
+    "title": "Review Carla's dashboard design mockups",
+    "due_date": "2026-09-27",
+    "status": "pending",
+    "priority": "low",
+    "details": "Review dashboard mockups in Figma from Carla Gomez covering analytics view, user settings, and mobile layout. Provide written feedback."
+  },
+  {
+    "id": "task012",
+    "title": "Investigate data pipeline anomalies",
+    "due_date": "2026-09-21",
+    "status": "pending",
+    "priority": "medium",
+    "details": "Follow up with Aisha Patel on August 30-20 pipeline anomalies. Determine if it is a data quality issue or a pipeline bug and escalate if needed."
+  },
+  {
+    "id": "task013",
+    "title": "Set up CI/CD pipeline for Q2 feature branch",
+    "due_date": "2026-09-06",
+    "status": "done",
+    "priority": "high",
+    "details": "Completed with Ben Nakamura. CI runs on push, CD deploys to staging on merge to main."
+  },
+  {
+    "id": "task014",
+    "title": "Share Q1 financial report with board",
+    "due_date": "2026-09-11",
+    "status": "done",
+    "priority": "medium",
+    "details": "Q1 report shared with board members on September 10. Leo confirmed receipt."
+  }
+]

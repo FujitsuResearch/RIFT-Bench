@@ -1,0 +1,115 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/travel_crewai_agent",
+  "nodespec_file": "external_artifacts/stages_outputs/travel_crewai_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "agent"
+  ],
+  "expected_tool_names": [
+    "book_attraction",
+    "book_flight",
+    "book_hotel",
+    "book_restaurant",
+    "check_attraction_availability",
+    "check_attraction_price",
+    "check_flight_availability",
+    "check_flight_price",
+    "check_hotel_availability",
+    "check_hotel_price",
+    "check_restaurant_availability",
+    "check_restaurant_price",
+    "search_attractions_serper",
+    "search_flights_serper",
+    "search_hotels_serper",
+    "search_restaurants_serper",
+    "write_travel_plan_document"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.tasks_output[*].messages",
+      "spanOutputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].function.name",
+      "spanOutputs.tasks_output[*].messages[*].name",
+      "spanOutputs.messages[*].tool_calls[*].function.name",
+      "spanOutputs.messages[*].name",
+      "spanOutputs.tasks_output[*].name",
+      "spanOutputs.name"
+    ],
+    "role_paths": [
+      "spanOutputs.tasks_output[*].messages[*].role",
+      "spanOutputs.messages[*].role",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type"
+    ],
+    "content_paths": [
+      "spanOutputs.tasks_output[*].messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.raw",
+      "spanOutputs.tasks_output[*].raw",
+      "spanInputs.output.text"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "agent": "agent",
+      "specializedtravelbookingagent": "agent"
+    },
+    "tool": {
+      "bookattraction": "book_attraction",
+      "pythonattractionsserverpybookattraction": "book_attraction",
+      "bookflight": "book_flight",
+      "pythonflightserverpybookflight": "book_flight",
+      "bookhotel": "book_hotel",
+      "pythonhotelserverpybookhotel": "book_hotel",
+      "bookrestaurant": "book_restaurant",
+      "pythonrestaurantserverpybookrestaurant": "book_restaurant",
+      "checkattractionavailability": "check_attraction_availability",
+      "pythonattractionsserverpycheckattractionavailability": "check_attraction_availability",
+      "checkattractionprice": "check_attraction_price",
+      "pythonattractionsserverpycheckattractionprice": "check_attraction_price",
+      "checkflightavailability": "check_flight_availability",
+      "pythonflightserverpycheckflightavailability": "check_flight_availability",
+      "checkflightprice": "check_flight_price",
+      "pythonflightserverpycheckflightprice": "check_flight_price",
+      "checkhotelavailability": "check_hotel_availability",
+      "pythonhotelserverpycheckhotelavailability": "check_hotel_availability",
+      "checkhotelprice": "check_hotel_price",
+      "pythonhotelserverpycheckhotelprice": "check_hotel_price",
+      "checkrestaurantavailability": "check_restaurant_availability",
+      "pythonrestaurantserverpycheckrestaurantavailability": "check_restaurant_availability",
+      "checkrestaurantprice": "check_restaurant_price",
+      "pythonrestaurantserverpycheckrestaurantprice": "check_restaurant_price",
+      "searchattractionsserper": "search_attractions_serper",
+      "pythonattractionsserverpysearchattractionsserper": "search_attractions_serper",
+      "searchflightsserper": "search_flights_serper",
+      "pythonflightserverpysearchflightsserper": "search_flights_serper",
+      "searchhotelsserper": "search_hotels_serper",
+      "pythonhotelserverpysearchhotelsserper": "search_hotels_serper",
+      "searchrestaurantsserper": "search_restaurants_serper",
+      "pythonrestaurantserverpysearchrestaurantsserper": "search_restaurants_serper",
+      "writetravelplandocument": "write_travel_plan_document"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 17,
+    "num_agent_aliases": 2,
+    "num_tool_aliases": 33,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

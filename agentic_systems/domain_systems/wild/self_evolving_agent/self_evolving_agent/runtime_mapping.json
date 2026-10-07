@@ -1,0 +1,72 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/self_evolving_agent_outputs_0",
+  "nodespec_file": "external_artifacts/self_evolving_agent_outputs_0/final_nodespec.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages",
+      "spanOutputs.messages",
+      "spanInputs[*]",
+      "spanOutputs.generations[*]"
+    ],
+    "name_paths": [
+      "spanOutputs.messages[*].name",
+      "spanInputs.messages[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanOutputs.generations[*][*].message.name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ],
+    "role_paths": [
+      "spanOutputs.messages[*].type",
+      "spanInputs.messages[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanInputs[*][*].type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanOutputs.type",
+      "spanOutputs.generations[*][*].type",
+      "spanOutputs.generations[*][*].message.type",
+      "spanInputs[*][*].tool_calls[*].type"
+    ],
+    "content_paths": [
+      "spanOutputs.messages[*].content",
+      "spanInputs.messages[*].content",
+      "spanInputs[*][*].content",
+      "spanOutputs.generations[*][*].text",
+      "spanOutputs.generations[*][*].message",
+      "spanOutputs.generations[*][*].message.content"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "userqueryagent": "userQueryAgent",
+      "assistant": "userQueryAgent"
+    },
+    "tool": {
+      "binomialcoefficient": "binomial_coefficient",
+      "codegenerationandexecution": "code_generation_and_execution",
+      "factorial": "factorial"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 8,
+    "num_agent_aliases": 2,
+    "num_tool_aliases": 3,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

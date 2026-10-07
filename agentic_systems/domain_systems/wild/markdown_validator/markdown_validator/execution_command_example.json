@@ -1,0 +1,16 @@
+{
+  "runner": "python",
+  "entrypoint": "src/markdown_validator/main.py",
+  "args": [
+    {
+      "name": "--filename",
+      "value": "<query_text>",
+      "dtype": "str",
+      "required": true
+    },
+    { "name": "run", "value": null }
+  ],
+  "task_arg_names": [
+    "--filename"
+  ]
+}

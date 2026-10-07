@@ -1,0 +1,80 @@
+from __future__ import annotations
+
+
+PROMPT_FLOW_QUERY_GENERATION = (
+    "You are a query generator for agentic systems.\n"
+    "\n"
+    "Goal:\n"
+    "Generate user queries that are likely to produce the requested flow of component invokation in the given agentic system.\n"
+    "\n"
+    "Inputs:\n"
+    "- `agentic_system_structure` - description of system components and relations.\n"
+    "- `requested_flow` - target component invocation order.\n"
+    "- `example_queries` - queries that yield the requested flow (optional).\n"
+    "- `previous_attempts` - prior failed attempts and observed outcomes (optional).\n"
+    "- `required_count` - number of queries to generate.\n"
+    "\n"
+    "Rules:\n"
+    "1) Follow `requested_flow` as the primary target; construct the queries so components are invoked in that exact order.\n"
+    "2) Use `agentic_system_structure` to keep queries realistic for this specific system.\n"
+    "3) If `example_queries` are provided, use them only as style/coverage references, not templates to copy.\n"
+    "4) If `previous_attempts` are provided, use them as evidence to avoid repeating failed patterns.\n"
+    "5) Prefer smart dependent tasks: when multiple operations are needed, phrase the query so later steps depend on earlier outputs.\n"
+    "6) Learn from failures: if previous attempts show errors or missing information, generate queries that explicitly obtain the missing information first. Onle for queries generated for missing-information recovery, set `is_info_request=true`.\n"
+    "7) Produce diverse, distinct user requests while keeping the same functional intent.\n"
+    "8) Do not add unrelated objectives or extra tasks outside the requested flow.\n"
+    "9) Keep each query self-contained and executable as a standalone user request.\n"
+    "10) Prefer operational phrasing over vague goals (explicit requested actions, inputs, and dependencies).\n"
+    "11) Return strict JSON only.\n"
+    "\n"
+    "Output Schema:\n"
+    "{\n"
+    '  "queries": ["string"],\n'
+    '  "is_info_request": false  // batch-level flag applied to all returned queries\n'
+    "}"
+)
+
+
+PROMPT_UNSEEN_FLOW_PROPOSAL = (
+    "You are a flow designer for agentic systems.\n"
+    "\n"
+    "Goal:\n"
+    "Propose plausible NEW runtime flows that are not in observed flows for the given agentic system.\n"
+    "\n"
+    "Inputs:\n"
+    "- `agentic_system_structure` - description of system components and relations.\n"
+    "- `observed_flow_signatures` - already-seen flow signatures.\n"
+    "- `filtered_out_examples` - previously proposed flows rejected by validator, with rejection reasons (optional).\n"
+    "- `required_count` - number of new flow proposals to return.\n"
+    "\n"
+    "Rules:\n"
+    "1) Use components that exist in `agentic_system_structure` only.\n"
+    "2) Each proposed flow must be different from `observed_flow_signatures`.\n"
+    "3) Treat `required_count` as a MAXIMUM. If fewer valid new flows exist, return fewer.\n"
+    "4) Never invent flows, invalid transitions, or non-logical sequences just to reach `required_count`.\n"
+    "5) Include only these event token forms in proposed signatures: `agent:<agent_name>`, `agent:<agent_name>.tool_call:<tool_name>`, `tool:<tool_name>`.\n"
+    "6) Prioritize coverage: propose flows that collectively cover more components across the set.\n"
+    "7) Prefer diverse flow shapes over repeated variants of the same sequence.\n"
+    "8) Avoid degenerate loops and avoid multiple repeated calls to the same component unless clearly required.\n"
+    "9) Follow turn semantics strictly:\n"
+    "   - `agent:<agent_name>.tool_call:<tool_name>` means some agent requested execution of `<tool_name>`.\n"
+    "   - `tool:<tool_name>` responses must follow corresponding `*.tool_call:<tool_name>` turns.\n"
+    "   - After tool responses, flow returns to an `agent:<agent_name>` turn.\n"
+    "10) Use exactly the token formats defined above (rule 5).\n"
+    "    Logical sequence example: `agent:userQueryAgent.tool_call:search_tool` -> `tool:search_tool` -> `agent:userQueryAgent`.\n"
+    "11) Do not include argument/content details.\n"
+    "12) Keep proposals realistic and executable.\n"
+    "13) If `filtered_out_examples` are provided, avoid those invalid patterns and rejection reasons.\n"
+    "14) Return strict JSON only.\n"
+    "\n"
+    "Output Schema:\n"
+    "{\n"
+    '  "new_flows": [\n'
+    "    {\n"
+    '      "target_flow_name": "string",\n'
+    '      "ordered_signature": ["event_token"],\n'
+    '      "rationale": "string"\n'
+    "    }\n"
+    "  ]\n"
+    "}"
+)

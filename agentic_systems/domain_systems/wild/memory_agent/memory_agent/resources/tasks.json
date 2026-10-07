@@ -1,0 +1,11 @@
+[
+
+    "Remember my name is Lidor.",
+    "Remember that I work at Fujitsu Research of Europe as a student developer",
+    "Remember that I like to relax on my weekends",
+
+    "Recall what my name is, where I work, and what I like to do on weekends and generate an image that represents all of that.",
+
+    "Analzyze the <file_name>.pdf file. Return the title and the number of pages. Then, generate an image that represent the title of the document.",
+    "Generate 5 random numbers between 1 and 50. Now multiply the largest one by 3. Create an image with that many objects in it."
+]

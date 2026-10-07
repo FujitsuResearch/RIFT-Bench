@@ -1,0 +1,23 @@
+[
+  {
+    "id": "proj001", "name": "Q2 Feature Launch", "status": "active",
+    "deadline": "2026-10-12", "lead": "marco.elkins@example.com",
+    "members": ["marco.elkins@example.com", "priya.sharma@example.com", "carla.gomez@example.com", "aisha.patel@example.com", "owen.murray@example.com"],
+    "related_tasks": ["task001", "task006", "task011", "task012"],
+    "description": "Main product feature set for Q2. Beta milestone June 1. Event-driven microservices architecture."
+  },
+  {
+    "id": "proj002", "name": "ClientCo Integration", "status": "active",
+    "deadline": "2026-10-11", "lead": "david.chen@example.com",
+    "members": ["david.chen@example.com", "marco.elkins@example.com", "mei.lin@clientco.com"],
+    "related_tasks": ["task001", "task005"],
+    "description": "API integration with ClientCo. OAuth2.0, 99.9% SLA, hard deadline October 11. Export feature out of scope."
+  },
+  {
+    "id": "proj003", "name": "Infrastructure Upgrade", "status": "active",
+    "deadline": "2026-09-26", "lead": "ben.nakamura@example.com",
+    "members": ["ben.nakamura@example.com", "owen.murray@example.com"],
+    "related_tasks": ["task010", "task013"],
+    "description": "Post-outage infrastructure audit and upgrade. API gateway config, memory limits, deployment pipeline hardening."
+  }
+]

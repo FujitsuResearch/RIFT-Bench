@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/travel_langraph_orch",
+  "nodespec_file": "external_artifacts/stages_outputs/travel_langraph_orch/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "attractions_worker",
+    "flight_worker",
+    "hotel_worker",
+    "orchestrator",
+    "restaurant_worker",
+    "writer_worker"
+  ],
+  "expected_tool_names": [
+    "book_attraction",
+    "book_flight",
+    "book_hotel",
+    "book_restaurant",
+    "check_attraction_availability",
+    "check_attraction_price",
+    "check_flight_availability",
+    "check_flight_price",
+    "check_hotel_availability",
+    "check_hotel_price",
+    "check_restaurant_availability",
+    "check_restaurant_price",
+    "search_attractions_serper",
+    "search_flights_serper",
+    "search_hotels_serper",
+    "search_restaurants_serper",
+    "write_travel_plan_document"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.messages",
+      "spanInputs.messages",
+      "spanInputs[*]",
+      "spanOutputs.generations[*]",
+      "spanInputs.state.messages"
+    ],
+    "name_paths": [
+      "spanInputs[*][*].name",
+      "spanInputs.state.messages[*].name",
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].name",
+      "spanInputs.messages[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanOutputs.generations[*][*].message.name",
+      "spanInputs.tool_call.name",
+      "spanOutputs.name"
+    ],
+    "role_paths": [
+      "spanInputs[*][*].type",
+      "spanInputs.state.messages[*].type",
+      "spanInputs.state.messages[*].tool_calls[*].type",
+      "spanOutputs.messages[*].type",
+      "spanInputs.messages[*].type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanInputs[*][*].tool_calls[*].type",
+      "spanOutputs.type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanOutputs.generations[*][*].type",
+      "spanOutputs.generations[*][*].message.type",
+      "spanInputs.tool_call.type",
+      "spanInputs.messages[*].role"
+    ],
+    "content_paths": [
+      "spanInputs[*][*].content",
+      "spanInputs.state.messages[*].content",
+      "spanInputs.messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.generations[*][*].text",
+      "spanOutputs.generations[*][*].message",
+      "spanOutputs.generations[*][*].message.content",
+      "spanOutputs.content"
+    ],
+    "tool_name_paths": [
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {},
+    "tool": {
+      "bookattraction": "book_attraction",
+      "bookhotel": "book_hotel",
+      "bookrestaurant": "book_restaurant",
+      "checkattractionavailability": "check_attraction_availability",
+      "checkattractionprice": "check_attraction_price",
+      "checkhotelavailability": "check_hotel_availability",
+      "checkhotelprice": "check_hotel_price",
+      "checkrestaurantavailability": "check_restaurant_availability",
+      "checkrestaurantprice": "check_restaurant_price",
+      "flight": "flight",
+      "bookflight": "flight",
+      "checkflightavailability": "flight",
+      "checkflightprice": "flight",
+      "searchattractionsserper": "search_attractions_serper",
+      "searchhotelsserper": "search_hotels_serper",
+      "searchrestaurantsserper": "search_restaurants_serper",
+      "writetravelplandocument": "write_travel_plan_document"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 6,
+    "num_expected_tools": 17,
+    "num_agent_aliases": 0,
+    "num_tool_aliases": 17,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

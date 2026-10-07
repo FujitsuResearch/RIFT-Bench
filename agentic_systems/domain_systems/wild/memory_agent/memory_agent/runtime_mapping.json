@@ -1,0 +1,96 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/memory_agent_outputs_0",
+  "nodespec_file": "external_artifacts/memory_agent_outputs_0/final_nodespec.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.messages",
+      "spanInputs.messages",
+      "spanInputs[*]",
+      "spanOutputs.generations[*]",
+      "spanInputs.state.messages"
+    ],
+    "name_paths": [
+      "spanOutputs.messages[*].name",
+      "spanInputs.messages[*].name",
+      "spanInputs[*][*].name",
+      "spanInputs.state.messages[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanOutputs.generations[*][*].message.name",
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanInputs.tool_call.name",
+      "spanOutputs.name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ],
+    "role_paths": [
+      "spanOutputs.messages[*].type",
+      "spanInputs.messages[*].type",
+      "spanInputs[*][*].type",
+      "spanOutputs.type",
+      "spanInputs.state.messages[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanOutputs.generations[*][*].type",
+      "spanOutputs.generations[*][*].message.type",
+      "spanInputs.state.messages[*].tool_calls[*].type",
+      "spanInputs.messages[*].role",
+      "spanInputs.tool_call.type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanInputs[*][*].tool_calls[*].type"
+    ],
+    "content_paths": [
+      "spanOutputs.messages[*].content",
+      "spanInputs.messages[*].content",
+      "spanInputs[*][*].content",
+      "spanInputs.state.messages[*].content",
+      "spanOutputs.generations[*][*].text",
+      "spanOutputs.generations[*][*].message",
+      "spanOutputs.generations[*][*].message.content",
+      "spanOutputs.content",
+      "spanOutputs.messages[*].tool_calls[*].args.text",
+      "spanInputs.state.messages[*].tool_calls[*].args.text",
+      "spanInputs.tool_call.args.text",
+      "spanInputs.text",
+      "spanInputs.messages[*].tool_calls[*].args.text",
+      "spanInputs[*][*].tool_calls[*].args.text"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "agent": "agent",
+      "assistant": "agent"
+    },
+    "tool": {
+      "calculatortool": "calculator_tool",
+      "hashtool": "hash_tool",
+      "imagegentool": "imagegen_tool",
+      "pdfmetadatatool": "pdf_metadata_tool",
+      "pdfsummarytool": "pdf_summary_tool",
+      "randomtool": "random_tool",
+      "recalltool": "recall_tool",
+      "remembertool": "remember_tool",
+      "screenshottool": "screenshot_tool"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 9,
+    "num_agent_aliases": 2,
+    "num_tool_aliases": 9,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

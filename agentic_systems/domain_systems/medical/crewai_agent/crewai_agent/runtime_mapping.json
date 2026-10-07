@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "outputs_dir": "stages_outputs/medical_crewai_agent",
+  "nodespec_file": "stages_outputs/medical_crewai_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "agent"
+  ],
+  "expected_tool_names": [
+    "age_from_date",
+    "answer_medical_question_from_rag",
+    "calculate_bmi",
+    "convert_medical_units",
+    "lookup_drug_label_openfda",
+    "search_medical_knowledge",
+    "summarize_medical_topic",
+    "web_search_serper"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.tasks_output[*].messages",
+      "spanOutputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].function.name",
+      "spanOutputs.tasks_output[*].messages[*].name",
+      "spanOutputs.messages[*].tool_calls[*].function.name",
+      "spanOutputs.messages[*].name",
+      "spanOutputs.tasks_output[*].name",
+      "spanInputs.crew.name",
+      "spanInputs.crew.tasks[*].name",
+      "spanOutputs.name"
+    ],
+    "role_paths": [
+      "spanOutputs.tasks_output[*].messages[*].role",
+      "spanOutputs.messages[*].role",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanInputs.crew.tasks[*].agent.role",
+      "spanInputs.crew.agents[*].role"
+    ],
+    "content_paths": [
+      "spanOutputs.tasks_output[*].messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.raw",
+      "spanOutputs.tasks_output[*].raw",
+      "spanInputs.output.text"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "agent": "agent",
+      "medicalassistantagent": "agent"
+    },
+    "tool": {
+      "agefromdate": "age_from_date",
+      "pythonmedicalcalculationsserverpyagefromdate": "age_from_date",
+      "answermedicalquestionfromrag": "answer_medical_question_from_rag",
+      "pythonmedicalragserverpyanswermedicalquestionfromrag": "answer_medical_question_from_rag",
+      "calculatebmi": "calculate_bmi",
+      "pythonmedicalcalculationsserverpycalculatebmi": "calculate_bmi",
+      "convertmedicalunits": "convert_medical_units",
+      "pythonmedicalcalculationsserverpyconvertmedicalunits": "convert_medical_units",
+      "lookupdruglabelopenfda": "lookup_drug_label_openfda",
+      "pythonmedicalexternalserverpylookupdruglabelopenfda": "lookup_drug_label_openfda",
+      "searchmedicalknowledge": "search_medical_knowledge",
+      "pythonmedicalragserverpysearchmedicalknowledge": "search_medical_knowledge",
+      "summarizemedicaltopic": "summarize_medical_topic",
+      "pythonmedicalragserverpysummarizemedicaltopic": "summarize_medical_topic",
+      "websearchserper": "web_search_serper",
+      "pythonmedicalexternalserverpywebsearchserper": "web_search_serper"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 8,
+    "num_agent_aliases": 2,
+    "num_tool_aliases": 16,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

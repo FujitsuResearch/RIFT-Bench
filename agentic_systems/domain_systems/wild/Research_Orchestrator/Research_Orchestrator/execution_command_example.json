@@ -1,0 +1,27 @@
+{
+  "runner": "python",
+  "entrypoint": "run_hierarchical_research.py",
+  "args": [
+    {
+      "name": "--query",
+      "value": "<query_text>",
+      "dtype": "str",
+      "required": true
+    },
+    {
+      "name": "--recursion-limit",
+      "value": 150,
+      "dtype": "int",
+      "required": false
+    },
+    {
+      "name": "--mlflow-experiment",
+      "value": "hierarchical_research",
+      "dtype": "str",
+      "required": false
+    }
+  ],
+  "task_arg_names": [
+    "--query"
+  ]
+}

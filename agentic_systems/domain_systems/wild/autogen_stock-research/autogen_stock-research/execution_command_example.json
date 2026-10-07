@@ -1,0 +1,27 @@
+{
+    "runner": "python",
+    "entrypoint": "main.py",
+    "args": [
+        {
+            "name": "--task",
+            "value": "<query_text>",
+            "dtype": "str",
+            "required": true
+        },
+        {
+            "name": "--exp_name",
+            "value": "stock_research",
+            "dtype": "str",
+            "required": true
+        },
+        {
+            "name": "--mlflow_uri",
+            "value": "http://localhost:5000",
+            "dtype": "str",
+            "required": true
+        }
+    ],
+    "task_arg_names": [
+        "--task"
+    ]
+}

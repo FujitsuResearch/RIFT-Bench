@@ -1,0 +1,12 @@
+.venv*/
+.env
+*/mlruns/
+*__pycache__/
+pycache/
+agent_scripts/__pycache__/
+tool_files/__pycache__/
+dalle_images/
+traces_mapped/
+*.db
+*.pdf
+*.pyc

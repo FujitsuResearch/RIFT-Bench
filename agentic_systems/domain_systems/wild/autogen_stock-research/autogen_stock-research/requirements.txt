@@ -1,0 +1,21 @@
+# Core AutoGen (agents, teams, chat orchestration)
+autogen-agentchat>=0.2.0
+
+# Model clients (OpenAI + Azure support)
+autogen-ext[openai,azure]>=0.2.0
+
+# MLflow for tracing
+mlflow>=2.16.0
+
+# OpenAI SDK (used under the hood / for Azure as well)
+openai>=1.30.0
+
+# Async support (usually comes with Python, but safe)
+aiohttp>=3.9.0
+
+# Load environment variables from .env
+python-dotenv>=1.0.1
+
+autogen-ext[docker]
+playwright
+markitdown

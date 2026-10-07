@@ -1,0 +1,98 @@
+[
+  {
+    "id": "cal001", "title": "Team standup", "date": "2026-09-16",
+    "start_time": "09:00", "end_time": "09:30", "duration_minutes": 30,
+    "attendees": ["marco.elkins@example.com", "priya.sharma@example.com", "ben.nakamura@example.com", "carla.gomez@example.com", "aisha.patel@example.com", "owen.murray@example.com", "david.chen@example.com"],
+    "location": "Conference Room A", "notes": "Weekly Monday sync — conflicts with Sprint planning (cal002)"
+  },
+  {
+    "id": "cal002", "title": "Sprint planning", "date": "2026-09-16",
+    "start_time": "09:00", "end_time": "10:30", "duration_minutes": 90,
+    "attendees": ["marco.elkins@example.com", "priya.sharma@example.com", "owen.murray@example.com", "david.chen@example.com"],
+    "location": "Conference Room B", "notes": "Q2 sprint kickoff planning — conflicts with Team standup (cal001)"
+  },
+  {
+    "id": "cal003", "title": "Q2 planning meeting with Dana", "date": "2026-09-17",
+    "start_time": "14:00", "end_time": "15:00", "duration_minutes": 60,
+    "attendees": ["dana.reyes@example.com"],
+    "location": "Office - Room 3", "notes": "Discuss Q2 priorities and roadmap alignment — conflicts with Client call (cal004)"
+  },
+  {
+    "id": "cal004", "title": "Client call with Mei Lin (ClientCo)", "date": "2026-09-17",
+    "start_time": "14:30", "end_time": "15:30", "duration_minutes": 60,
+    "attendees": ["mei.lin@clientco.com", "david.chen@example.com"],
+    "location": "Zoom", "notes": "Integration timeline review — conflicts with Dana meeting (cal003)"
+  },
+  {
+    "id": "cal005", "title": "Performance review with James", "date": "2026-09-18",
+    "start_time": "11:00", "end_time": "11:30", "duration_minutes": 30,
+    "attendees": ["james.okoye@example.com"],
+    "location": "Manager's office", "notes": "Annual performance review — partially overlaps with Doctor appointment (cal006)"
+  },
+  {
+    "id": "cal006", "title": "Doctor appointment", "date": "2026-09-18",
+    "start_time": "10:30", "end_time": "11:15", "duration_minutes": 45,
+    "attendees": [],
+    "location": "City Medical Center", "notes": "Annual checkup — partially overlaps with Performance review (cal005)"
+  },
+  {
+    "id": "cal007", "title": "Lunch with Priya", "date": "2026-09-15",
+    "start_time": "12:30", "end_time": "13:30", "duration_minutes": 60,
+    "attendees": ["priya.sharma@example.com"],
+    "location": "Downtown Bistro", "notes": ""
+  },
+  {
+    "id": "cal008", "title": "Project review", "date": "2026-09-19",
+    "start_time": "15:00", "end_time": "16:30", "duration_minutes": 90,
+    "attendees": ["marco.elkins@example.com", "leo.vance@example.com", "david.chen@example.com"],
+    "location": "Conference Room B", "notes": "Q2 Feature Launch milestone review and roadmap check"
+  },
+  {
+    "id": "cal009", "title": "Design review with Carla", "date": "2026-09-20",
+    "start_time": "10:00", "end_time": "11:00", "duration_minutes": 60,
+    "attendees": ["carla.gomez@example.com", "priya.sharma@example.com"],
+    "location": "Design room", "notes": "Dashboard mockup review — back-to-back with Budget review (cal016)"
+  },
+  {
+    "id": "cal010", "title": "Legal review with Natalie Brooks", "date": "2026-09-20",
+    "start_time": "14:00", "end_time": "15:00", "duration_minutes": 60,
+    "attendees": ["natalie.brooks@legalpartners.com"],
+    "location": "Zoom", "notes": "Compliance documentation review"
+  },
+  {
+    "id": "cal011", "title": "DevOps sync with Ben", "date": "2026-09-16",
+    "start_time": "15:00", "end_time": "15:30", "duration_minutes": 30,
+    "attendees": ["ben.nakamura@example.com", "owen.murray@example.com"],
+    "location": "Zoom", "notes": "Follow-up on production server outage root cause"
+  },
+  {
+    "id": "cal012", "title": "1:1 with James", "date": "2026-09-23",
+    "start_time": "10:00", "end_time": "10:30", "duration_minutes": 30,
+    "attendees": ["james.okoye@example.com"],
+    "location": "Manager's office", "notes": "Bi-weekly 1:1 check-in"
+  },
+  {
+    "id": "cal013", "title": "All-hands meeting", "date": "2026-09-24",
+    "start_time": "09:00", "end_time": "10:00", "duration_minutes": 60,
+    "attendees": ["james.okoye@example.com", "dana.reyes@example.com", "marco.elkins@example.com", "priya.sharma@example.com", "leo.vance@example.com", "ben.nakamura@example.com", "carla.gomez@example.com", "aisha.patel@example.com", "owen.murray@example.com", "david.chen@example.com", "rachel.torres@example.com", "sofia.bauer@example.com"],
+    "location": "Main auditorium", "notes": "Company-wide all-hands"
+  },
+  {
+    "id": "cal014", "title": "Team offsite planning", "date": "2026-09-25",
+    "start_time": "14:00", "end_time": "15:00", "duration_minutes": 60,
+    "attendees": ["marco.elkins@example.com", "priya.sharma@example.com", "dana.reyes@example.com"],
+    "location": "Conference Room A", "notes": "Plan venue and agenda for Q2 team offsite"
+  },
+  {
+    "id": "cal015", "title": "Contract call with Tom Fischer (VendorCo)", "date": "2026-09-21",
+    "start_time": "11:00", "end_time": "12:00", "duration_minutes": 60,
+    "attendees": ["tom.fischer@vendorco.com"],
+    "location": "Zoom", "notes": "Discuss contract renewal terms expiring November 9"
+  },
+  {
+    "id": "cal016", "title": "Budget review with Leo", "date": "2026-09-20",
+    "start_time": "11:00", "end_time": "12:00", "duration_minutes": 60,
+    "attendees": ["leo.vance@example.com"],
+    "location": "Finance room", "notes": "Q2 budget review — back-to-back with Design review (cal009)"
+  }
+]

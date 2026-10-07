@@ -1,0 +1,34 @@
+[
+  {
+    "id": "note001", "title": "Q2 goals", "created": "2026-08-27",
+    "content": "Main goals for Q2: (1) Launch Q2 Feature Launch by October 12 beta milestone. (2) Complete ClientCo API integration by October 11. (3) Reduce support tickets by 20% through payment flow fixes. (4) Hire two engineers — Sofia Bauer is first hire, second role still open. (5) Complete infrastructure upgrade by September 26."
+  },
+  {
+    "id": "note002", "title": "Kickoff meeting notes — Q2 Feature Launch", "created": "2026-08-13",
+    "content": "Kickoff held August 13. Attendees: Marco (backend lead), Priya (frontend lead), Carla (design), Aisha (data layer), Leo (budget). Key milestone: beta by October 12. Main risk: ClientCo integration dependency — Mei Lin confirmed scope on July 27. Marco proposed event-driven microservices architecture. Payment service flagged as tech debt area by Owen in Q1 retrospective."
+  },
+  {
+    "id": "note003", "title": "Personal reminders", "created": "2026-09-12",
+    "content": "Renew parking pass — expires September 26. Pick up dry cleaning Friday September 19. Call mom Sunday evening. Dentist appointment to reschedule — missed April slot."
+  },
+  {
+    "id": "note004", "title": "Project architecture decisions", "created": "2026-08-15",
+    "content": "Agreed to use microservices for the Q2 Feature Launch. Three core services: auth-service, payment-service, notification-service. Payment-service has known tech debt — Owen flagged issues in Q1 review (silent failure on promo code path). Event-driven approach using Kafka proposed by Marco. Ben responsible for Kubernetes deployment."
+  },
+  {
+    "id": "note005", "title": "Budget tracking — Q1 actuals and Q2 plan", "created": "2026-09-01",
+    "content": "Q1 actual spend: $142k (8k under budget). Q2 budget: $165k. Main line items — new hires: $40k (two engineers), infrastructure: $25k, external tools and licenses: $15k, contractor work: $30k, contingency: $15k. Note: VendorCo contract renewal discussion pending — Tom Fischer indicated possible 15% price increase. Leo tracking in spreadsheet."
+  },
+  {
+    "id": "note006", "title": "ClientCo requirements — Mei Lin meeting July 27", "created": "2026-07-27",
+    "content": "API must support OAuth2.0 authentication. Data export feature requested but not in current scope — Mei Lin asked about adding it. SLA requirement: 99.9% uptime. Hard deadline: October 11. Mei Lin flagged scope creep risk if export feature added mid-sprint. David Chen to maintain contact as PM liaison."
+  },
+  {
+    "id": "note007", "title": "Team skills matrix", "created": "2026-08-22",
+    "content": "Marco Elkins: Python, Go, Kafka, event-driven architecture. Priya Sharma: React, TypeScript, CSS, accessibility. Carla Gomez: Figma, user research, prototyping. Aisha Patel: Python, ML, Spark, data pipelines. Ben Nakamura: Kubernetes, Terraform, AWS, CI/CD. Owen Murray: Selenium, pytest, load testing, security testing. David Chen: product strategy, roadmaps, stakeholder management."
+  },
+  {
+    "id": "note008", "title": "PyCon 2026 — conference notes", "created": "2026-08-30",
+    "content": "Attended PyCon August 27-29. Key talks: LLM tooling in production (very relevant), async Python patterns for microservices, Kafka with Python best practices. Met three potential engineering candidates and shared job posting. Followed up with two of them by email. One strong candidate in data engineering, one in backend systems."
+  }
+]

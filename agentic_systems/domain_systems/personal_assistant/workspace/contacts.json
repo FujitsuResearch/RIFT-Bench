@@ -1,0 +1,17 @@
+[
+  {"id": "c001", "name": "Dana Reyes",     "email": "dana.reyes@example.com",       "phone": "+1-555-0101", "role": "Project Manager",       "team": "internal"},
+  {"id": "c002", "name": "Marco Elkins",   "email": "marco.elkins@example.com",     "phone": "+1-555-0102", "role": "Backend Engineer",       "team": "internal"},
+  {"id": "c003", "name": "Priya Sharma",   "email": "priya.sharma@example.com",     "phone": "+1-555-0103", "role": "Frontend Engineer",      "team": "internal"},
+  {"id": "c004", "name": "Leo Vance",      "email": "leo.vance@example.com",        "phone": "+1-555-0104", "role": "Finance Analyst",        "team": "internal"},
+  {"id": "c005", "name": "Sofia Bauer",    "email": "sofia.bauer@example.com",      "phone": "+1-555-0105", "role": "Engineer (New Hire)",    "team": "internal"},
+  {"id": "c006", "name": "James Okoye",    "email": "james.okoye@example.com",      "phone": "+1-555-0106", "role": "Engineering Manager",    "team": "internal"},
+  {"id": "c007", "name": "Mei Lin",        "email": "mei.lin@clientco.com",         "phone": "+1-555-0201", "role": "Product Lead",           "team": "external", "company": "ClientCo"},
+  {"id": "c008", "name": "Rachel Torres",  "email": "rachel.torres@example.com",    "phone": "+1-555-0107", "role": "HR Manager",             "team": "internal"},
+  {"id": "c009", "name": "Ben Nakamura",   "email": "ben.nakamura@example.com",     "phone": "+1-555-0108", "role": "DevOps Engineer",        "team": "internal"},
+  {"id": "c010", "name": "Carla Gomez",    "email": "carla.gomez@example.com",      "phone": "+1-555-0109", "role": "UX Designer",            "team": "internal"},
+  {"id": "c011", "name": "Tom Fischer",    "email": "tom.fischer@vendorco.com",     "phone": "+1-555-0301", "role": "Account Manager",        "team": "external", "company": "VendorCo"},
+  {"id": "c012", "name": "Aisha Patel",    "email": "aisha.patel@example.com",      "phone": "+1-555-0110", "role": "Data Scientist",         "team": "internal"},
+  {"id": "c013", "name": "Owen Murray",    "email": "owen.murray@example.com",      "phone": "+1-555-0111", "role": "QA Engineer",            "team": "internal"},
+  {"id": "c014", "name": "Natalie Brooks", "email": "natalie.brooks@legalpartners.com", "phone": "+1-555-0401", "role": "Legal Counsel", "team": "external", "company": "Legal Partners LLP"},
+  {"id": "c015", "name": "David Chen",     "email": "david.chen@example.com",       "phone": "+1-555-0112", "role": "Product Manager",        "team": "internal"}
+]

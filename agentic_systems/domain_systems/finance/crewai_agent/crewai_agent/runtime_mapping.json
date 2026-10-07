@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/finance_crewai_agent",
+  "nodespec_file": "external_artifacts/stages_outputs/finance_crewai_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "Finance_Agent"
+  ],
+  "expected_tool_names": [
+    "buy_stock",
+    "calculate_portfolio_market_value",
+    "calculate_position_value",
+    "functions.get_analyst_estimates",
+    "functions.get_balance_sheet",
+    "functions.get_cash_flow_statement",
+    "functions.get_company_facts",
+    "functions.get_crypto_price",
+    "functions.get_crypto_prices",
+    "functions.get_earnings",
+    "functions.get_filing_items",
+    "functions.get_filings",
+    "functions.get_financial_metrics",
+    "functions.get_financial_metrics_snapshot",
+    "functions.get_income_statement",
+    "functions.get_insider_trades",
+    "functions.get_interest_rates",
+    "functions.get_kpi_guidance",
+    "functions.get_kpi_metrics",
+    "functions.get_kpi_non_gaap",
+    "functions.get_news",
+    "functions.get_segmented_financials",
+    "functions.get_stock_price",
+    "functions.get_stock_prices",
+    "functions.list_crypto_tickers",
+    "functions.list_filing_item_types",
+    "functions.list_stock_screener_filters",
+    "functions.screen_stocks",
+    "get_available_cash",
+    "get_stock_holding_details",
+    "list_owned_stocks",
+    "sell_stock"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.tasks_output[*].messages",
+      "spanOutputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].function.name",
+      "spanOutputs.tasks_output[*].messages[*].name",
+      "spanOutputs.tasks_output[*].name",
+      "spanOutputs.messages[*].tool_calls[*].function.name",
+      "spanOutputs.messages[*].name",
+      "spanOutputs.name"
+    ],
+    "role_paths": [
+      "spanOutputs.tasks_output[*].messages[*].role",
+      "spanOutputs.messages[*].role",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type"
+    ],
+    "content_paths": [
+      "spanOutputs.tasks_output[*].messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.raw",
+      "spanOutputs.tasks_output[*].raw",
+      "spanInputs.output.text"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "financeagent": "Finance Agent"
+    },
+    "tool": {
+      "buystock": "buy_stock",
+      "usrlocalbinpythonportfolioactionsserverpybuystock": "buy_stock",
+      "calculateportfoliomarketvalue": "calculate_portfolio_market_value",
+      "usrlocalbinpythonportfoliocalculationsserverpycalculate": "calculate_portfolio_market_value",
+      "getavailablecash": "get_available_cash",
+      "usrlocalbinpythonportfolioretrievalserverpygetavailable": "get_available_cash",
+      "getstockholdingdetails": "get_stock_holding_details",
+      "usrlocalbinpythonportfolioretrievalserverpygetstockhol": "get_stock_holding_details",
+      "listownedstocks": "list_owned_stocks",
+      "usrlocalbinpythonportfolioretrievalserverpylistownedst": "list_owned_stocks",
+      "mcpfinancialdatasetsaiapigetbalancesheet": "mcp_financialdatasets_ai_api_get_balance_sheet",
+      "mcpfinancialdatasetsaiapigetcashflowstatement": "mcp_financialdatasets_ai_api_get_cash_flow_statement",
+      "mcpfinancialdatasetsaiapigetcompanyfacts": "mcp_financialdatasets_ai_api_get_company_facts",
+      "mcpfinancialdatasetsaiapigetearnings": "mcp_financialdatasets_ai_api_get_earnings",
+      "mcpfinancialdatasetsaiapigetfilingitems": "mcp_financialdatasets_ai_api_get_filing_items",
+      "mcpfinancialdatasetsaiapigetfilings": "mcp_financialdatasets_ai_api_get_filings",
+      "mcpfinancialdatasetsaiapigetfinancialmetricssnapshot": "mcp_financialdatasets_ai_api_get_financial_metrics_snapshot",
+      "mcpfinancialdatasetsaiapigetincomestatement": "mcp_financialdatasets_ai_api_get_income_statement",
+      "mcpfinancialdatasetsaiapigetinsidertrades": "mcp_financialdatasets_ai_api_get_insider_trades",
+      "mcpfinancialdatasetsaiapigetinterestrates": "mcp_financialdatasets_ai_api_get_interest_rates",
+      "mcpfinancialdatasetsaiapigetkpiguidance": "mcp_financialdatasets_ai_api_get_kpi_guidance",
+      "mcpfinancialdatasetsaiapigetkpimetrics": "mcp_financialdatasets_ai_api_get_kpi_metrics",
+      "mcpfinancialdatasetsaiapigetkpinongaap": "mcp_financialdatasets_ai_api_get_kpi_non_gaap",
+      "mcpfinancialdatasetsaiapigetnews": "mcp_financialdatasets_ai_api_get_news",
+      "mcpfinancialdatasetsaiapigetsegmentedfinancials": "mcp_financialdatasets_ai_api_get_segmented_financials",
+      "mcpfinancialdatasetsaiapigetstockprice": "mcp_financialdatasets_ai_api_get_stock_price",
+      "mcpfinancialdatasetsaiapigetstockprices": "mcp_financialdatasets_ai_api_get_stock_prices",
+      "mcpfinancialdatasetsaiapilistfilingitemtypes": "mcp_financialdatasets_ai_api_list_filing_item_types",
+      "mcpfinancialdatasetsaiapiliststockscreenerfilters": "mcp_financialdatasets_ai_api_list_stock_screener_filters",
+      "mcpfinancialdatasetsaiapiscreenstocks": "mcp_financialdatasets_ai_api_screen_stocks",
+      "sellstock": "sell_stock",
+      "usrlocalbinpythonportfolioactionsserverpysellstock": "sell_stock"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 32,
+    "num_agent_aliases": 1,
+    "num_tool_aliases": 32,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

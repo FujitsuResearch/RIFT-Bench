@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/travel_autogen_orch",
+  "nodespec_file": "external_artifacts/stages_outputs/travel_autogen_orch/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "attractions_worker",
+    "final_agent",
+    "flight_worker",
+    "hotel_worker",
+    "orchestrator",
+    "restaurant_worker",
+    "writer_worker"
+  ],
+  "expected_tool_names": [
+    "book_attraction",
+    "book_flight",
+    "book_restaurant",
+    "check_attraction_availability",
+    "check_attraction_price",
+    "check_flight_availability",
+    "check_flight_price",
+    "check_hotel_price",
+    "check_restaurant_availability",
+    "check_restaurant_price",
+    "search_attractions_serper",
+    "search_flights_serper",
+    "search_hotels_serper",
+    "search_restaurants_serper",
+    "writer_worker"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.messages[*].content[*].name",
+      "spanInputs.messages[*].source",
+      "spanInputs.tools[*].name",
+      "spanInputs.source",
+      "spanOutputs.content[*].name"
+    ],
+    "role_paths": [
+      "spanInputs.messages[*].type",
+      "spanInputs.tools[*].parameters.type",
+      "spanInputs.tools[*].parameters.properties.destination.type",
+      "spanInputs.tools[*].parameters.properties.location.type",
+      "spanInputs.tools[*].parameters.properties.origin.type",
+      "spanInputs.tools[*].parameters.properties.departure_date.type",
+      "spanInputs.tools[*].parameters.properties.return_date.type",
+      "spanInputs.tools[*].parameters.properties.passengers.type",
+      "spanInputs.tools[*].parameters.properties.date.type",
+      "spanInputs.tools[*].parameters.properties.user_details.type",
+      "spanInputs.tools[*].parameters.properties.guests.type",
+      "spanInputs.tools[*].parameters.properties.hotel_name.type",
+      "spanInputs.tools[*].parameters.properties.check_in_date.type",
+      "spanInputs.tools[*].parameters.properties.check_out_date.type",
+      "spanInputs.tools[*].parameters.properties.attraction_name.type",
+      "spanInputs.tools[*].parameters.properties.tickets.type",
+      "spanInputs.tools[*].parameters.properties.time.type",
+      "spanInputs.tools[*].parameters.properties.party_size.type",
+      "spanInputs.tools[*].parameters.properties.dates.type",
+      "spanInputs.tools[*].parameters.properties.restaurant_name.type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanInputs.messages[*].content[*].content",
+      "spanOutputs.content"
+    ],
+    "tool_name_paths": []
+  },
+  "alias_registry": {
+    "agent": {
+      "attractionsworker": "attractions_worker",
+      "flightworker": "flight_worker",
+      "hotelworker": "hotel_worker",
+      "orchestrator": "orchestrator",
+      "restaurantworker": "restaurant_worker"
+    },
+    "tool": {
+      "bookrestaurant": "book_restaurant",
+      "checkattractionavailability": "check_attraction_availability",
+      "checkattractionprice": "check_attraction_price",
+      "checkflightavailability": "check_flight_availability",
+      "checkflightprice": "check_flight_price",
+      "checkhotelavailability": "check_hotel_availability",
+      "checkhotelprice": "check_hotel_price",
+      "checkrestaurantavailability": "check_restaurant_availability",
+      "checkrestaurantprice": "check_restaurant_price",
+      "searchattractionsserper": "search_attractions_serper",
+      "searchflightsserper": "search_flights_serper",
+      "searchhotelsserper": "search_hotels_serper",
+      "searchrestaurantsserper": "search_restaurants_serper",
+      "writetravelplandocument": "write_travel_plan_document"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 7,
+    "num_expected_tools": 15,
+    "num_agent_aliases": 5,
+    "num_tool_aliases": 14,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 4,
+    "num_cross_type_conflicts": 1
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {
+      "restaurantworker": {
+        "book_restaurant": 1,
+        "check_restaurant_availability": 1,
+        "check_restaurant_price": 1,
+        "search_restaurants_serper": 1
+      },
+      "attractionsworker": {
+        "check_attraction_availability": 1,
+        "check_attraction_price": 1,
+        "search_attractions_serper": 1
+      },
+      "flightworker": {
+        "check_flight_availability": 1,
+        "check_flight_price": 1,
+        "search_flights_serper": 1
+      },
+      "hotelworker": {
+        "check_hotel_availability": 1,
+        "check_hotel_price": 1,
+        "search_hotels_serper": 1
+      }
+    },
+    "cross_type": {
+      "writerworker": {
+        "agent": "writer_worker",
+        "tool": "write_travel_plan_document"
+      }
+    }
+  }
+}

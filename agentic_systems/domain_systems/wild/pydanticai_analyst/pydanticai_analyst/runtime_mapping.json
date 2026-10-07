@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/pydanticai_analyst_Oren",
+  "nodespec_file": "external_artifacts/stages_outputs/pydanticai_analyst_Oren/final_spec.py",
+  "expected_component_source": "nodespec_utility_methods",
+  "expected_agent_names": [
+    "analyst_agent"
+  ],
+  "expected_tool_names": [
+    "display",
+    "load_dataset",
+    "run_duckdb"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].function.name",
+      "spanInputs.messages[*].tool_calls[*].function.name",
+      "spanInputs.tools[*].function.parameters.properties.name",
+      "spanOutputs.choices[*].message.tool_calls[*].function.name"
+    ],
+    "role_paths": [
+      "spanInputs.messages[*].role",
+      "spanInputs.tools[*].type",
+      "spanInputs.tools[*].function.parameters.type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanInputs.tools[*].function.parameters.properties.path.type",
+      "spanInputs.tools[*].function.parameters.properties.split.type",
+      "spanInputs.tools[*].function.parameters.properties.dataset.type",
+      "spanInputs.tools[*].function.parameters.properties.sql.type",
+      "spanInputs.tools[*].function.parameters.properties.name.type",
+      "spanOutputs.choices[*].message.role",
+      "spanOutputs.choices[*].message.tool_calls[*].type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanOutputs.choices[*].message",
+      "spanOutputs.choices[*].message.content"
+    ],
+    "tool_name_paths": [
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanOutputs.choices[*].message.tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "analystagent": "analyst_agent"
+    },
+    "tool": {
+      "display": "display",
+      "loaddataset": "load_dataset",
+      "runduckdb": "run_duckdb"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 3,
+    "num_agent_aliases": 1,
+    "num_tool_aliases": 3,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

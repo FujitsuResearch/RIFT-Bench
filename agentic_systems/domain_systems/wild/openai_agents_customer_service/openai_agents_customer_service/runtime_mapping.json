@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/openai_agents_customer_service_Oren",
+  "nodespec_file": "external_artifacts/stages_outputs/openai_agents_customer_service_Oren/final_spec.py",
+  "expected_component_source": "nodespec_utility_methods",
+  "expected_agent_names": [
+    "FAQAgent",
+    "SeatBookingAgent",
+    "triage_agent"
+  ],
+  "expected_tool_names": [
+    "faq_lookup_tool",
+    "update_seat"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs",
+      "spanOutputs",
+      "spanInputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].function.name",
+      "spanInputs[*].tool_calls[*].function.name",
+      "spanInputs.messages[*].tool_calls[*].function.name",
+      "spanOutputs[*].tool_calls[*].function.name",
+      "spanOutputs.choices[*].message.tool_calls[*].function.name"
+    ],
+    "role_paths": [
+      "spanInputs[*].role",
+      "spanInputs.messages[*].role",
+      "spanInputs.tools[*].type",
+      "spanInputs.tools[*].function.parameters.type",
+      "spanInputs[*].tool_calls[*].type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanOutputs[*].role",
+      "spanOutputs.choices[*].message.role",
+      "spanOutputs[*].tool_calls[*].type",
+      "spanOutputs.choices[*].message.tool_calls[*].type",
+      "spanInputs.tools[*].function.parameters.properties.confirmation_number.type",
+      "spanInputs.tools[*].function.parameters.properties.new_seat.type",
+      "spanInputs.tools[*].function.parameters.properties.question.type"
+    ],
+    "content_paths": [
+      "spanInputs[*].content",
+      "spanInputs.messages[*].content",
+      "spanOutputs[*].content",
+      "spanOutputs.choices[*].message",
+      "spanOutputs.choices[*].message.content"
+    ],
+    "tool_name_paths": [
+      "spanOutputs[*].tool_calls[*].name",
+      "spanOutputs.choices[*].message.tool_calls[*].name",
+      "spanInputs[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "faqagent": "FAQAgent",
+      "seatbookingagent": "SeatBookingAgent",
+      "triageagent": "triage_agent"
+    },
+    "tool": {
+      "faqlookuptool": "faq_lookup_tool",
+      "transfertofaqagent": "faq_lookup_tool",
+      "transfertoseatbookingagent": "transfer_to_seatbookingagent",
+      "updateseat": "update_seat"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 3,
+    "num_expected_tools": 2,
+    "num_agent_aliases": 3,
+    "num_tool_aliases": 4,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

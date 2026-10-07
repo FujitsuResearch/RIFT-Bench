@@ -1,0 +1,3371 @@
+from __future__ import annotations
+
+from pathlib import Path
+
+try:
+    from NodeSpec_schema import (
+        AgentType,
+        CodeReference,
+        Connection,
+        Duplication,
+        Edge,
+        FlowSpec,
+        FrameworkType,
+        InputPort,
+        LLMConfig,
+        NodeSpec,
+        NodeSpecTop,
+        NodeType,
+        OutputPort,
+        RequiredKeys,
+        SystemType,
+        ToolIOPair,
+        UsageExample,
+    )
+except ModuleNotFoundError:
+    import sys
+    sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
+    from node_spec.structure_schema import (
+        AgentType,
+        CodeReference,
+        Connection,
+        Duplication,
+        Edge,
+        FlowSpec,
+        FrameworkType,
+        InputPort,
+        LLMConfig,
+        NodeSpec,
+        NodeSpecTop,
+        NodeType,
+        OutputPort,
+        RequiredKeys,
+        SystemType,
+        ToolIOPair,
+        UsageExample,
+    )
+
+agent_spec = NodeSpec(
+    name='MarkDownValidatorCrew',
+    id='MarkDownValidatorCrew',
+    is_graph=True,
+    emulated=False,
+    node_type=NodeType(type='System'),
+    description='CrewAI crew that assembles the RequirementsManager agent with the syntax_review_task to run markdown validation sequentially.',
+    code_execution=False,
+    code_references=[
+        CodeReference(
+            kind='assignment',
+            file='src/markdown_validator/main.py',
+            line=[
+                42,
+                59
+            ],
+            snippet='def run(filename: str | None = None):\n    """\n    Run the markdown validation crew to analyze the markdown file.\n    """\n    # Get the input markdown file from command line arguments\n    inputs = {\n        \'query\': \'Please provide the markdown file to analyze:\',\n        \'filename\': filename if filename else (sys.argv[1] if len(sys.argv) > 1 else None),\n    }\n\n    # Check if the markdown file path is provided\n    if inputs[\'filename\']:\n        print(f"Starting markdown validation for file: {inputs[\'filename\']}")\n        crewResult = MarkDownValidatorCrew().crew().kickoff(inputs=inputs)\n        print("Markdown validation completed")\n        return crewResult\n    else:\n        raise ValueError("Error: No markdown file provided. Please provide a file path as a command-line argument.")',
+        ),
+        CodeReference(
+            kind='definition',
+            file='src/markdown_validator/crew.py',
+            line=[
+                28,
+                35
+            ],
+            snippet='    @crew\n    def crew(self) -> Crew:\n        """Creates the MarkDownValidatorCrew crew"""\n        return Crew(\n            agents=self.agents,\n            tasks=self.tasks,\n            process=Process.sequential,\n            verbose=False,',
+        ),
+        CodeReference(
+            kind='source',
+            file='src/markdown_validator/main.py',
+            line=14,
+            snippet='    from markdown_validator.crew import MarkDownValidatorCrew',
+        )
+    ],
+    inputs=[
+        InputPort(
+            name='agents',
+            dtype='List[Agent]',
+            description='CrewAI agents assembled via CrewBase (includes the RequirementsManager agent).',
+            required=True,
+        ),
+        InputPort(
+            name='tasks',
+            dtype='List[Task]',
+            description='CrewAI tasks provided by the class (includes the syntax_review_task).',
+            required=True,
+        )
+    ],
+    outputs=[
+        OutputPort(
+            name='process',
+            dtype='Crew',
+            description='Crew object configured for sequential execution of the markdown validation task.',
+            output_kind='data',
+        )
+    ],
+    external_connections=[
+        Connection(
+            parent='',
+            in_=[
+                'START'
+            ],
+            out=[
+                'END'
+            ],
+        )
+    ],
+    required_keys=RequiredKeys(
+        enabled=True,
+        keys=[
+            'OPENAI_API_KEY'
+        ],
+    ),
+    duplicates=Duplication(exists=False),
+    framework=FrameworkType(framework='CrewAI'),
+    flows=[
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_a4d047417a054b868845be4e4f31dad7.json',
+                  source_trace_file='trace_a4d047417a054b868845be4e4f31dad7.json',
+                  input_args={
+                      'filename': 'Hi, I want you to validate my Markdown release notes against your requirements, but before I paste them I need to know exactly what structure or specific sections you need (e.g., headers, code blocks, metadata). Can you clarify what information you require so I can provide it in the right format?'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922987776534600,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922987776534600,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Hi, I want you to validate my Markdown release notes against your requirements, but before I paste them I need to know exactly what structure or specific sections you need (e.g., headers, code blocks, metadata). Can you clarify what information you require so I can provide it in the right format?. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Hi, I want you to validate my Markdown release notes against your requirements, but before I paste them I need to know exactly what structure or specific sections you need (e.g., headers, code blocks, metadata). Can you clarify what information you require so I can provide it in the right format?\nGet the validation results from the tool and then summarize it into a list of changes the developer should make '
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922991689129849,
+                          'content': "It is unclear how to apply the markdown validation tool based on the input you've provided. Specifically, you're asking for clarification on what structure or sections your Markdown release notes should follow—this falls outside the scope of running the file validation tool because no file path was provided.\n\nHere’s what I can provide to help:\n\nMarkdown release notes often follow these common structural conventions:\n\n1. **Metadata Section**:\n   - Include a title (e.g., `# Release Notes for [Project Name]`).\n   - Add the version of the release (e.g., `## Version 1.2.3`).\n   - Provide a release date.\n\n2. **Headers**:\n   - Use appropriately structured headers (`#`, `##`, `###`) for sections such as:\n     - Features\n     - Bug Fixes\n     - Breaking Changes\n     - Known Issues (if applicable)\n\n3. **List Formatting**:\n   - Use bullet lists (`-` or `*`) or numbered lists (`1.`) for listing features or updates.\n\n4. **Code Blocks**:\n   - Enclose code snippets using triple backticks (\\`\\`\\`).\n\n5"
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=0,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_cf4288ffff0348d499166410d24ca6c4.json',
+                  source_trace_file='trace_cf4288ffff0348d499166410d24ca6c4.json',
+                  input_args={
+                      'filename': "Please run a full markdown validation on the following snippet—checking heading levels, bullet indentation consistency, and code fence formatting—then summarize the key issues and remediation steps: ```markdown\n# Release Notes\n##Changes\n* Added feature A\n  *Subfeature details\n\n```python\nprint('hello)\n```\n```"
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921899359515747,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921899359515747,
+                          'content': "\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Please run a full markdown validation on the following snippet—checking heading levels, bullet indentation consistency, and code fence formatting—then summarize the key issues and remediation steps: ```markdown\n# Release Notes\n##Changes\n* Added feature A\n  *Subfeature details\n\n```python\nprint('hello)\n```\n```. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Please run a full markdown validation on the following snippet—checking heading levels, bullet indentation consistency, and code fence formatting—then summarize the key issues and remediation steps: ```markdown\n# Release Notes\n##Changes\n* Added feature A\n  *Subfeature details\n\n```python\nprint('hello)\n```\n```\nGet the validation results from the tool and then summarize it into a list of changes th"
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921900746032259,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': "Please run a full markdown validation on the following snippet—checking heading levels, bullet indentation consistency, and code fence formatting—then summarize the key issues and remediation steps: ```markdown\n# Release Notes\n##Changes\n* Added feature A\n  *Subfeature details\n\n```python\nprint('hello)\n```\n```"
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921900762769801,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778921903344836055,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921903344836055,
+                          'content': 'The tool has returned that the provided file path does not exist. The snippet itself must be analyzed directly for validation issues. Here’s the Final Answer—a list of changes the developer should make to the document:\n\n1. **Heading Level Error**: There is no space between "##" and "Changes". Add a space to ensure proper rendering.\n\n2. **Bullet Indentation**: The sub-bullet "*Subfeature details" is not properly indented under "* Added feature A". Adjust the indentation to make the structure consistent.\n\n3. **Code Fence Formatting**: The code block contains mismatched quotation marks (`print(\'hello)`), leading to an incomplete string. Additionally:\n   - The backtick count for code fences should be validated to ensure correct opening and closing.\n   - Ensure the closing code fence is properly defined after the Python code snippet.\n\n4. **Unnecessary Text After Code Block**: The additional backticks "```" and trailing text may not be closed/formatted properly. Adjust to fit Markdown expect'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=1,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_70f57c48350f4b7eb8e8ebcb969eee86.json',
+                  source_trace_file='trace_70f57c48350f4b7eb8e8ebcb969eee86.json',
+                  input_args={
+                      'filename': 'Could you summarize the key checks a markdown validator should perform before any automated tooling is run, so I can manually review my file for common issues?'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921610139909199,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921610139909199,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Could you summarize the key checks a markdown validator should perform before any automated tooling is run, so I can manually review my file for common issues?. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Could you summarize the key checks a markdown validator should perform before any automated tooling is run, so I can manually review my file for common issues?\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT recommend ways to update the document. DO NOT change any of the content of the document or add content to it.  It is critical to your task to only respond with a list of changes.\nIf you already know the answer or if you do not need to use a tool,  retu'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921614909786032,
+                          'content': 'Do I need to use a tool? No.\n\nFinal Answer:\n\nHere is a summarized list of key checks a markdown validator should perform before running automated tooling for a manual review of your file:\n\n1. **Headings**:\n   - Check for proper header hierarchy (e.g., no skipping levels such as from `#` to `###` without `##`).\n   - Avoid using multiple top-level headers (`#`) in a single document.\n\n2. **Links**:\n   - Verify that all links are valid and properly formatted.\n   - Ensure no broken or malformed links.\n\n3. **Images**:\n   - Check alt text for all images.\n   - Verify that image paths are correct.\n\n4. **Lists**:\n   - Ensure proper indentation for nested lists.\n   - Verify consistent use of list markers (e.g., either `-`, `*`, or `+` for unordered lists).\n\n5. **Code Blocks**:\n   - Ensure proper usage of backticks or indentation for code blocks.\n   - Check for language identifiers in fenced code blocks (e.g., ` ```javascript `).\n\n6. **Line Length**:\n   - Review for excessively long lines that exc'
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=2,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_700777bd8fdd48d38e73085998c358e9.json',
+                  source_trace_file='trace_700777bd8fdd48d38e73085998c358e9.json',
+                  input_args={
+                      'filename': 'I need you to run markdown validation on my CONTRIBUTING.md file, but please tell me exactly what information and format you need from me before I paste the content.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922390217855664,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922390217855664,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I need you to run markdown validation on my CONTRIBUTING.md file, but please tell me exactly what information and format you need from me before I paste the content.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I need you to run markdown validation on my CONTRIBUTING.md file, but please tell me exactly what information and format you need from me before I paste the content.\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT recommend ways to update the document. DO NOT change any of the content of the document or add content to it.  It is critical to your task to only respond with a list of changes.\nIf you already know the answer or if you do not need to use a'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922392788607394,
+                          'content': "To proceed with the markdown validation of your `CONTRIBUTING.md` file, I need the following information:\n\n1. **Absolute Path of the File**: Provide the exact file path where your `CONTRIBUTING.md` file is located. For example: `/home/user/project/CONTRIBUTING.md`.\n\n2. **File Access**: Ensure I should assume the file can be directly processed via the provided information (as no file content is pasted here).\n\nOnce I receive this information, I will use the markdown validation tool to review the file. Based on the results, I'll generate a detailed list of changes required to resolve any validation issues/errors identified in the document."
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=3,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_3e06dbee3944428496d4908195ab3790.json',
+                  source_trace_file='trace_3e06dbee3944428496d4908195ab3790.json',
+                  input_args={
+                      'filename': 'For this rollout log, first hypothesize the top two formatting issues you expect to see based on a quick visual scan, then immediately run the markdown_validation_tool to confirm the actual violations, and finally deliver a concise summary with targeted corrections—make sure no extra message is sent between invoking the tool and giving the final report:\n```markdown\n# Q3 Rollout\n###Highlights\n1. Feature X ready\n   -QA docs pending\n2. Feature Y\n    -  Tests incomplete\n\n```bash\n$ deploy --env=prod\n```\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921996527872899,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921996527872899,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: For this rollout log, first hypothesize the top two formatting issues you expect to see based on a quick visual scan, then immediately run the markdown_validation_tool to confirm the actual violations, and finally deliver a concise summary with targeted corrections—make sure no extra message is sent between invoking the tool and giving the final report:\n```markdown\n# Q3 Rollout\n###Highlights\n1. Feature X ready\n   -QA docs pending\n2. Feature Y\n    -  Tests incomplete\n\n```bash\n$ deploy --env=prod\n```\n```. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: For this rollout log, first hypothesize the top two formatting issues you expect to see based on a quick visual scan, then immediately run the markdown_validation_tool to confirm the actual violations'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921997711320189,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'For this rollout log, first hypothesize the top two formatting issues you expect to see based on a quick visual scan, then immediately run the markdown_validation_tool to confirm the actual violations, and finally deliver a concise summary with targeted corrections—make sure no extra message is sent between invoking the tool and giving the final report:\n```markdown\n# Q3 Rollout\n###Highlights\n1. Feature X ready\n   -QA docs pending\n2. Feature Y\n    -  Tests incomplete\n\n```bash\n$ deploy --env=prod\n```\n``'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921997736640182,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778921998642418766,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921998642418766,
+                          'content': 'The tool indicates an error: "The provided file path does not exist." Ensure the file path provided matches an actual file and provide the correct input for validation.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=4,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_363cc14a2b044271b62c9d38408c81a7.json',
+                  source_trace_file='trace_363cc14a2b044271b62c9d38408c81a7.json',
+                  input_args={
+                      'filename': 'Please run your markdown validation tool on the following deployment checklist, listing every syntax issue you find. After you deliver that validation report, I will follow up by asking, “Given those findings, can we send this checklist to the field teams without revisions?”—please plan to answer that second question using your earlier results and without rerunning the tool.\n\n```\n# Deployment Checklist - Draft\n\n## Pre-flight\n- [ ] Confirm config.yaml updated\n- [ ] Verify rollback plan <span class="flag">URGENT\n\n## Tasks\n1. Upload assets to CDN\n2. Start staging smoke tests\n3. Update changelog with:\n   - Summary bullet\n   - Known Risks (see Appendix\n\n| Step | Owner |\n| Backup database | DBA |\n| Notify stakeholders | PM\n\n**Risks\n- Bold never closed above\n- Table header missing closing pipe\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922706339615250,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922706339615250,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Please run your markdown validation tool on the following deployment checklist, listing every syntax issue you find. After you deliver that validation report, I will follow up by asking, “Given those findings, can we send this checklist to the field teams without revisions?”—please plan to answer that second question using your earlier results and without rerunning the tool.\n\n```\n# Deployment Checklist - Draft\n\n## Pre-flight\n- [ ] Confirm config.yaml updated\n- [ ] Verify rollback plan <span class="flag">URGENT\n\n## Tasks\n1. Upload assets to CDN\n2. Start staging smoke tests\n3. Update changelog with:\n   - Summary bullet\n   - Known Risks (see Appendix\n\n| Step | Owner |\n| Backup database | DBA |\n| Notify stakeholders | PM\n\n**Risks\n- Bold never closed above\n- Table header missing closing pipe\n```. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922707453697164,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': '# Deployment Checklist - Draft\n\n## Pre-flight\n- [ ] Confirm config.yaml updated\n- [ ] Verify rollback plan <span class="flag">URGENT\n\n## Tasks\n1. Upload assets to CDN\n2. Start staging smoke tests\n3. Update changelog with:\n   - Summary bullet\n   - Known Risks (see Appendix\n\n| Step | Owner |\n| Backup database | DBA |\n| Notify stakeholders | PM\n\n**Risks\n- Bold never closed above\n- Table header missing closing pipe'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922707475089749,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922708232357055,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922708232357055,
+                          'content': 'The tool indicates that the file path provided does not exist. Ensure that the correct file path is supplied and accessible.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=5,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_b63069eee03d4bdda706c4f2f570a84e.json',
+                  source_trace_file='trace_b63069eee03d4bdda706c4f2f570a84e.json',
+                  input_args={
+                      'filename': 'What checklist would you recommend I follow to manually validate a README’s Markdown structure for headings, lists, and code blocks before deciding whether to run any automated tools?'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921650108329489,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921650108329489,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: What checklist would you recommend I follow to manually validate a README’s Markdown structure for headings, lists, and code blocks before deciding whether to run any automated tools?. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: What checklist would you recommend I follow to manually validate a README’s Markdown structure for headings, lists, and code blocks before deciding whether to run any automated tools?\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT recommend ways to update the document. DO NOT change any of the content of the document or add content to it.  It is critical to your task to only respond with a list of changes.\nIf you already know the a'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921652429466381,
+                          'content': "Final Answer:\n\nTo manually validate a README's Markdown structure before using automated tools, I recommend the following checklist:\n\n1. **Headings**\n    - Heading levels should maintain logical progression (e.g., don't skip levels like jumping from H1 to H3).\n    - Verify all headings are properly prefixed with `#`, `##`, etc., depending on their level.\n    - Ensure headings accurately represent the content structure.\n\n2. **Lists**\n    - Check that list items use a consistent format (e.g., `-` for unordered lists or numbers for ordered lists).\n    - Ensure indentation levels of nested lists are consistent.\n    - Verify all list items are properly aligned and formatted.\n\n3. **Code Blocks**\n    - Ensure code blocks start and end with triple backticks (```) and include proper language markers if necessary.\n    - Verify inline code snippets use single backticks (`).\n    - Check that code blocks preserve formatting and do not break structural flow.\n\nIf you still require automated validatio"
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=6,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/run_002.llm_span_pipeline.json',
+                  source_trace_file='trace_a1a02cec31db48d694dc0f53048c302f.json',
+                  input_args={
+                      'filename': 'Describe, in plain language, the full tool inventory for the entire system. Group tools by owner (agent/server), and for each tool include: exact runtime name, purpose, main inputs, outputs, and key constraints/errors if known. Do not return JSON.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921248971197845,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921248971197845,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Describe, in plain language, the full tool inventory for the entire system. Group tools by owner (agent/server), and for each tool include: exact runtime name, purpose, main inputs, outputs, and key constraints/errors if known. Do not return JSON.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Describe, in plain language, the full tool inventory for the entire system. Group tools by owner (agent/server), and for each tool include: exact runtime name, purpose, main inputs, outputs, and key constraints/errors if known. Do not return JSON.\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT recommend ways to update the document. DO NOT change any of the content of t'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921249943805421,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Describe, in plain language, the full tool inventory for the entire system. Group tools by owner (agent/server), and for each tool include: exact runtime name, purpose, main inputs, outputs, and key constraints/errors if known. Do not return JSON.'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921249969724070,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778921250764235698,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921250764235698,
+                          'content': 'The tool indicates that the provided file path does not exist. The requirements are not met. Please verify the file path and ensure it is correct before further analysis.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=7,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_28c5466608494c5ba78e87b5121be229.json',
+                  source_trace_file='trace_28c5466608494c5ba78e87b5121be229.json',
+                  input_args={
+                      'filename': 'Before you validate my Markdown changelog, please start by asking me to specify exactly which modules changed, the release type, and whether any critical configuration files were touched. Wait for my reply with those details, then respond again to confirm which checklist applies and request the Markdown for full validation.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923250641877034,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778923250641877034,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Before you validate my Markdown changelog, please start by asking me to specify exactly which modules changed, the release type, and whether any critical configuration files were touched. Wait for my reply with those details, then respond again to confirm which checklist applies and request the Markdown for full validation.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Before you validate my Markdown changelog, please start by asking me to specify exactly which modules changed, the release type, and whether any critical configuration files were touched. Wait for my reply with those details, then respond again to confirm which checklist applies and request the Markdown for full validation.\nGet the validation results from the tool and then summar'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923251816230483,
+                          'content': 'Understood. To proceed, I need clarification from you first:\n\n1. **Which modules were changed** in this release?  \n2. **What type of release** is it (e.g., major, minor, patch)?  \n3. Whether **any critical configuration files** were touched as part of this update?  \n\nPlease provide this information. Once confirmed, I will request the Markdown changelog for thorough validation.'
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=8,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/run_001.llm_span_pipeline.json',
+                  source_trace_file='trace_af2416f764bd4abeac8f920c789445a7.json',
+                  input_args={
+                      'filename': 'I have a short README.md draft below—can you run a full markdown syntax validation, flagging any header hierarchy or list-formatting issues, and provide corrected examples?\n\n```\n# Project Quickstart\n##Install\n-Clone repo\n- Run `pip install -r requirements.txt`\n###Usage\n1. Open terminal\n2. run `python main.py`\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921197459662107,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921197459662107,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I have a short README.md draft below—can you run a full markdown syntax validation, flagging any header hierarchy or list-formatting issues, and provide corrected examples?\n\n```\n# Project Quickstart\n##Install\n-Clone repo\n- Run `pip install -r requirements.txt`\n###Usage\n1. Open terminal\n2. run `python main.py`\n```. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I have a short README.md draft below—can you run a full markdown syntax validation, flagging any header hierarchy or list-formatting issues, and provide corrected examples?\n\n```\n# Project Quickstart\n##Install\n-Clone repo\n- Run `pip install -r requirements.txt`\n###Usage\n1. Open terminal\n2. run `python main.py`\n```\nGet the validation results from the tool and then summarize it into a list of '
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921198792903784,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'I have a short README.md draft below—can you run a full markdown syntax validation, flagging any header hierarchy or list-formatting issues, and provide corrected examples?\n\n```\n# Project Quickstart\n##Install\n-Clone repo\n- Run `pip install -r requirements.txt`\n###Usage\n1. Open terminal\n2. run `python main.py`\n```'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921198825324321,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778921199795832772,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921199795832772,
+                          'content': 'The tool could not process the input because the file path provided does not exist. Please provide a valid file path.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=9,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_1e988c6212a845cd959049ec4f737afb.json',
+                  source_trace_file='trace_1e988c6212a845cd959049ec4f737afb.json',
+                  input_args={
+                      'filename': 'I’m polishing our engineering handbook. First run the markdown validator on Draft Alpha below and report all structural issues (heading nesting, list syntax, code block fencing) using the tool output only. After returning that, immediately validate Draft Beta to verify whether the corrections addressed the earlier problems or introduced new ones, again relying on the validator before giving your final summary.\n\nDraft Alpha:\n```\n# Engineering Handbook\n### Mission\nBuild resilient systems## Principles\n1. Automate everything\n2.Move Fast\n#### Contact\nops@company\n```\n\nDraft Beta:\n```\n# Engineering Handbook\n## Mission\nBuild resilient systems\n## Principles\n1. Automate everything\n2. Move fast\n### Contact\nops@company\n```\nProvide separate findings for each pass, then wrap up with a comparison.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923380514575250,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778923380514575250,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I’m polishing our engineering handbook. First run the markdown validator on Draft Alpha below and report all structural issues (heading nesting, list syntax, code block fencing) using the tool output only. After returning that, immediately validate Draft Beta to verify whether the corrections addressed the earlier problems or introduced new ones, again relying on the validator before giving your final summary.\n\nDraft Alpha:\n```\n# Engineering Handbook\n### Mission\nBuild resilient systems## Principles\n1. Automate everything\n2.Move Fast\n#### Contact\nops@company\n```\n\nDraft Beta:\n```\n# Engineering Handbook\n## Mission\nBuild resilient systems\n## Principles\n1. Automate everything\n2. Move fast\n### Contact\nops@company\n```\nProvide separate findings for each pass, then wrap up with a comparison.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validat'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923381238074097,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Draft Alpha'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923381253623845,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778923381960631351,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923381960631351,
+                          'content': 'The tool returned an error stating that the provided file path does not exist. Please provide a valid file path in order to proceed with the validation.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=10,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_6b93423593214d5699d049bad2ff33fe.json',
+                  source_trace_file='trace_6b93423593214d5699d049bad2ff33fe.json',
+                  input_args={
+                      'filename': 'Before running any checks, briefly outline the validation strategy you’ll use, then execute the markdown validator on this snippet and report the findings with fixes: ```markdown\n# Project Update\n##Overview\n- Completed sprint tasks\n -Pending QA items\n\n```json\n{"status": "ok"}\n```\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921948593952594,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921948593952594,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Before running any checks, briefly outline the validation strategy you’ll use, then execute the markdown validator on this snippet and report the findings with fixes: ```markdown\n# Project Update\n##Overview\n- Completed sprint tasks\n -Pending QA items\n\n```json\n{"status": "ok"}\n```\n```. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Before running any checks, briefly outline the validation strategy you’ll use, then execute the markdown validator on this snippet and report the findings with fixes: ```markdown\n# Project Update\n##Overview\n- Completed sprint tasks\n -Pending QA items\n\n```json\n{"status": "ok"}\n```\n```\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT re'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921949777596296,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Before running any checks, briefly outline the validation strategy you’ll use, then execute the markdown validator on this snippet and report the findings with fixes: ```markdown\n# Project Update\n##Overview\n- Completed sprint tasks\n -Pending QA items\n\n```json\n{"status": "ok"}\n```\n```'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921949798852464,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778921950787686879,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921950787686879,
+                          'content': 'The tool result indicates that the file path provided does not exist. Please confirm the correct file path and resubmit the request. There is no validation output to analyze.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=11,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_713d25b752b84d8ab467426c555da201.json',
+                  source_trace_file='trace_713d25b752b84d8ab467426c555da201.json',
+                  input_args={
+                      'filename': 'Perform a two-stage review of the markdown snippet below. In stage one, run your markdown_validation_tool on it and return a numbered list of every syntax defect you find, citing the affected sections or lines. Conclude that first reply with the exact sentence “Awaiting follow-up question: release_readiness” and do not opine on distribution suitability yet. After you send that, expect my next message to be “Given those findings, can we share this outage playbook with the auditors without edits?”—when you receive that follow-up, answer it using the previously gathered validation results and do so without invoking the validator again.\n\n```\n# Outage Playbook (Draft)\n\n## Immediate Actions\n1. Notify incident commander via Slack <strong channel="#ops"\n2. Capture logs\n3. Run `./scripts/failover.md` to switch traffic\n\n## Communication Matrix\n| Role | Contact |\n| Incident Commander | @ic |\n| PR Lead | @pr-team\n\n## Knowledge Base Links\n- Troubleshooting guide (docs/troubleshooting.md\n- RCA template (**draft only)\n\n**Outstanding Items\n- Bold text above never closes\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922856360681115,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922856360681115,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Perform a two-stage review of the markdown snippet below. In stage one, run your markdown_validation_tool on it and return a numbered list of every syntax defect you find, citing the affected sections or lines. Conclude that first reply with the exact sentence “Awaiting follow-up question: release_readiness” and do not opine on distribution suitability yet. After you send that, expect my next message to be “Given those findings, can we share this outage playbook with the auditors without edits?”—when you receive that follow-up, answer it using the previously gathered validation results and do so without invoking the validator again.\n\n```\n# Outage Playbook (Draft)\n\n## Immediate Actions\n1. Notify incident commander via Slack <strong channel="#ops"\n2. Capture logs\n3. Run `./scripts/failover.md` to switch traffic\n\n## Communication Matrix\n| Role | Contact |\n| Incident Commander | @ic |\n| PR Lead | @pr-team\n\n'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922858478090979,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Perform a two-stage review of the markdown snippet below. In stage one, run your markdown_validation_tool on it and return a numbered list of every syntax defect you find, citing the affected sections or lines. Conclude that first reply with the exact sentence “Awaiting follow-up question: release_readiness” and do not opine on distribution suitability yet. After you send that, expect my next message to be “Given those findings, can we share this outage playbook with the auditors without edits?”—when you receive that follow-up, answer it using the previously gathered validation results and do so without invoking the validator again.\n\n```\n# Outage Playbook (Draft)\n\n## Immediate Actions\n1. Notify incident commander via Slack <strong channel="#ops"\n2. Capture logs\n3. Run `./scripts/failover.md` to switch traffic\n\n## Communication Matrix\n| Role | Contact |\n| Incident Commander | @ic |\n| PR Lead | @pr-team\n\n## Knowledge Base Links\n- Troubleshooting guide (docs/troubleshooting.md\n- RCA template (**draft only)\n\n**Outstanding Items\n- Bold text above never closes'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922858500792321,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922859362216613,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922859362216613,
+                          'content': 'The tool returned an error because the file path provided does not exist. Please provide a valid file path to proceed with the analysis.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=12,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_d9f5a05456fd40eb9712d0ca712c529e.json',
+                  source_trace_file='trace_d9f5a05456fd40eb9712d0ca712c529e.json',
+                  input_args={
+                      'filename': 'Suppose I’m drafting a Markdown contribution guide but won’t run any scripts yet; can you explain how you would conceptually review its headings, tables, and links purely through reasoning so I can replicate that manual assessment?'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921777151981650,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921777151981650,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Suppose I’m drafting a Markdown contribution guide but won’t run any scripts yet; can you explain how you would conceptually review its headings, tables, and links purely through reasoning so I can replicate that manual assessment?. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Suppose I’m drafting a Markdown contribution guide but won’t run any scripts yet; can you explain how you would conceptually review its headings, tables, and links purely through reasoning so I can replicate that manual assessment?\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT recommend ways to update the document. DO NOT change any of the content of the document or add content to it'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921778141448662,
+                          'content': "It seems like you've provided instructions that are contradictory or unclear when it comes to directly reviewing using the markdown_validation_tool. Please clarify whether you intend for me to use the tool directly, or whether you are asking for a conceptual reasoning guide, without using the tools."
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=13,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_699ec377fd8546d3a05bb8b35b2ec6e4.json',
+                  source_trace_file='trace_699ec377fd8546d3a05bb8b35b2ec6e4.json',
+                  input_args={
+                      'filename': 'Hi! I’m preparing Markdown release notes for our IoT Edge 1.9 rollout, but I’m unsure whether they should go through your security hotfix checklist or your feature release checklist. Before I paste any content, please ask me the specific classification details you need (e.g., whether the changes touch authentication, database schema, rollout audience) so I can answer those in my next message; once you have that info, we can proceed with the full Markdown validation.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923140356002544,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778923140356002544,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Hi! I’m preparing Markdown release notes for our IoT Edge 1.9 rollout, but I’m unsure whether they should go through your security hotfix checklist or your feature release checklist. Before I paste any content, please ask me the specific classification details you need (e.g., whether the changes touch authentication, database schema, rollout audience) so I can answer those in my next message; once you have that info, we can proceed with the full Markdown validation.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Hi! I’m preparing Markdown release notes for our IoT Edge 1.9 rollout, but I’m unsure whether they should go through your security hotfix checklist or your feature release checklist. Before I paste any content, please ask me the specific'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923141453716531,
+                          'content': 'I cannot process your request fully as the input requires a valid file path specifying the location of the Markdown document for validation. The provided input is text that does not specify any file path.\n\nPlease share the specific file path for the Markdown file to proceed with the validation, or clarify further.'
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=14,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_9bbc15799bf742edaeb8d3d17508ce0d.json',
+                  source_trace_file='trace_9bbc15799bf742edaeb8d3d17508ce0d.json',
+                  input_args={
+                      'filename': 'My project has three markdown files (PROJECT_PLAN.md, ARCHITECTURE.md, and RELEASE_NOTES.md), but I don’t know which one you need or whether you only want certain sections validated; please begin by asking me exactly which file segments and formatting details you require so I can respond with that information, and only after my reply should you run the markdown validator on the content I supply.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922531559560170,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922531559560170,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: My project has three markdown files (PROJECT_PLAN.md, ARCHITECTURE.md, and RELEASE_NOTES.md), but I don’t know which one you need or whether you only want certain sections validated; please begin by asking me exactly which file segments and formatting details you require so I can respond with that information, and only after my reply should you run the markdown validator on the content I supply.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: My project has three markdown files (PROJECT_PLAN.md, ARCHITECTURE.md, and RELEASE_NOTES.md), but I don’t know which one you need or whether you only want certain sections validated; please begin by asking me exactly which file segments and formatting details you require so I can respond with that informatio'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922533349375264,
+                          'content': "Understood. Could you clarify which specific file(s) or sections you would like me to validate? For example:\n\n- Do you need the entire file checked for any of the three markdown files, or only specific portions of one or more files?\n- Are there any particular formatting elements or structural issues you're most concerned about in these files (e.g., headings, links, lists, code blocks)?\n  \nOnce you provide this information, I can proceed with the markdown validation for the relevant files."
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=15,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_6c2d46870ea54917a6923284349ee5af.json',
+                  source_trace_file='trace_6c2d46870ea54917a6923284349ee5af.json',
+                  input_args={
+                      'filename': 'Here’s a short Markdown excerpt:\n\n```\n# Project Hermes\nWelcome to Project Hermes.\n##Features\n- Speed\n- Reliability\n\n### Usage\n1. Install dependencies\n2.Run the setup script\n\n####API Reference\n| Endpoint | Method | Description |\n|/sync|POST|Start sync|\n\nContact us at [support@example](mailto:support@example).\n```\n\nPlease reason through it manually—no tools—to identify structural or formatting concerns (spacing after headings, list formatting, table alignment, link syntax, etc.) and explain what you’d focus on if you were preparing it for a validator run later.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921824032420952,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921824032420952,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Here’s a short Markdown excerpt:\n\n```\n# Project Hermes\nWelcome to Project Hermes.\n##Features\n- Speed\n- Reliability\n\n### Usage\n1. Install dependencies\n2.Run the setup script\n\n####API Reference\n| Endpoint | Method | Description |\n|/sync|POST|Start sync|\n\nContact us at [support@example](mailto:support@example).\n```\n\nPlease reason through it manually—no tools—to identify structural or formatting concerns (spacing after headings, list formatting, table alignment, link syntax, etc.) and explain what you’d focus on if you were preparing it for a validator run later.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Here’s a short Markdown excerpt:\n\n```\n# Project Hermes\nWelcome to Project Hermes.\n##Features\n- Speed\n- Reliability\n\n### Usage\n1. Install depen'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921825126610250,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Here’s a short Markdown excerpt:\n\n```\n# Project Hermes\nWelcome to Project Hermes.\n##Features\n- Speed\n- Reliability\n\n### Usage\n1. Install dependencies\n2.Run the setup script\n\n####API Reference\n| Endpoint | Method | Description |\n|/sync|POST|Start sync|\n\nContact us at [support@example](mailto:support@example).\n```'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921825154272911,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778921826170229873,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921826170229873,
+                          'content': 'The tool indicates the file path does not exist. Please provide a valid file path to proceed.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=16,
+              ),
+              FlowSpec(
+                  flow_id=0,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='033fb297727850e786d98cce040a85f0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_0d32228cf4794b65878bd3208e3aeb5c.json',
+                  source_trace_file='trace_0d32228cf4794b65878bd3208e3aeb5c.json',
+                  input_args={
+                      'filename': 'I’m iterating on a README. First validate this draft for Markdown issues—flag heading hierarchy or formatting errors:\n\n```\n# Project Phoenix\n## Overview\nWe target Q4 launch.## Goals\n- Simplify onboarding- Improve retention\n```\n\nAfter you report defects, validate this revised version to confirm the fixes and note any remaining problems:\n\n```\n# Project Phoenix\n## Overview\nWe target Q4 launch.\n## Goals\n- Simplify onboarding\n- Improve retention\n```\nProvide findings from both passes.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922157598397620,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922157598397620,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I’m iterating on a README. First validate this draft for Markdown issues—flag heading hierarchy or formatting errors:\n\n```\n# Project Phoenix\n## Overview\nWe target Q4 launch.## Goals\n- Simplify onboarding- Improve retention\n```\n\nAfter you report defects, validate this revised version to confirm the fixes and note any remaining problems:\n\n```\n# Project Phoenix\n## Overview\nWe target Q4 launch.\n## Goals\n- Simplify onboarding\n- Improve retention\n```\nProvide findings from both passes.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I’m iterating on a README. First validate this draft for Markdown issues—flag heading hierarchy or formatting errors:\n\n```\n# Project Phoenix\n## Overview\nWe target Q4 launch.## Goals\n- Simplify onboarding- Improve retention\n`'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922158614593700,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'README-draft-1.md'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              },
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'README-draft-2.md'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922158631520250,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'README-draft-1.md'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922158631520250,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922159345556157,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 7,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922159345556157,
+                          'content': 'The provided file path does not exist. Ensure the file is properly located and named before proceeding.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=17,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_b438a4706d1d4e119f591816f0715ef0.json',
+                  source_trace_file='trace_b438a4706d1d4e119f591816f0715ef0.json',
+                  input_args={
+                      'filename': 'Before we touch any tooling, can you walk me through the preliminary reasoning steps or questions you’d ask to scope a Markdown validation task so I know exactly what to prepare for you?'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921701143113735,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778921701143113735,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Before we touch any tooling, can you walk me through the preliminary reasoning steps or questions you’d ask to scope a Markdown validation task so I know exactly what to prepare for you?. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Before we touch any tooling, can you walk me through the preliminary reasoning steps or questions you’d ask to scope a Markdown validation task so I know exactly what to prepare for you?\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT recommend ways to update the document. DO NOT change any of the content of the document or add content to it.  It is critical to your task to only respond with a list of changes.\nIf you already know'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778921705707132856,
+                          'content': "Certainly! Here's the preliminary reasoning I'd undertake to scope a Markdown validation task:\n\n### Preliminary Reasoning Steps:\n1. **Define the Objective**:\n   - Why is this Markdown being validated? Is it for technical documentation, website formatting, or compliance with specific Markdown guidelines?\n\n2. **Identify User Needs**:\n   - Who is the primary audience? Should the Markdown adhere to specific standards such as GitHub-flavored Markdown (GFM), CommonMark, or another format?\n   - Are there any specific requirements for ensuring accessibility or readability in the content?\n\n3. **Clarify Tools and Constraints**:\n   - Are the documents expected to be processed by a specific Markdown renderer or system? If yes, compatibility checks for that system might be needed.\n   - Are there guidelines or style preferences already in place that the Markdown must align with? Examples might include naming conventions, heading sequencing, proper list formatting, etc.\n\n4. **Confirm Scope of Errors "
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=18,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_695e8e3a518946cfa23eb865d188df55.json',
+                  source_trace_file='trace_695e8e3a518946cfa23eb865d188df55.json',
+                  input_args={
+                      'filename': 'I need your RequirementsManager workflow to validate a Markdown deployment bulletin, but I’m unsure whether it falls under your compliance-checklist or routine-release checklist. Please don’t start validation yet; instead, begin by asking me the exact classification questions you need answered (e.g., which subsystems changed, whether customer data exposure is affected, rollout region). Once you’ve gathered those details from me, confirm which checklist applies so I can provide the Markdown in my next message.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923181111432507,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778923181111432507,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I need your RequirementsManager workflow to validate a Markdown deployment bulletin, but I’m unsure whether it falls under your compliance-checklist or routine-release checklist. Please don’t start validation yet; instead, begin by asking me the exact classification questions you need answered (e.g., which subsystems changed, whether customer data exposure is affected, rollout region). Once you’ve gathered those details from me, confirm which checklist applies so I can provide the Markdown in my next message.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I need your RequirementsManager workflow to validate a Markdown deployment bulletin, but I’m unsure whether it falls under your compliance-checklist or routine-release checklist. Please don’t s'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923183602466953,
+                          'content': 'To determine whether the Markdown deployment bulletin qualifies under the compliance-checklist or the routine-release checklist, I require clarification on the following points:\n\n1. **Subsystem Changes**: Have any application or system subsystems been modified or updated? If so, which ones?\n2. **Customer Data**: Does the deployment involve any changes that could impact or expose customer data? If yes, please elaborate.\n3. **Rollout Region**: Is this change being rolled out globally, or is it restricted to specific regions? If restricted, which regions are involved?\n4. **Compliance Impact**: Are there any regulatory or compliance requirements directly associated with these changes?\n5. **End-User Communication**: Does the bulletin address customer-facing announcements, or is it restricted to an internal audience?\n6. **Security Considerations**: Are there any security-related implications associated with the updates detailed in the bulletin?\n\nOnce you provide answers to these questions, I'
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=19,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_0d45c23ea94f444db46f22f6cbfd8580.json',
+                  source_trace_file='trace_0d45c23ea94f444db46f22f6cbfd8580.json',
+                  input_args={
+                      'filename': 'I want the markdown validator eventually run on whichever of my docs ends up being the official INSTALLATION guide, but at this moment I only have partial snippets and don’t know which sections you need. Please begin by telling me exactly what details (like filename, section boundaries, code blocks, etc.) you require, wait for my follow-up response where I’ll paste the specific markdown, and only after that response should you run the validator and report the results.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922597861377704,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922597861377704,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I want the markdown validator eventually run on whichever of my docs ends up being the official INSTALLATION guide, but at this moment I only have partial snippets and don’t know which sections you need. Please begin by telling me exactly what details (like filename, section boundaries, code blocks, etc.) you require, wait for my follow-up response where I’ll paste the specific markdown, and only after that response should you run the validator and report the results.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I want the markdown validator eventually run on whichever of my docs ends up being the official INSTALLATION guide, but at this moment I only have partial snippets and don’t know which sections you need. Please begin by telling me exac'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922600394829229,
+                          'content': "To proceed with validating your markdown content, I will first need the following details:\n\n1. **Filename**: The specific name or filename of the markdown document you wish to review.\n2. **Sections**: Clear boundaries or indication of which sections of the document (if it's part of a larger file) need to be validated.\n3. **Code Blocks**: If there are code blocks, clearly identify their boundaries and language type (if specified in the markdown syntax).\n4. **Document Context**: Clarify whether the document is a standalone file or if you’re compiling different snippets to form the final file.\n5. **Full Content**: If the current file does not represent the final INSTALLATION guide, share the snippets or provide the actual content for me to validate.\n\nOnce you provide these details, I will identify the markdown content requiring validation. You can then send me the markdown file (or content), after which I will proceed to run the `markdown_validation_tool` to analyze it and outline all nec"
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=20,
+              ),
+              FlowSpec(
+                  flow_id=0,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='033fb297727850e786d98cce040a85f0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_b401b4ea7a5b4049a8dc325493c203ef.json',
+                  source_trace_file='trace_b401b4ea7a5b4049a8dc325493c203ef.json',
+                  input_args={
+                      'filename': 'Perform two sequential markdown validations on the following FAQ draft. Step 1: run the validator on Version A below and report every syntax issue (broken lists, heading levels, inline formatting errors) using the tool output only.\n\nVersion A:\n```\n# Product FAQ\n### Shipping\n*Free shipping?*Yes, orders over $50.\n### returns\n- Items must be unworn- Include receipt\n#### Contact\nSupport@shop.io\n```\n\nAfter delivering the first tool-based report, immediately run a second validation pass on Version B (the revised text) to confirm whether the fixes resolve the earlier issues or introduce new ones, again relying solely on the tool results before giving a final summary.\n\nVersion B:\n```\n# Product FAQ\n## Shipping\n*Free shipping?* Yes, orders over $50.\n## Returns\n- Items must be unworn\n- Include receipt\n### Contact\nsupport@shop.io\n```\n\nProvide separate tool-backed findings for each pass, then conclude with a brief comparison.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922249227529000,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922249227529000,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Perform two sequential markdown validations on the following FAQ draft. Step 1: run the validator on Version A below and report every syntax issue (broken lists, heading levels, inline formatting errors) using the tool output only.\n\nVersion A:\n```\n# Product FAQ\n### Shipping\n*Free shipping?*Yes, orders over $50.\n### returns\n- Items must be unworn- Include receipt\n#### Contact\nSupport@shop.io\n```\n\nAfter delivering the first tool-based report, immediately run a second validation pass on Version B (the revised text) to confirm whether the fixes resolve the earlier issues or introduce new ones, again relying solely on the tool results before giving a final summary.\n\nVersion B:\n```\n# Product FAQ\n## Shipping\n*Free shipping?* Yes, orders over $50.\n## Returns\n- Items must be unworn\n- Include receipt\n### Contact\nsupport@shop.io\n```\n\nProvide separate tool-backed findings for each pass, then conclude with a brief c'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922249991598754,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Version_A'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              },
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Version_B'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922250030069840,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Version_A'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922250030069840,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922251141075648,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 7,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922251141075648,
+                          'content': 'The tool result indicates that the provided file path does not exist. The analysis cannot continue without correctly accessing the file. No tool-based markdown validation can occur at this point. Please correct the file path and re-submit.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=21,
+              ),
+              FlowSpec(
+                  flow_id=0,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='033fb297727850e786d98cce040a85f0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_cd6f8781e780498c9e13abc63f59ebdf.json',
+                  source_trace_file='trace_cd6f8781e780498c9e13abc63f59ebdf.json',
+                  input_args={
+                      'filename': 'I need a double-check on our onboarding guide. Step 1: run the markdown validation tool on Iteration One and share the raw issues (lists, headings, spacing). Step 2: once that is delivered, validate Iteration Two to confirm whether the adjustments resolved the earlier findings, then summarize differences.\n\nIteration One:\n```\n# Onboarding Guide\n## Setup\nFollow these steps:\n1.Install prerequisites\n2 Configure environment\n### Support\nEmail:help@startup\n```\n\nIteration Two:\n```\n# Onboarding Guide\n## Setup\nFollow these steps:\n1. Install prerequisites\n2. Configure environment\n## Support\nEmail: help@startup\n```\nPlease provide tool-backed outputs for each pass before your final comparison.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923480033631637,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778923480033631637,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I need a double-check on our onboarding guide. Step 1: run the markdown validation tool on Iteration One and share the raw issues (lists, headings, spacing). Step 2: once that is delivered, validate Iteration Two to confirm whether the adjustments resolved the earlier findings, then summarize differences.\n\nIteration One:\n```\n# Onboarding Guide\n## Setup\nFollow these steps:\n1.Install prerequisites\n2 Configure environment\n### Support\nEmail:help@startup\n```\n\nIteration Two:\n```\n# Onboarding Guide\n## Setup\nFollow these steps:\n1. Install prerequisites\n2. Configure environment\n## Support\nEmail: help@startup\n```\nPlease provide tool-backed outputs for each pass before your final comparison.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I need a double-ch'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923480875076436,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Iteration One'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              },
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Iteration Two'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923480905807022,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Iteration One'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923480905807022,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778923481717307505,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 7,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923481717307505,
+                          'content': 'Requirements are not met as the tool result indicates the file path does not exist. Please verify the file path and provide it again for accurate validation.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=22,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_2a7e91f4a191421994724ebd4c8ab1bb.json',
+                  source_trace_file='trace_2a7e91f4a191421994724ebd4c8ab1bb.json',
+                  input_args={
+                      'filename': 'Conduct a two-phase review of the following markdown draft. Phase one: run your markdown_validation_tool on the snippet and reply with a numbered list of every syntax defect you detect, citing the section or line where each issue occurs. Conclude that reply by explicitly requesting that I send the follow-up question “Given these findings, can support share this brief with partners without edits?” and do not answer that readiness question yet. Phase two: after I later send exactly that follow-up question, respond using the earlier validation results—provide a clear yes/no recommendation with rationale and do so without rerunning the validator.\n\n```\n# Integration Brief (Draft)\n\n## Setup Steps\n1. Install the connector via `install_connector.md`\n2. Configure callback URL <code>https://callbacks.example.com/ingest\n3. Add partner ID to config.json (see Appendix\n\n## Support Matrix\n| Team | Coverage |\n| L1 | weekdays |\n| L2 | 24/7\n\n## Release Notes\n- Added webhook retries <span class="new">\n- Known issue list (**pending)\n\n**Sign-off\n- Outstanding approvals tracked in approvals.md\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922936687132182,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922936687132182,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Conduct a two-phase review of the following markdown draft. Phase one: run your markdown_validation_tool on the snippet and reply with a numbered list of every syntax defect you detect, citing the section or line where each issue occurs. Conclude that reply by explicitly requesting that I send the follow-up question “Given these findings, can support share this brief with partners without edits?” and do not answer that readiness question yet. Phase two: after I later send exactly that follow-up question, respond using the earlier validation results—provide a clear yes/no recommendation with rationale and do so without rerunning the validator.\n\n```\n# Integration Brief (Draft)\n\n## Setup Steps\n1. Install the connector via `install_connector.md`\n2. Configure callback URL <code>https://callbacks.example.com/ingest\n3. Add partner ID to config.json (see Appendix\n\n## Support Matrix\n| Team | Coverage |\n| L1 | we'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922938267254711,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Conduct a two-phase review of the following markdown draft. Phase one: run your markdown_validation_tool on the snippet and reply with a numbered list of every syntax defect you detect, citing the section or line where each issue occurs. Conclude that reply by explicitly requesting that I send the follow-up question “Given these findings, can support share this brief with partners without edits?” and do not answer that readiness question yet. Phase two: after I later send exactly that follow-up question, respond using the earlier validation results—provide a clear yes/no recommendation with rationale and do so without rerunning the validator.\n\n```\n# Integration Brief (Draft)\n\n## Setup Steps\n1. Install the connector via `install_connector.md`\n2. Configure callback URL <code>https://callbacks.example.com/ingest\n3. Add partner ID to config.json (see Appendix\n\n## Support Matrix\n| Team | Coverage |\n| L1 | weekdays |\n| L2 | 24/7\n\n## Release Notes\n- Added webhook retries <span class="new">\n- Known issue list (**pending)\n\n**Sign-off\n- Outstanding approvals tracked in approvals.md\n```'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922938297118190,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922939078797959,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922939078797959,
+                          'content': 'The tool indicates that the provided file path does not exist. Please ensure the file path is correct and try again.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=23,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_8354749d3a064453b1143a9d512b584f.json',
+                  source_trace_file='trace_8354749d3a064453b1143a9d512b584f.json',
+                  input_args={
+                      'filename': 'I have several documentation drafts and only want the markdown validator run on whichever file contains the final release notes, but I’m not sure which one that is. Please start by telling me what exact details (filename, sections, or format) you need and asking me for them, wait for my reply with that information, and only then run the markdown validation on the content I provide.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922493677945653,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922493677945653,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I have several documentation drafts and only want the markdown validator run on whichever file contains the final release notes, but I’m not sure which one that is. Please start by telling me what exact details (filename, sections, or format) you need and asking me for them, wait for my reply with that information, and only then run the markdown validation on the content I provide.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I have several documentation drafts and only want the markdown validator run on whichever file contains the final release notes, but I’m not sure which one that is. Please start by telling me what exact details (filename, sections, or format) you need and asking me for them, wait for my reply with that information, and on'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922494972082751,
+                          'content': 'To proceed with validating the markdown file containing the final release notes, I need additional details to identify which file to review. Specifically, please provide:\n\n- The exact filename or naming standard used for the release notes file.\n- A brief description of the format or structure of the file (e.g., does it start with a specific section like "Release Notes for Version X.X"?).\n- Whether there are any noticeable sections or content in your drafts that help distinguish the final release notes from the rest.\n\nOnce you provide these details, I will use the markdown validation tool to analyze the appropriate file.'
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=24,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_c982e516c9324cbab85047af119b2627.json',
+                  source_trace_file='trace_c982e516c9324cbab85047af119b2627.json',
+                  input_args={
+                      'filename': 'I need you to validate my Markdown release notes, but I’m unsure whether they should go through your major-release or patch-release checklist because the draft mixes a new UI module with a logging hotfix. Please let me know what specifics you need from me to decide which requirement set applies, then I’ll share the appropriate Markdown for you to review.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923053834912680,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778923053834912680,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I need you to validate my Markdown release notes, but I’m unsure whether they should go through your major-release or patch-release checklist because the draft mixes a new UI module with a logging hotfix. Please let me know what specifics you need from me to decide which requirement set applies, then I’ll share the appropriate Markdown for you to review.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I need you to validate my Markdown release notes, but I’m unsure whether they should go through your major-release or patch-release checklist because the draft mixes a new UI module with a logging hotfix. Please let me know what specifics you need from me to decide which requirement set applies, then I’ll share the appropriate Markdown for you to re'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923056249249160,
+                          'content': "To determine whether your Markdown release notes should follow the major-release checklist or the patch-release checklist, I need clarity on the scope of the changes documented in the draft. Specifically, let me know:\n\n1. **Impact Assessment of the UI Module**:\n   - Does this new UI module significantly alter existing workflows or introduce breaking changes? \n   - Is it an addition that complements existing functionality, or does it overhaul existing designs/functions?\n\n2. **Detail of the Logging Hotfix**:\n   - Is the hotfix addressing a critical, urgent issue that impacts existing functionality?\n   - Does it involve only internal code corrections, or does it have any user-facing impact?\n\nOnce you've provided these clarifications, I can better assess which checklist applies and will proceed to validate the Markdown file accordingly. Please provide the file path, and I will review its syntax for errors."
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=25,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_49a15c0d9ecc426b8c38de7a2a695c27.json',
+                  source_trace_file='trace_49a15c0d9ecc426b8c38de7a2a695c27.json',
+                  input_args={
+                      'filename': 'Run the markdown validator twice on the same memo with an intermediate revision. First, validate “Draft Alpha” below and provide the exact issues the tool reports (heading hierarchy, bullet syntax, spacing) without proceeding to the second pass yet.\n\nDraft Alpha:\n```\n# Sprint Plan\n### Objectives\n-Improve onboarding\n- Balance infra load\n#### Tasks\n1. Build signup wizard\n1.Refine caching\n```\n\nOnly after you’ve shared Alpha’s tool-backed findings, run a fresh validator pass on “Draft Beta” (the revised text) to verify whether the fixes resolved the original problems or introduced new ones, again citing the tool output before giving a final comparison.\n\nDraft Beta:\n```\n# Sprint Plan\n## Objectives\n- Improve onboarding\n- Balance infra load\n### Tasks\n1. Build signup wizard\n2. Refine caching\n```\n\nReturn separate reports for each pass, followed by a brief comparison of Alpha vs. Beta.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922301521500717,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922301521500717,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Run the markdown validator twice on the same memo with an intermediate revision. First, validate “Draft Alpha” below and provide the exact issues the tool reports (heading hierarchy, bullet syntax, spacing) without proceeding to the second pass yet.\n\nDraft Alpha:\n```\n# Sprint Plan\n### Objectives\n-Improve onboarding\n- Balance infra load\n#### Tasks\n1. Build signup wizard\n1.Refine caching\n```\n\nOnly after you’ve shared Alpha’s tool-backed findings, run a fresh validator pass on “Draft Beta” (the revised text) to verify whether the fixes resolved the original problems or introduced new ones, again citing the tool output before giving a final comparison.\n\nDraft Beta:\n```\n# Sprint Plan\n## Objectives\n- Improve onboarding\n- Balance infra load\n### Tasks\n1. Build signup wizard\n2. Refine caching\n```\n\nReturn separate reports for each pass, followed by a brief comparison of Alpha vs. Beta.. Be sure to pass only the f'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922302260724818,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Draft Alpha'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922302295742040,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922303478455685,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922303478455685,
+                          'content': 'Error: The provided file path does not exist. The tool requires an actual file path to validate the syntax within Draft Alpha. Ensure that the file location exists and is accessible, or explicitly provide a valid file path where Draft Alpha resides if further validation is required.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=26,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_5e4b771ecadb4366a49c5624ed69803b.json',
+                  source_trace_file='trace_5e4b771ecadb4366a49c5624ed69803b.json',
+                  input_args={
+                      'filename': 'Please run the markdown validator twice in sequence for this changelog. First pass: check the initial draft below for heading hierarchy, list syntax, and spacing problems, and summarize the defects you find.\n\n```\n# Release Notes\n### v3.2 Highlights\n-Add OAuth refresh support\n-Improve logs\n#### Bug Fixes\n*Crash on logout*\n```\n\nAfter you deliver that assessment, immediately run a second validation on the corrected draft and confirm whether all prior issues are resolved or if any new markdown errors remain:\n\n```\n# Release Notes\n## v3.2 Highlights\n- Add OAuth refresh support\n- Improve logs\n### Bug Fixes\n* Crash on logout\n```\n\nReturn separate findings for the first and second passes.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922200190087353,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922200190087353,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Please run the markdown validator twice in sequence for this changelog. First pass: check the initial draft below for heading hierarchy, list syntax, and spacing problems, and summarize the defects you find.\n\n```\n# Release Notes\n### v3.2 Highlights\n-Add OAuth refresh support\n-Improve logs\n#### Bug Fixes\n*Crash on logout*\n```\n\nAfter you deliver that assessment, immediately run a second validation on the corrected draft and confirm whether all prior issues are resolved or if any new markdown errors remain:\n\n```\n# Release Notes\n## v3.2 Highlights\n- Add OAuth refresh support\n- Improve logs\n### Bug Fixes\n* Crash on logout\n```\n\nReturn separate findings for the first and second passes.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Please run the markd'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922200915764810,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'changelog_initial.md'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922200932103033,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922201758403513,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922201758403513,
+                          'content': 'The tool returned an error stating that the provided file path does not exist. Please ensure that the file path is valid and provide the correct file for analysis.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=27,
+              ),
+              FlowSpec(
+                  flow_id=0,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='033fb297727850e786d98cce040a85f0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool+markdown_validation_tool',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_a147bf858c7440008a0ef7a777ccd68a.json',
+                  source_trace_file='trace_a147bf858c7440008a0ef7a777ccd68a.json',
+                  input_args={
+                      'filename': 'Please perform two sequential markdown validation passes on these release notes. Pass 1: run the validator on Version 1 to capture every formatting defect (headings, lists, bold/italic usage) and report strictly what the tool returns. Pass 2: after that first report, re-run the validator on Version 2 to confirm fixes or new issues, again referencing only the tool output before summarizing.\n\nVersion 1:\n```\n# Release Notes v2.0\n## Highlights\n- Faster sync- Better UI\n### Known Issues\n*Login timeout*occurs on mobile.\n```\n\nVersion 2:\n```\n# Release Notes v2.0\n## Highlights\n- Faster sync\n- Better UI\n## Known Issues\n*Login timeout* occurs on mobile.\n```\nConclude with a brief comparison of both tool findings.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923422742104447,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778923422742104447,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Please perform two sequential markdown validation passes on these release notes. Pass 1: run the validator on Version 1 to capture every formatting defect (headings, lists, bold/italic usage) and report strictly what the tool returns. Pass 2: after that first report, re-run the validator on Version 2 to confirm fixes or new issues, again referencing only the tool output before summarizing.\n\nVersion 1:\n```\n# Release Notes v2.0\n## Highlights\n- Faster sync- Better UI\n### Known Issues\n*Login timeout*occurs on mobile.\n```\n\nVersion 2:\n```\n# Release Notes v2.0\n## Highlights\n- Faster sync\n- Better UI\n## Known Issues\n*Login timeout* occurs on mobile.\n```\nConclude with a brief comparison of both tool findings.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923423593119491,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Version 1'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              },
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Version 2'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923423614330142,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Version 1'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923423614330142,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778923424745744659,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 7,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778923424745744659,
+                          'content': 'The tool result shows an "Error: The provided file path does not exist." \n\nNo validation results are available. The required markdown validation cannot be performed unless a valid file path is provided. Please ensure the file path is correct and accessible for the tool.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=28,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_720b8d484d004438aafdf9b0190e120f.json',
+                  source_trace_file='trace_720b8d484d004438aafdf9b0190e120f.json',
+                  input_args={
+                      'filename': 'Execute the markdown_validation_tool on the release checklist below, using its findings to drive a short diagnosis-response matrix (issue vs. fix) in your final reply—do not send any intermediate commentary before the tool runs:\n```markdown\n# Release Checklist\n##Tasks\n1. Prepare artifacts\n   -Sign binaries\n2. Update docs\n    -Add API changelog\n\n```shell\n$ build --target=prod\n```\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922099947077733,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922099947077733,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Execute the markdown_validation_tool on the release checklist below, using its findings to drive a short diagnosis-response matrix (issue vs. fix) in your final reply—do not send any intermediate commentary before the tool runs:\n```markdown\n# Release Checklist\n##Tasks\n1. Prepare artifacts\n   -Sign binaries\n2. Update docs\n    -Add API changelog\n\n```shell\n$ build --target=prod\n```\n```. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Execute the markdown_validation_tool on the release checklist below, using its findings to drive a short diagnosis-response matrix (issue vs. fix) in your final reply—do not send any intermediate commentary before the tool runs:\n```markdown\n# Release Checklist\n##Tasks\n1. Prepare artifacts\n   -Sign binaries\n2. Update docs'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922100687220442,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'release_checklist.md'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922100708224033,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922101585537602,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922101585537602,
+                          'content': 'The tool returned an error stating that the provided file path does not exist. Please ensure the correct file path is provided for analysis. If you need assistance correcting the file path, let me know.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=29,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_68bc66ffe822470295b94b3338ec4576.json',
+                  source_trace_file='trace_68bc66ffe822470295b94b3338ec4576.json',
+                  input_args={
+                      'filename': 'Validate the following markdown excerpt in two dependent passes. First, run the markdown validator on “Draft Gamma” exactly as written and report the tool’s findings verbatim before taking any other action:\n\n```\n# Integration Guide\n### prerequisites\n-Install CLI\n- configure API key\n#### Steps\n1. Run setup.sh\n1. Deploy stack\n*Need help?*Contact ops@example.com\n```\n\nAfter you deliver the first pass findings, revise the content to fix every issue the validator flagged (adjust headings, list syntax, spacing, etc.). Present the revised markdown, then run the validator a second time on that revision to confirm whether it now passes cleanly. Base the second pass strictly on your corrected version and include the second tool output in your final summary along with a comparison of both passes.'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922347891584029,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922347891584029,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Validate the following markdown excerpt in two dependent passes. First, run the markdown validator on “Draft Gamma” exactly as written and report the tool’s findings verbatim before taking any other action:\n\n```\n# Integration Guide\n### prerequisites\n-Install CLI\n- configure API key\n#### Steps\n1. Run setup.sh\n1. Deploy stack\n*Need help?*Contact ops@example.com\n```\n\nAfter you deliver the first pass findings, revise the content to fix every issue the validator flagged (adjust headings, list syntax, spacing, etc.). Present the revised markdown, then run the validator a second time on that revision to confirm whether it now passes cleanly. Base the second pass strictly on your corrected version and include the second tool output in your final summary along with a comparison of both passes.. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_valid'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922348547081705,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Draft Gamma'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922348573942644,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922349389494765,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922349389494765,
+                          'content': 'The tool result indicates the file path "Draft Gamma" does not exist. Please ensure the file path is correct and the file is accessible, then try again.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=30,
+              ),
+              FlowSpec(
+                  flow_id=2,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager',
+                  flow_signature_id='b9ba785f9b08422f4efbf03b98322b20',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_779a96f9127a4029b72dcf83ecded431.json',
+                  source_trace_file='trace_779a96f9127a4029b72dcf83ecded431.json',
+                  input_args={
+                      'filename': 'I need to have both my README.md and CHANGELOG.md scanned for markdown issues, but I’m not sure what exact sections or formatting you require before you can run the validator—could you first ask me the specific details you need so I can provide them correctly?'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922431308235201,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922431308235201,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I need to have both my README.md and CHANGELOG.md scanned for markdown issues, but I’m not sure what exact sections or formatting you require before you can run the validator—could you first ask me the specific details you need so I can provide them correctly?. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: I need to have both my README.md and CHANGELOG.md scanned for markdown issues, but I’m not sure what exact sections or formatting you require before you can run the validator—could you first ask me the specific details you need so I can provide them correctly?\nGet the validation results from the tool and then summarize it into a list of changes the developer should make to the document. DO NOT recommend ways to update the document. DO NOT chan'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922433113897760,
+                          'content': 'To proceed with the markdown validation process, I need the following details:\n\n1. **Exact File Paths**: Please provide the specific paths for both the `README.md` and `CHANGELOG.md` files. The validator can only operate if the file paths are correct and accessible.\n\n2. **File Content Requirements**: Ensure the files contain complete markdown text intended for validation and formatting. Partial or incomplete content might not provide valid results.\n\n3. **Any Formatting Constraints**: If there are specific sections (e.g., headings, links, lists) that you want us to analyze in more detail, let me know.\n\nOnce these details are confirmed, I can proceed with running the validation tool on each file and provide actionable feedback based on the results. Let me know!'
+                      }
+                  ],
+                  invoked_tools=[],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=31,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_4d61ffc665e04994a70fd09e6beadc06.json',
+                  source_trace_file='trace_4d61ffc665e04994a70fd09e6beadc06.json',
+                  input_args={
+                      'filename': 'I need a two-step review of this markdown draft. First, run your markdown validation tool on the document below and return a concise summary of every syntax problem you find (cite the relevant sections so I can fix them). End that reply by explicitly inviting my follow-up question and wait for it—do not offer any publishing recommendation yet. After I send the follow-up “Given those issues, is this safe to distribute to customers as-is?”, answer that question using your earlier tool results without rerunning the validator.\n\n```\n# Acme API Quickstart (Draft)\n\n## Install\n- Run `pip install acme-sdk`\n- Configure OAuth token in `settings.json\n\n## Usage\n```python\nfrom acme import Client\nclient = Client(token="demo")\nprint(client.status()\n```\n\n## Troubleshooting\n| Issue | Fix |\n| Missing token | Set ACME_TOKEN |\n| Timeout | Retry request\n\n**Notes\n- Bold isn’t closed above\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922778118928060,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922778118928060,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I need a two-step review of this markdown draft. First, run your markdown validation tool on the document below and return a concise summary of every syntax problem you find (cite the relevant sections so I can fix them). End that reply by explicitly inviting my follow-up question and wait for it—do not offer any publishing recommendation yet. After I send the follow-up “Given those issues, is this safe to distribute to customers as-is?”, answer that question using your earlier tool results without rerunning the validator.\n\n```\n# Acme API Quickstart (Draft)\n\n## Install\n- Run `pip install acme-sdk`\n- Configure OAuth token in `settings.json\n\n## Usage\n```python\nfrom acme import Client\nclient = Client(token="demo")\nprint(client.status()\n```\n\n## Troubleshooting\n| Issue | Fix |\n| Missing token | Set ACME_TOKEN |\n| Timeout | Retry request\n\n**Notes\n- Bold isn’t closed above\n```. Be sure to pass only the file pa'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922779801474275,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'I need a two-step review of this markdown draft. First, run your markdown validation tool on the document below and return a concise summary of every syntax problem you find (cite the relevant sections so I can fix them). End that reply by explicitly inviting my follow-up question and wait for it—do not offer any publishing recommendation yet. After I send the follow-up “Given those issues, is this safe to distribute to customers as-is?”, answer that question using your earlier tool results without rerunning the validator.\n\n```\n# Acme API Quickstart (Draft)\n\n## Install\n- Run `pip install acme-sdk`\n- Configure OAuth token in `settings.json\n\n## Usage\n```python\nfrom acme import Client\nclient = Client(token="demo")\nprint(client.status()\n```\n\n## Troubleshooting\n| Issue | Fix |\n| Missing token | Set ACME_TOKEN |\n| Timeout | Retry request\n\n**Notes\n- Bold isn’t closed above\n```'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922779837909455,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922780669063126,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922780669063126,
+                          'content': 'The tool could not execute due to an invalid file path. Update the file path, and ensure the document exists at the specified location before proceeding.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=32,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_880275c8d26043538da8fdf1ed6f3078.json',
+                  source_trace_file='trace_880275c8d26043538da8fdf1ed6f3078.json',
+                  input_args={
+                      'filename': 'I’m vetting the markdown excerpt below for publication. First, run your markdown validation tool on it and summarize every syntax problem you detect. After you give me that report, I’ll follow up with the question “Given your findings, can we publish this as-is?”—please be ready to answer that second question using the earlier validation results without re-running the tool.\n\n```\n# Release Notes – Draft\n\n## New Capabilities\n- Added OAuth2 redirect helpers\n- Added dark-mode toggle with inline HTML <span class="badge">beta</span>\n\n### Bug Fixes\n1. Resolved crash on startup\n2. Patched memory leak in diagnostics module\n3. Fixed duplicated entries in audit log\n\n| Component | Status |\n| UI Kit | Stable\n\n**Known Issues\n- Unclosed bold styling on the line above\n- Missing closing pipe in the table header\n\nSee also: [Reference Guide](docs/reference.md\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922649112926273,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922649112926273,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: I’m vetting the markdown excerpt below for publication. First, run your markdown validation tool on it and summarize every syntax problem you detect. After you give me that report, I’ll follow up with the question “Given your findings, can we publish this as-is?”—please be ready to answer that second question using the earlier validation results without re-running the tool.\n\n```\n# Release Notes – Draft\n\n## New Capabilities\n- Added OAuth2 redirect helpers\n- Added dark-mode toggle with inline HTML <span class="badge">beta</span>\n\n### Bug Fixes\n1. Resolved crash on startup\n2. Patched memory leak in diagnostics module\n3. Fixed duplicated entries in audit log\n\n| Component | Status |\n| UI Kit | Stable\n\n**Known Issues\n- Unclosed bold styling on the line above\n- Missing closing pipe in the table header\n\nSee also: [Reference Guide](docs/reference.md\n```. Be sure to pass only the file path to the markdown_validat'
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922650636110943,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'I’m vetting the markdown excerpt below for publication. First, run your markdown validation tool on it and summarize every syntax problem you detect. After you give me that report, I’ll follow up with the question “Given your findings, can we publish this as-is?”—please be ready to answer that second question using the earlier validation results without re-running the tool.\n\n```\n# Release Notes – Draft\n\n## New Capabilities\n- Added OAuth2 redirect helpers\n- Added dark-mode toggle with inline HTML <span class="badge">beta</span>\n\n### Bug Fixes\n1. Resolved crash on startup\n2. Patched memory leak in diagnostics module\n3. Fixed duplicated entries in audit log\n\n| Component | Status |\n| UI Kit | Stable\n\n**Known Issues\n- Unclosed bold styling on the line above\n- Missing closing pipe in the table header\n\nSee also: [Reference Guide](docs/reference.md\n```'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922650669805126,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922651637266878,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922651637266878,
+                          'content': 'The tool could not process the file because the provided file path does not exist. Please provide the specific and correct file path so the markdown validation can be completed.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=33,
+              ),
+              FlowSpec(
+                  flow_id=1,
+                  flow_signature_ordered=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool',
+                      'agent:RequirementsManager'
+                  ],
+                  flow_signature_key='system:system|user:user|agent:RequirementsManager.tool_call:markdown_validation_tool|agent:RequirementsManager|tool:markdown_validation_tool|agent:RequirementsManager',
+                  flow_signature_id='5aa82a5c46be793d626a703304839bf0',
+                  flow_unique_components=[
+                      'system:system',
+                      'user:user',
+                      'agent:RequirementsManager.tool_call:markdown_validation_tool',
+                      'agent:RequirementsManager',
+                      'tool:markdown_validation_tool'
+                  ],
+                  parsed_trace_file='scanning/resources/traces/parsed_trace_f9951faffe7c42369baf82c9671adc95.json',
+                  source_trace_file='trace_f9951faffe7c42369baf82c9671adc95.json',
+                  input_args={
+                      'filename': 'Review the markdown below by (1) writing a brief initial assessment that notes the two likeliest structural or formatting risks you spot, (2) running the markdown_validation_tool to verify the problems, and (3) producing a final report that pairs each confirmed issue with a remediation step:\n```markdown\n# Platform Readme\n##Setup Guide\n- Install deps\n   -Use pipenv\n-Run tests\n  -pytest -k smoke\n\n```yaml\nversion:1\nservices:\n  api:\n   image:app:latest\n```\n```'
+                  },
+                  events=[
+                      {
+                          'seq': 1,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'system',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922049162077172,
+                          'content': 'You are Requirements Manager\n. You are an expert business analyst and software QA specialist.  You provide high quality, thorough, insightful, and actionable feedback via a detailed list of changes and actionable tasks.\nYour personal goal is: Provide a detailed list of the markdown linting results.  Give a summary with actionable tasks to address the validation results.  Write your response as if you were handing it to a developer to fix the issues.  DO NOT provide examples of how to fix the issues or recommend other tools to use.'
+                      },
+                      {
+                          'seq': 2,
+                          'node_id': '',
+                          'type': 'user',
+                          'name': 'user',
+                          'time_ns': 1778922049162077172,
+                          'content': '\nCurrent Task: Use the markdown_validation_tool to review the file(s) at this path: Review the markdown below by (1) writing a brief initial assessment that notes the two likeliest structural or formatting risks you spot, (2) running the markdown_validation_tool to verify the problems, and (3) producing a final report that pairs each confirmed issue with a remediation step:\n```markdown\n# Platform Readme\n##Setup Guide\n- Install deps\n   -Use pipenv\n-Run tests\n  -pytest -k smoke\n\n```yaml\nversion:1\nservices:\n  api:\n   image:app:latest\n```\n```. Be sure to pass only the file path to the markdown_validation_tool. Use the following format to call the markdown_validation_tool: Do I need to use a tool? Yes Action: markdown_validation_tool Action Input: Review the markdown below by (1) writing a brief initial assessment that notes the two likeliest structural or formatting risks you spot, (2) running the markdown_validation_tool to verify the problems, and (3) producing a final report that pairs '
+                      },
+                      {
+                          'seq': 3,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922050435109673,
+                          'tool_calls': [
+                              {
+                                  'name': 'markdown_validation_tool',
+                                  'arguments': {
+                                      'file_path': 'Review the markdown below by (1) writing a brief initial assessment that notes the two likeliest structural or formatting risks you spot, (2) running the markdown_validation_tool to verify the problems, and (3) producing a final report that pairs each confirmed issue with a remediation step:\n```markdown\n# Platform Readme\n##Setup Guide\n- Install deps\n   -Use pipenv\n-Run tests\n  -pytest -k smoke\n\n```yaml\nversion:1\nservices:\n  api:\n   image:app:latest\n```\n```'
+                                  },
+                                  'tool_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                              }
+                          ]
+                      },
+                      {
+                          'seq': 4,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922050453758551,
+                          'content': 'Analyze the tool result. If requirements are met, provide the Final Answer. Otherwise, call the next tool. Deliver only the answer without meta-commentary.'
+                      },
+                      {
+                          'seq': 5,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                          'type': 'tool',
+                          'name': 'markdown_validation_tool',
+                          'time_ns': 1778922051490531780,
+                          'content': 'Error: The provided file path does not exist.'
+                      },
+                      {
+                          'seq': 6,
+                          'node_id': 'MarkDownValidatorCrew_RequirementsManager',
+                          'type': 'agent',
+                          'name': 'RequirementsManager',
+                          'time_ns': 1778922051490531780,
+                          'content': 'The tool was unable to process the input because the provided file path does not exist. Ensure the file path is accurate and try again.'
+                      }
+                  ],
+                  invoked_tools=[
+                      'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                  ],
+                  invoked_agents=[
+                      'MarkDownValidatorCrew_RequirementsManager'
+                  ],
+                  flow_index=34,
+              )
+          ],
+    entry_point_usage_example=UsageExample(
+        script='src/markdown_validator/main.py',
+        arguments=[
+            {
+                'name': '--filename',
+                'type': 'str',
+                'required': False,
+                'example': '<query_text>',
+                'is_task_input': True
+            },
+            {
+                'name': '--n-iterations',
+                'type': 'int',
+                'required': False,
+                'example': '1',
+                'is_task_input': False
+            }
+        ],
+    ),
+    system_type=SystemType(type={'Sequential'}),
+    llm_config=LLMConfig(temperature=0.0),
+    tool_list=[],
+    nodes=[
+        NodeSpec(
+            name='RequirementsManager',
+            id='MarkDownValidatorCrew_RequirementsManager',
+            is_graph=True,
+            emulated=False,
+            node_type=NodeType(type='Agent'),
+            description="CrewAI agent created from agents_config['Requirements_Manager'] that disables delegation, runs non-verbosely, and uses markdown_validation_tool to handle markdown validation work.",
+            code_execution=False,
+            code_references=[
+                CodeReference(
+                    kind='assignment',
+                    file='src/markdown_validator/crew.py',
+                    line=[
+                        12,
+                        19
+                    ],
+                    snippet="    @agent\n    def RequirementsManager(self) -> Agent:\n        return Agent(\n            config=self.agents_config['Requirements_Manager'],\n            tools=[markdown_validation_tool],\n            allow_delegation=False,\n            verbose=False\n        )",
+                ),
+                CodeReference(
+                    kind='source',
+                    file='src/markdown_validator/crew.py',
+                    line=1,
+                    snippet='from crewai import Agent, Crew, Process, Task',
+                )
+            ],
+            inputs=[
+                InputPort(
+                    name='filename',
+                    dtype='str',
+                    description='Path to the markdown file that the RequirementsManager agent passes to markdown_validation_tool for syntax checking.',
+                    required=True,
+                )
+            ],
+            outputs=[
+                OutputPort(
+                    name='validation_summary',
+                    dtype='str',
+                    description='Human-readable summary of markdown scan issues (or success message) generated by markdown_validation_tool and returned by the RequirementsManager agent.',
+                    output_kind='data',
+                )
+            ],
+            external_connections=[
+                Connection(
+                    parent='MarkDownValidatorCrew',
+                    in_=[
+                        'MarkDownValidatorCrew_syntax_review_task'
+                    ],
+                    out=[
+                        'END'
+                    ],
+                )
+            ],
+            required_keys=RequiredKeys(
+                enabled=True,
+                keys=[
+                    'OPENAI_API_KEY'
+                ],
+            ),
+            duplicates=Duplication(exists=False),
+            framework=FrameworkType(framework='CrewAI'),
+            flows=[],
+            agent_type=AgentType(type={'ReAct'}),
+            llm_config=LLMConfig(),
+            tool_list=[],
+            nodes=[
+                NodeSpec(
+                    name='markdown_validation_tool',
+                    id='MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                    is_graph=False,
+                    emulated=False,
+                    node_type=NodeType(type='Tool'),
+                    description='A tool to review files for markdown syntax errors.\n\nParameters:\n    - file_path: The path to the markdown file to be reviewed.\n\nReturns:\n    - validation_results: A formatted string of validation results or summary.',
+                    code_execution=False,
+                    code_references=[
+                        CodeReference(
+                            kind='assignment',
+                            file='src/markdown_validator/tools/markdownTools.py',
+                            line=[
+                                6,
+                                30
+                            ],
+                            snippet='@tool("markdown_validation_tool")\ndef markdown_validation_tool(file_path: str) -> str:\n    """\n    A tool to review files for markdown syntax errors.\n\n    Parameters:\n    - file_path: The path to the markdown file to be reviewed.\n\n    Returns:\n    - validation_results: A formatted string of validation results or summary.\n    """\n\n    try:\n        if not os.path.exists(file_path):\n            return "Error: The provided file path does not exist."\n\n        # Perform the markdown scan\n\n        scan_result = PyMarkdownApi().scan_path(file_path.strip())\n\n        # Always return formatted scan results\n        return format_scan_result(scan_result)\n\n    except PyMarkdownApiException as this_exception:\n        return f"API Exception: {str(this_exception)}"',
+                        ),
+                        CodeReference(
+                            kind='definition',
+                            file='src/markdown_validator/tools/markdownTools.py',
+                            line=[
+                                6,
+                                30
+                            ],
+                            snippet='@tool("markdown_validation_tool")\ndef markdown_validation_tool(file_path: str) -> str:\n    """\n    A tool to review files for markdown syntax errors.\n\n    Parameters:\n    - file_path: The path to the markdown file to be reviewed.\n\n    Returns:\n    - validation_results: A formatted string of validation results or summary.\n    """\n\n    try:\n        if not os.path.exists(file_path):\n            return "Error: The provided file path does not exist."\n\n        # Perform the markdown scan\n\n        scan_result = PyMarkdownApi().scan_path(file_path.strip())\n\n        # Always return formatted scan results\n        return format_scan_result(scan_result)\n\n    except PyMarkdownApiException as this_exception:\n        return f"API Exception: {str(this_exception)}"',
+                        ),
+                        CodeReference(
+                            kind='source',
+                            file='src/markdown_validator/tools/markdownTools.py',
+                            line=2,
+                            snippet='from crewai.tools import tool',
+                        )
+                    ],
+                    inputs=[
+                        InputPort(
+                            name='file_path',
+                            dtype='str',
+                            description='Path to the markdown file to validate.',
+                            required=True,
+                        )
+                    ],
+                    outputs=[
+                        OutputPort(
+                            name='validation_results',
+                            dtype='str',
+                            description='Formatted markdown scan summary or error string returned after running PyMarkdownApi.',
+                            output_kind='data',
+                        )
+                    ],
+                    external_connections=[
+                        Connection(
+                            parent='RequirementsManager',
+                            in_='MarkDownValidatorCrew_RequirementsManager_LLM_RequirementsManager',
+                            out='MarkDownValidatorCrew_RequirementsManager_LLM_RequirementsManager',
+                        )
+                    ],
+                    required_keys=RequiredKeys(enabled=False),
+                    duplicates=Duplication(exists=False),
+                    framework=FrameworkType(framework='CrewAI'),
+                    flows=[],
+                    tool_list=[],
+                    tool_example_pairs=[
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'README-draft-1.md'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Draft Alpha'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Conduct a two-phase review of the following markdown draft. Phase one: run your markdown_validation_tool on the snippet and reply with a numbered list of every syntax defect you detect, citing the section or line where each issue occurs. Conclude that reply by explicitly requesting that I send the follow-up question “Given these findings, can support share this brief with partners without edits?” and do not answer that readiness question yet. Phase two: after I later send exactly that follow-up question, respond using the earlier validation results—provide a clear yes/no recommendation with rationale and do so without rerunning the validator.\n\n```\n# Integration Brief (Draft)\n\n## Setup Steps\n1. Install the connector via `install_connector.md`\n2. Configure callback URL <code>https://callbacks.example.com/ingest\n3. Add partner ID to config.json (see Appendix\n\n## Support Matrix\n| Team | Coverage |\n| L1 | weekdays |\n| L2 | 24/7\n\n## Release Notes\n- Added webhook retries <span class="new">\n- Known issue list (**pending)\n\n**Sign-off\n- Outstanding approvals tracked in approvals.md\n```'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': '# Deployment Checklist - Draft\n\n## Pre-flight\n- [ ] Confirm config.yaml updated\n- [ ] Verify rollback plan <span class="flag">URGENT\n\n## Tasks\n1. Upload assets to CDN\n2. Start staging smoke tests\n3. Update changelog with:\n   - Summary bullet\n   - Known Risks (see Appendix\n\n| Step | Owner |\n| Backup database | DBA |\n| Notify stakeholders | PM\n\n**Risks\n- Bold never closed above\n- Table header missing closing pipe'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'For this rollout log, first hypothesize the top two formatting issues you expect to see based on a quick visual scan, then immediately run the markdown_validation_tool to confirm the actual violations, and finally deliver a concise summary with targeted corrections—make sure no extra message is sent between invoking the tool and giving the final report:\n```markdown\n# Q3 Rollout\n###Highlights\n1. Feature X ready\n   -QA docs pending\n2. Feature Y\n    -  Tests incomplete\n\n```bash\n$ deploy --env=prod\n```\n``'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'I need a two-step review of this markdown draft. First, run your markdown validation tool on the document below and return a concise summary of every syntax problem you find (cite the relevant sections so I can fix them). End that reply by explicitly inviting my follow-up question and wait for it—do not offer any publishing recommendation yet. After I send the follow-up “Given those issues, is this safe to distribute to customers as-is?”, answer that question using your earlier tool results without rerunning the validator.\n\n```\n# Acme API Quickstart (Draft)\n\n## Install\n- Run `pip install acme-sdk`\n- Configure OAuth token in `settings.json\n\n## Usage\n```python\nfrom acme import Client\nclient = Client(token="demo")\nprint(client.status()\n```\n\n## Troubleshooting\n| Issue | Fix |\n| Missing token | Set ACME_TOKEN |\n| Timeout | Retry request\n\n**Notes\n- Bold isn’t closed above\n```'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'changelog_initial.md'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Draft Gamma'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Before running any checks, briefly outline the validation strategy you’ll use, then execute the markdown validator on this snippet and report the findings with fixes: ```markdown\n# Project Update\n##Overview\n- Completed sprint tasks\n -Pending QA items\n\n```json\n{"status": "ok"}\n```\n```'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Here’s a short Markdown excerpt:\n\n```\n# Project Hermes\nWelcome to Project Hermes.\n##Features\n- Speed\n- Reliability\n\n### Usage\n1. Install dependencies\n2.Run the setup script\n\n####API Reference\n| Endpoint | Method | Description |\n|/sync|POST|Start sync|\n\nContact us at [support@example](mailto:support@example).\n```'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Perform a two-stage review of the markdown snippet below. In stage one, run your markdown_validation_tool on it and return a numbered list of every syntax defect you find, citing the affected sections or lines. Conclude that first reply with the exact sentence “Awaiting follow-up question: release_readiness” and do not opine on distribution suitability yet. After you send that, expect my next message to be “Given those findings, can we share this outage playbook with the auditors without edits?”—when you receive that follow-up, answer it using the previously gathered validation results and do so without invoking the validator again.\n\n```\n# Outage Playbook (Draft)\n\n## Immediate Actions\n1. Notify incident commander via Slack <strong channel="#ops"\n2. Capture logs\n3. Run `./scripts/failover.md` to switch traffic\n\n## Communication Matrix\n| Role | Contact |\n| Incident Commander | @ic |\n| PR Lead | @pr-team\n\n## Knowledge Base Links\n- Troubleshooting guide (docs/troubleshooting.md\n- RCA template (**draft only)\n\n**Outstanding Items\n- Bold text above never closes'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'release_checklist.md'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'I’m vetting the markdown excerpt below for publication. First, run your markdown validation tool on it and summarize every syntax problem you detect. After you give me that report, I’ll follow up with the question “Given your findings, can we publish this as-is?”—please be ready to answer that second question using the earlier validation results without re-running the tool.\n\n```\n# Release Notes – Draft\n\n## New Capabilities\n- Added OAuth2 redirect helpers\n- Added dark-mode toggle with inline HTML <span class="badge">beta</span>\n\n### Bug Fixes\n1. Resolved crash on startup\n2. Patched memory leak in diagnostics module\n3. Fixed duplicated entries in audit log\n\n| Component | Status |\n| UI Kit | Stable\n\n**Known Issues\n- Unclosed bold styling on the line above\n- Missing closing pipe in the table header\n\nSee also: [Reference Guide](docs/reference.md\n```'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Version 1'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Version_A'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Iteration One'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': "Please run a full markdown validation on the following snippet—checking heading levels, bullet indentation consistency, and code fence formatting—then summarize the key issues and remediation steps: ```markdown\n# Release Notes\n##Changes\n* Added feature A\n  *Subfeature details\n\n```python\nprint('hello)\n```\n```"
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           ),
+                                           ToolIOPair(
+                                               input={
+                                                   'file_path': 'Review the markdown below by (1) writing a brief initial assessment that notes the two likeliest structural or formatting risks you spot, (2) running the markdown_validation_tool to verify the problems, and (3) producing a final report that pairs each confirmed issue with a remediation step:\n```markdown\n# Platform Readme\n##Setup Guide\n- Install deps\n   -Use pipenv\n-Run tests\n  -pytest -k smoke\n\n```yaml\nversion:1\nservices:\n  api:\n   image:app:latest\n```\n```'
+                                               },
+                                               output={
+                                                   'value': 'Error: The provided file path does not exist.'
+                                               },
+                                           )
+                                       ],
+                    nodes=[],
+                    internal_edges=[],
+                    metadata={
+                        'decorator': '@tool("markdown_validation_tool")',
+                        'invokes': 'PyMarkdownApi().scan_path(file_path.strip())',
+                        'error_handling': 'returns "Error: The provided file path does not exist." or "API Exception: <message>" before/after scan',
+                        'result_formatting': 'format_scan_result emits "No markdown validation issues found." or per-failure lines with file, line, rule info'
+                    },
+                    read_internal=False,
+                    read_external=False,
+                    write_internal=False,
+                    write_external=False,
+                    is_rag_tool=False,
+                ),
+                NodeSpec(
+                    name='LLM_RequirementsManager',
+                    id='MarkDownValidatorCrew_RequirementsManager_LLM_RequirementsManager',
+                    is_graph=False,
+                    emulated=False,
+                    node_type=NodeType(type='LLM'),
+                    description="LLM-driven RequirementsManager agent defined in MarkDownValidatorCrew, instantiated from agents_config['Requirements_Manager'] with delegation disabled and direct access to markdown_validation_tool for markdown review tasks.",
+                    code_execution=False,
+                    code_references=[
+                        CodeReference(
+                            kind='assignment',
+                            file='src/markdown_validator/crew.py',
+                            line=[
+                                12,
+                                19
+                            ],
+                            snippet="    @agent\n    def RequirementsManager(self) -> Agent:\n        return Agent(\n            config=self.agents_config['Requirements_Manager'],\n            tools=[markdown_validation_tool],\n            allow_delegation=False,\n            verbose=False\n        )",
+                        ),
+                        CodeReference(
+                            kind='source',
+                            file='src/markdown_validator/crew.py',
+                            line=1,
+                            snippet='from crewai import Agent, Crew, Process, Task',
+                        )
+                    ],
+                    inputs=[],
+                    outputs=[],
+                    external_connections=[
+                        Connection(
+                            parent='RequirementsManager',
+                            in_=[
+                                'START',
+                                'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                            ],
+                            out=[
+                                'END',
+                                'MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool'
+                            ],
+                        )
+                    ],
+                    required_keys=RequiredKeys(
+                        enabled=True,
+                        keys=[
+                            'OPENAI_API_KEY'
+                        ],
+                    ),
+                    duplicates=Duplication(exists=False),
+                    framework=FrameworkType(framework='CrewAI'),
+                    flows=[],
+                    llm_config=LLMConfig(),
+                    tool_list=[],
+                    nodes=[],
+                    internal_edges=[],
+                    metadata={
+                        'synthetic_inferred_llm': True,
+                        'created_by': 'graph_correctness',
+                        'creation_reason': 'syn_llm_resolution_fallback'
+                    },
+                    read_internal=False,
+                    read_external=False,
+                    write_internal=False,
+                    write_external=False,
+                    is_rag_tool=False,
+                )
+            ],
+            internal_edges=[
+                Edge(
+                    from_='MarkDownValidatorCrew_RequirementsManager_LLM_RequirementsManager',
+                    to='END',
+                ),
+                Edge(
+                    from_='START',
+                    to='MarkDownValidatorCrew_RequirementsManager_LLM_RequirementsManager',
+                ),
+                Edge(
+                    from_='MarkDownValidatorCrew_RequirementsManager_LLM_RequirementsManager',
+                    to='MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                ),
+                Edge(
+                    from_='MarkDownValidatorCrew_RequirementsManager_markdown_validation_tool',
+                    to='MarkDownValidatorCrew_RequirementsManager_LLM_RequirementsManager',
+                )
+            ],
+            metadata={
+                'duplicate_reused_events': [
+                    {
+                        'parent_var': 'syntax_review_task',
+                        'proposal_name': 'RequirementsManager',
+                        'reason': "Crew definition at markdown_validator/crew.py lines 12-20 shows the same RequirementsManager agent (config agents_config['Requirements_Manager'] with markdown_validation_tool, allow_delegation=False, verbose=False) that syntax_review_task reuses, so both nodes describe the identical agent instance."
+                    }
+                ],
+                'isolated_validation': {
+                    'represented': True,
+                    'mapped_stage2_vars': [
+                        'requirementsmanager'
+                    ]
+                }
+            },
+            read_internal=False,
+            read_external=False,
+            write_internal=False,
+            write_external=False,
+            is_rag_tool=False,
+        ),
+        NodeSpec(
+            name='syntax_review_task',
+            id='MarkDownValidatorCrew_syntax_review_task',
+            is_graph=False,
+            emulated=False,
+            node_type=NodeType(type='Deterministic_controller'),
+            description='CrewAI Task configured from the tasks_config entry "syntax_review_task" and bound to the RequirementsManager agent to drive the markdown syntax review process.',
+            code_execution=False,
+            code_references=[
+                CodeReference(
+                    kind='assignment',
+                    file='src/markdown_validator/crew.py',
+                    line=[
+                        21,
+                        22
+                    ],
+                    snippet='    @task\n    def syntax_review_task(self) -> Task:',
+                ),
+                CodeReference(
+                    kind='definition',
+                    file='src/markdown_validator/crew.py',
+                    line=[
+                        21,
+                        26
+                    ],
+                    snippet="    @task\n    def syntax_review_task(self) -> Task:\n        return Task(\n            config=self.tasks_config['syntax_review_task'],\n            agent=self.RequirementsManager()\n        )",
+                ),
+                CodeReference(
+                    kind='source',
+                    file='src/markdown_validator/crew.py',
+                    line=1,
+                    snippet='from crewai import Agent, Crew, Process, Task',
+                )
+            ],
+            inputs=[],
+            outputs=[],
+            external_connections=[
+                Connection(
+                    parent='MarkDownValidatorCrew',
+                    in_=[
+                        'START'
+                    ],
+                    out=[
+                        'MarkDownValidatorCrew_RequirementsManager'
+                    ],
+                )
+            ],
+            required_keys=RequiredKeys(enabled=False),
+            duplicates=Duplication(exists=False),
+            flows=[],
+            tool_list=[],
+            nodes=[],
+            internal_edges=[],
+            metadata={
+                'config_key': "tasks_config['syntax_review_task']",
+                'assigned_agent': 'RequirementsManager',
+                'isolated_validation': {
+                    'represented': True,
+                    'mapped_stage2_vars': [
+                        'syntax_review_task'
+                    ]
+                }
+            },
+            read_internal=False,
+            read_external=False,
+            write_internal=False,
+            write_external=False,
+            is_rag_tool=False,
+        )
+    ],
+    internal_edges=[
+        Edge(
+            from_='START',
+            to='MarkDownValidatorCrew_syntax_review_task',
+        ),
+        Edge(
+            from_='MarkDownValidatorCrew_syntax_review_task',
+            to='MarkDownValidatorCrew_RequirementsManager',
+        ),
+        Edge(
+            from_='MarkDownValidatorCrew_RequirementsManager',
+            to='END',
+        )
+    ],
+    metadata={
+        'config_keys': {
+            'agents': [
+                'Requirements_Manager'
+            ],
+            'tasks': [
+                'syntax_review_task'
+            ]
+        },
+        'attached_tools': [
+            'markdown_validation_tool'
+        ],
+        'process_mode': 'Process.sequential'
+    },
+    system_summary='System structure: MarkDownValidatorCrew (System) includes RequirementsManager (Agent) and syntax_review_task (Deterministic_controller). RequirementsManager (Agent) has tool markdown_validation_tool (Tool) and LLM_RequirementsManager (LLM).',
+    read_internal=False,
+    read_external=False,
+    write_internal=False,
+    write_external=False,
+    is_rag_tool=False,
+    version='1.0',
+)
+
+agent_spec = NodeSpecTop.model_validate(
+    agent_spec.model_dump(mode="python"),
+    context={"run_root_pass": True},
+)
+
+agent_spec.to_json(path=str(Path(__file__).with_name("markdown_validator_spec.json")))
+loaded_agent_spec = NodeSpec.from_json(path=str(Path(__file__).with_name("markdown_validator_spec.json")))
+
+# Keep compatibility with loaders that discover roots from these lists.
+ALL_NODES = [
+    loaded_agent_spec,
+]
+MAIN_GRAPH_NODES = [
+    loaded_agent_spec,
+]
+
+print(f"\n Tools: {loaded_agent_spec.list_tools()}")
+print(f"\n Agents: {loaded_agent_spec.list_agents()}")
+print(f"\n LLMs: {loaded_agent_spec.list_llms()}")
+print(f"\n Systems: {loaded_agent_spec.list_systems()}")
+print(f"\n MCP servers: {loaded_agent_spec.list_mcp_servers()}")
+print(f"\n Structured Description: {loaded_agent_spec.get_desc()}")

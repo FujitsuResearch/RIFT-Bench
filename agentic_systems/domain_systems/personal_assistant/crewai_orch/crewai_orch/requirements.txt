@@ -1,0 +1,6 @@
+crewai[azure-ai-inference]==1.9.3
+crewai-tools[mcp]==1.9.3
+mcp==1.23.2
+mlflow==3.7.0
+python-dotenv==1.1.1
+fastmcp

@@ -1,0 +1,4 @@
+datasets>=4.8.5
+duckdb>=1.5.2
+mlflow>=3.11.1
+pydantic-ai>=1.90.0

@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/travel_langraph_agent",
+  "nodespec_file": "external_artifacts/stages_outputs/travel_langraph_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "agent"
+  ],
+  "expected_tool_names": [
+    "book_attraction",
+    "book_flight",
+    "book_hotel",
+    "book_restaurant",
+    "check_attraction_availability",
+    "check_attraction_price",
+    "check_flight_availability",
+    "check_flight_price",
+    "check_hotel_availability",
+    "check_hotel_price",
+    "check_restaurant_availability",
+    "check_restaurant_price",
+    "search_attractions_serper",
+    "search_flights_serper",
+    "search_hotels_serper",
+    "search_restaurants_serper",
+    "write_travel_plan_document"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.messages",
+      "spanInputs.state.messages",
+      "spanInputs.messages",
+      "spanInputs[*]",
+      "spanOutputs.generations[*]"
+    ],
+    "name_paths": [
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanInputs.state.messages[*].name",
+      "spanInputs[*][*].name",
+      "spanInputs.messages[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name",
+      "spanOutputs.messages[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.tool_call.name",
+      "spanOutputs.name",
+      "spanOutputs.generations[*][*].message.name"
+    ],
+    "role_paths": [
+      "spanInputs.state.messages[*].tool_calls[*].type",
+      "spanInputs.state.messages[*].type",
+      "spanInputs[*][*].type",
+      "spanInputs.messages[*].type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanInputs[*][*].tool_calls[*].type",
+      "spanOutputs.messages[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanOutputs.type",
+      "spanInputs.tool_call.type",
+      "spanOutputs.generations[*][*].type",
+      "spanOutputs.generations[*][*].message.type",
+      "spanInputs.messages[*].role"
+    ],
+    "content_paths": [
+      "spanInputs.state.messages[*].content",
+      "spanInputs[*][*].content",
+      "spanInputs.messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.content",
+      "spanOutputs.generations[*][*].text",
+      "spanOutputs.generations[*][*].message",
+      "spanOutputs.generations[*][*].message.content"
+    ],
+    "tool_name_paths": [
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {},
+    "tool": {
+      "bookattraction": "book_attraction",
+      "bookflight": "book_flight",
+      "bookhotel": "book_hotel",
+      "bookrestaurant": "book_restaurant",
+      "checkattractionavailability": "check_attraction_availability",
+      "checkattractionprice": "check_attraction_price",
+      "checkflightavailability": "check_flight_availability",
+      "checkhotelavailability": "check_hotel_availability",
+      "checkhotelprice": "check_hotel_price",
+      "checkrestaurantavailability": "check_restaurant_availability",
+      "checkrestaurantprice": "check_restaurant_price",
+      "searchattractionsserper": "search_attractions_serper",
+      "searchflightsserper": "search_flights_serper",
+      "searchhotelsserper": "search_hotels_serper",
+      "searchrestaurantsserper": "search_restaurants_serper",
+      "writetravelplandocument": "write_travel_plan_document"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 17,
+    "num_agent_aliases": 0,
+    "num_tool_aliases": 16,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

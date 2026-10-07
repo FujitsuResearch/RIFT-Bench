@@ -1,0 +1,5 @@
+crewai==1.9.3
+python-dotenv==1.1.1
+markdown==3.4.3
+pymarkdownlnt==0.9.15
+mlflow==3.7.0

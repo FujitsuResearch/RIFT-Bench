@@ -1,0 +1,84 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/markdown_validator",
+  "nodespec_file": "external_artifacts/stages_outputs/markdown_validator/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "RequirementsManager"
+  ],
+  "expected_tool_names": [
+    "markdown_validation_tool"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages",
+      "spanOutputs.tasks_output[*].messages",
+      "spanOutputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanInputs.tools[*].function.name",
+      "spanOutputs.tasks_output[*].name",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].function.name",
+      "spanOutputs.tasks_output[*].messages[*].name",
+      "spanOutputs.name",
+      "spanOutputs.messages[*].tool_calls[*].function.name",
+      "spanOutputs.messages[*].name",
+      "spanOutputs.choices[*].message.tool_calls[*].function.name",
+      "spanInputs.messages[*].tool_calls[*].function.name",
+      "spanInputs.messages[*].name"
+    ],
+    "role_paths": [
+      "spanInputs.messages[*].role",
+      "spanOutputs.tasks_output[*].messages[*].role",
+      "spanOutputs.messages[*].role",
+      "spanInputs.tools[*].type",
+      "spanInputs.tools[*].function.parameters.type",
+      "spanInputs.tools[*].function.parameters.properties.file_path.type",
+      "spanOutputs.choices[*].message.role",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanOutputs.choices[*].message.tool_calls[*].type",
+      "spanInputs.messages[*].tool_calls[*].type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanOutputs.tasks_output[*].messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.raw",
+      "spanOutputs.choices[*].message",
+      "spanOutputs.choices[*].message.content",
+      "spanOutputs.tasks_output[*].raw",
+      "spanInputs.output.text"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.choices[*].message.tool_calls[*].name",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "requirementsmanager": "RequirementsManager",
+      "requirementsmanagern": "RequirementsManager"
+    },
+    "tool": {
+      "markdownvalidationtool": "markdown_validation_tool"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 1,
+    "num_agent_aliases": 2,
+    "num_tool_aliases": 1,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

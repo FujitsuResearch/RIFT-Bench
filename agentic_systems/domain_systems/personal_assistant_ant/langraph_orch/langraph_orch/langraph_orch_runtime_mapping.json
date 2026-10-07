@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/pa_langraph_orch",
+  "nodespec_file": "external_artifacts/stages_outputs/pa_langraph_orch/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "action_worker",
+    "orchestrator",
+    "reader_worker",
+    "writer_worker"
+  ],
+  "expected_tool_names": [
+    "create_calendar_event",
+    "create_task",
+    "draft_email",
+    "read_task_file",
+    "search_calendar",
+    "search_contacts",
+    "search_emails",
+    "search_notes",
+    "search_tasks",
+    "update_calendar_event",
+    "update_task",
+    "write_personal_summary_document"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.messages",
+      "spanInputs.messages",
+      "spanInputs.state.messages",
+      "spanInputs[*]",
+      "spanOutputs.generations[*]"
+    ],
+    "name_paths": [
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanInputs.state.messages[*].name",
+      "spanInputs[*][*].name",
+      "spanOutputs.messages[*].name",
+      "spanInputs.messages[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.tool_call.name",
+      "spanOutputs.name",
+      "spanOutputs.generations[*][*].message.name"
+    ],
+    "role_paths": [
+      "spanInputs.state.messages[*].tool_calls[*].type",
+      "spanInputs.state.messages[*].type",
+      "spanInputs[*][*].type",
+      "spanOutputs.messages[*].type",
+      "spanInputs.messages[*].type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanInputs[*][*].tool_calls[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanOutputs.type",
+      "spanInputs.tool_call.type",
+      "spanOutputs.generations[*][*].type",
+      "spanOutputs.generations[*][*].message.type",
+      "spanInputs.messages[*].role"
+    ],
+    "content_paths": [
+      "spanInputs.state.messages[*].content",
+      "spanInputs[*][*].content",
+      "spanInputs.messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.content",
+      "spanOutputs.generations[*][*].text",
+      "spanOutputs.generations[*][*].message",
+      "spanOutputs.generations[*][*].message.content"
+    ],
+    "tool_name_paths": [
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {},
+    "tool": {
+      "createcalendarevent": "create_calendar_event",
+      "createtask": "create_task",
+      "draftemail": "draft_email",
+      "searchcalendar": "search_calendar",
+      "searchcontacts": "search_contacts",
+      "searchemails": "search_emails",
+      "searchnotes": "search_notes",
+      "searchtasks": "search_tasks",
+      "writepersonalsummarydocument": "write_personal_summary_document"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 4,
+    "num_expected_tools": 12,
+    "num_agent_aliases": 0,
+    "num_tool_aliases": 9,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

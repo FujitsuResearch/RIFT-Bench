@@ -1,0 +1,9 @@
+{
+  "queries": [
+    "Find the three most-cited recent papers on retrieval-augmented generation (RAG) and summarize their key techniques and evaluation results.",
+    "Scrape two reputable sources to outline the main policy responses to deepfake misuse in 2024, then produce a concise brief.",
+    "Create a short outline for a report on advances in quantum error correction in the last 18 months, then write the report.",
+    "Generate a small data table and matplotlib chart comparing 2020-2024 quarterly revenues for two major cloud providers; include the chart summary in the answer.",
+    "Research AI agents for software testing and produce a short report with strengths, weaknesses, and practical adoption tips."
+  ]
+}

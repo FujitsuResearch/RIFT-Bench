@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "outputs_dir": "stages_outputs/medical_autogen_agent",
+  "nodespec_file": "stages_outputs/medical_autogen_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "medical_agent"
+  ],
+  "expected_tool_names": [
+    "age_from_date",
+    "answer_medical_question_from_rag",
+    "calculate_bmi",
+    "convert_medical_units",
+    "lookup_drug_label_openfda",
+    "search_medical_knowledge",
+    "summarize_medical_topic",
+    "web_search_serper"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages",
+      "spanOutputs.messages",
+      "spanOutputs.inner_messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanInputs.messages[*].content[*].name",
+      "spanInputs.messages[*].source",
+      "spanOutputs.messages[*].source",
+      "spanOutputs.messages[*].content[*].name",
+      "spanOutputs.inner_messages[*].content[*].name",
+      "spanOutputs.inner_messages[*].source",
+      "spanOutputs.content[*].name",
+      "spanOutputs.chat_message.source"
+    ],
+    "role_paths": [
+      "spanInputs.tools[*].parameters.type",
+      "spanInputs.messages[*].type",
+      "spanInputs.tools[*].parameters.properties.top_k.type",
+      "spanOutputs.messages[*].type",
+      "spanInputs.tools[*].parameters.properties.query.type",
+      "spanInputs.tools[*].parameters.properties.topic.type",
+      "spanOutputs.inner_messages[*].type",
+      "spanInputs.tools[*].parameters.properties.question_type.type",
+      "spanInputs.tools[*].parameters.properties.question.type",
+      "spanInputs.tools[*].parameters.properties.focus.type",
+      "spanInputs.tools[*].parameters.properties.drug_name.type",
+      "spanInputs.tools[*].parameters.properties.limit.type",
+      "spanInputs.tools[*].parameters.properties.height.type",
+      "spanInputs.tools[*].parameters.properties.height_unit.type",
+      "spanInputs.tools[*].parameters.properties.weight.type",
+      "spanInputs.tools[*].parameters.properties.weight_unit.type",
+      "spanInputs.tools[*].parameters.properties.value.type",
+      "spanInputs.tools[*].parameters.properties.from_unit.type",
+      "spanInputs.tools[*].parameters.properties.to_unit.type",
+      "spanInputs.tools[*].parameters.properties.date_of_birth.type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanInputs.messages[*].content[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.inner_messages[*].content",
+      "spanOutputs.messages[*].content[*].content",
+      "spanOutputs.inner_messages[*].content[*].content",
+      "spanOutputs.content",
+      "spanOutputs.chat_message.content"
+    ],
+    "tool_name_paths": []
+  },
+  "alias_registry": {
+    "agent": {
+      "medicalagent": "medical_agent"
+    },
+    "tool": {
+      "calculatebmi": "calculate_bmi",
+      "convertmedicalunits": "convert_medical_units",
+      "lookupdruglabelopenfda": "lookup_drug_label_openfda",
+      "summarizemedicaltopic": "summarize_medical_topic"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 8,
+    "num_agent_aliases": 1,
+    "num_tool_aliases": 4,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

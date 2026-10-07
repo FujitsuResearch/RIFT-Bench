@@ -1,0 +1,27 @@
+{
+  "runner": "python",
+  "entrypoint": "main.py",
+  "args": [
+    {
+      "name": "--query",
+      "value": "<query_text>",
+      "dtype": "str",
+      "required": true
+    },
+    {
+      "name": "--exp_name",
+      "value": "medical_crewai_router",
+      "dtype": "str",
+      "required": false
+    },
+    {
+      "name": "--port",
+      "value": 5000,
+      "dtype": "int",
+      "required": false
+    }
+  ],
+  "task_arg_names": [
+    "--query"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/finance_langraph_agent",
+  "nodespec_file": "external_artifacts/stages_outputs/finance_langraph_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "agent"
+  ],
+  "expected_tool_names": [
+    "buy_stock",
+    "calculate_portfolio_market_value",
+    "calculate_position_value",
+    "functions.get_analyst_estimates",
+    "functions.get_balance_sheet",
+    "functions.get_cash_flow_statement",
+    "functions.get_company_facts",
+    "functions.get_crypto_price",
+    "functions.get_crypto_prices",
+    "functions.get_earnings",
+    "functions.get_filing_items",
+    "functions.get_filings",
+    "functions.get_financial_metrics",
+    "functions.get_financial_metrics_snapshot",
+    "functions.get_income_statement",
+    "functions.get_insider_trades",
+    "functions.get_interest_rates",
+    "functions.get_kpi_guidance",
+    "functions.get_kpi_metrics",
+    "functions.get_kpi_non_gaap",
+    "functions.get_news",
+    "functions.get_segmented_financials",
+    "functions.get_stock_price",
+    "functions.get_stock_prices",
+    "functions.list_crypto_tickers",
+    "functions.list_filing_item_types",
+    "functions.list_stock_screener_filters",
+    "functions.screen_stocks",
+    "get_available_cash",
+    "get_stock_holding_details",
+    "list_owned_stocks",
+    "sell_stock"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.messages",
+      "spanInputs.messages",
+      "spanInputs[*]",
+      "spanOutputs.generations[*]",
+      "spanInputs.state.messages"
+    ],
+    "name_paths": [
+      "spanOutputs.messages[*].name",
+      "spanInputs[*][*].name",
+      "spanInputs.messages[*].name",
+      "spanInputs.state.messages[*].name",
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanOutputs.generations[*][*].message.name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name",
+      "spanInputs.tool_call.name",
+      "spanOutputs.name"
+    ],
+    "role_paths": [
+      "spanOutputs.messages[*].type",
+      "spanInputs[*][*].type",
+      "spanInputs.messages[*].type",
+      "spanInputs.state.messages[*].type",
+      "spanInputs.state.messages[*].tool_calls[*].type",
+      "spanOutputs.type",
+      "spanOutputs.messages[*].tool_calls[*].type",
+      "spanOutputs.generations[*][*].type",
+      "spanOutputs.generations[*][*].message.type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanInputs[*][*].tool_calls[*].type",
+      "spanInputs.tool_call.type",
+      "spanInputs.messages[*].role"
+    ],
+    "content_paths": [
+      "spanOutputs.messages[*].content",
+      "spanInputs[*][*].content",
+      "spanInputs.messages[*].content",
+      "spanInputs.state.messages[*].content",
+      "spanOutputs.generations[*][*].text",
+      "spanOutputs.generations[*][*].message",
+      "spanOutputs.generations[*][*].message.content",
+      "spanOutputs.content"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.messages[*].tool_calls[*].name",
+      "spanInputs.state.messages[*].tool_calls[*].name",
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanInputs[*][*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {},
+    "tool": {
+      "buystock": "buy_stock",
+      "calculateportfoliomarketvalue": "calculate_portfolio_market_value",
+      "calculatepositionvalue": "calculate_position_value",
+      "getavailablecash": "get_available_cash",
+      "getstockholdingdetails": "get_stock_holding_details",
+      "listownedstocks": "list_owned_stocks",
+      "sellstock": "sell_stock"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 32,
+    "num_agent_aliases": 0,
+    "num_tool_aliases": 7,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

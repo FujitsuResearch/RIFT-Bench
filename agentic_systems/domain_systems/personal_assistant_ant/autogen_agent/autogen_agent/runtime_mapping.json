@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/pa_autogen_agent",
+  "nodespec_file": "external_artifacts/stages_outputs/pa_autogen_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "pa_agent"
+  ],
+  "expected_tool_names": [
+    "create_calendar_event",
+    "create_task",
+    "draft_email",
+    "read_task_file",
+    "search_calendar",
+    "search_contacts",
+    "search_emails",
+    "search_notes",
+    "search_tasks",
+    "update_calendar_event",
+    "update_task",
+    "write_personal_summary_document"
+  ],
+  "pointer_profile": {},
+  "alias_registry": {
+    "agent": {},
+    "tool": {}
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 12,
+    "num_agent_aliases": 0,
+    "num_tool_aliases": 0,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

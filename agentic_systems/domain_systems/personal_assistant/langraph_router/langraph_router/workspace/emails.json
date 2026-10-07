@@ -1,0 +1,222 @@
+[
+  {
+    "id": "e001",
+    "thread_id": "t001",
+    "read": true,
+    "from": "dana.reyes@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-09",
+    "subject": "Q2 planning meeting",
+    "body": "Hi, can we meet to discuss Q2 planning? I want to go over priorities and make sure we are aligned before the sprint kicks off. Let me know your availability next week."
+  },
+  {
+    "id": "e002",
+    "thread_id": "t001",
+    "read": true,
+    "from": "me@example.com",
+    "to": "dana.reyes@example.com",
+    "date": "2026-09-09",
+    "subject": "Re: Q2 planning meeting",
+    "body": "Sure, how about Tuesday September 17 at 2pm? I am free then and we can use Room 3."
+  },
+  {
+    "id": "e003",
+    "thread_id": "t001",
+    "read": false,
+    "from": "dana.reyes@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-10",
+    "subject": "Re: Q2 planning meeting",
+    "body": "Tuesday September 17 at 2pm works perfectly. I will prepare the agenda and send it over before the meeting. Looking forward to it."
+  },
+  {
+    "id": "e004",
+    "thread_id": "t002",
+    "read": true,
+    "from": "marco.elkins@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-12",
+    "subject": "Project proposal draft ready for review",
+    "body": "I have finished the initial draft of the Q2 Feature Launch proposal. It covers the backend architecture, API design, and timeline. Can you review it and give feedback before Friday September 20?"
+  },
+  {
+    "id": "e005",
+    "thread_id": "t002",
+    "read": true,
+    "from": "me@example.com",
+    "to": "marco.elkins@example.com",
+    "date": "2026-09-12",
+    "subject": "Re: Project proposal draft ready for review",
+    "body": "Got it Marco. I will review it and get back to you by Friday."
+  },
+  {
+    "id": "e006",
+    "thread_id": "t002",
+    "read": false,
+    "from": "marco.elkins@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-14",
+    "subject": "Re: Project proposal draft ready for review",
+    "body": "I updated the proposal with the ClientCo integration requirements Mei Lin sent. The main changes are in section 3 on the API design. Please take a look when you get a chance."
+  },
+  {
+    "id": "e007",
+    "thread_id": "t003",
+    "read": true,
+    "from": "james.okoye@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-06",
+    "subject": "Performance review scheduled",
+    "body": "Your performance review is scheduled for Wednesday September 18 at 11:00am. Please complete your self-review form in the HR portal before the meeting. The form covers achievements, goals, and development areas."
+  },
+  {
+    "id": "e008",
+    "thread_id": "t003",
+    "read": true,
+    "from": "me@example.com",
+    "to": "james.okoye@example.com",
+    "date": "2026-09-06",
+    "subject": "Re: Performance review scheduled",
+    "body": "Confirmed, I will have my self-review ready before the September 18 meeting. Looking forward to it."
+  },
+  {
+    "id": "e009",
+    "thread_id": "t004",
+    "read": true,
+    "from": "mei.lin@clientco.com",
+    "to": "me@example.com",
+    "date": "2026-09-11",
+    "subject": "ClientCo integration - deadline question",
+    "body": "Hi, just checking in on the API integration timeline. Will it be ready by October 11 as agreed? We are planning our internal release around that date."
+  },
+  {
+    "id": "e010",
+    "thread_id": "t004",
+    "read": true,
+    "from": "me@example.com",
+    "to": "mei.lin@clientco.com",
+    "date": "2026-09-12",
+    "subject": "Re: ClientCo integration - deadline question",
+    "body": "Hi Mei Lin, yes we are on track for October 11. Marco is leading the integration work and we have it scheduled as our top Q2 milestone."
+  },
+  {
+    "id": "e011",
+    "thread_id": "t004",
+    "read": false,
+    "from": "mei.lin@clientco.com",
+    "to": "me@example.com",
+    "date": "2026-09-13",
+    "subject": "Re: ClientCo integration - deadline question",
+    "body": "Great to hear. One additional question - is there any way to include the data export feature in the current scope? Our team would really benefit from it before the launch."
+  },
+  {
+    "id": "e012",
+    "thread_id": "t005",
+    "read": true,
+    "from": "rachel.torres@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-10",
+    "subject": "Onboarding materials for Sofia Bauer",
+    "body": "Hi, please find attached the onboarding packet for Sofia Bauer who starts September 16. It includes the welcome guide, tool access instructions, and first-week schedule. Please send it to her before she starts."
+  },
+  {
+    "id": "e013",
+    "thread_id": "t006",
+    "read": false,
+    "from": "ben.nakamura@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-13",
+    "subject": "Server outage last night - production affected",
+    "body": "We had a production server outage from 11pm to 2am. It affected the API gateway. Root cause is under investigation - likely a memory leak in the new deployment. I have scheduled a DevOps sync for September 16 to review."
+  },
+  {
+    "id": "e014",
+    "thread_id": "t007",
+    "read": true,
+    "from": "tom.fischer@vendorco.com",
+    "to": "me@example.com",
+    "date": "2026-09-09",
+    "subject": "Contract renewal - expires November 9",
+    "body": "Hi, just a heads-up that our current contract expires November 9. We would like to discuss renewal terms and pricing. Can we schedule a call? I am available most of next week."
+  },
+  {
+    "id": "e015",
+    "thread_id": "t007",
+    "read": true,
+    "from": "me@example.com",
+    "to": "tom.fischer@vendorco.com",
+    "date": "2026-09-10",
+    "subject": "Re: Contract renewal - expires November 9",
+    "body": "Hi Tom, yes let us schedule a call. How about September 21 at 11am? I have a slot available then."
+  },
+  {
+    "id": "e016",
+    "thread_id": "t008",
+    "read": false,
+    "from": "natalie.brooks@legalpartners.com",
+    "to": "me@example.com",
+    "date": "2026-09-12",
+    "subject": "Compliance documentation review needed",
+    "body": "I need the data processing and security compliance documentation reviewed before end of next week (September 20). There are two sections flagged for your attention. Please send me the updated version when ready."
+  },
+  {
+    "id": "e017",
+    "thread_id": "t009",
+    "read": true,
+    "from": "owen.murray@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-13",
+    "subject": "Critical bug in payment flow",
+    "body": "Found a critical bug in the payment confirmation flow. When a user submits payment with a promo code, the order sometimes fails silently. Steps to reproduce and logs are attached. This needs urgent attention."
+  },
+  {
+    "id": "e018",
+    "thread_id": "t009",
+    "read": true,
+    "from": "me@example.com",
+    "to": "owen.murray@example.com",
+    "date": "2026-09-13",
+    "subject": "Re: Critical bug in payment flow",
+    "body": "Thanks Owen, I have created a high-priority task for this and assigned it to Marco. We will aim to have a fix in by September 19."
+  },
+  {
+    "id": "e019",
+    "thread_id": "t010",
+    "read": true,
+    "from": "carla.gomez@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-11",
+    "subject": "Dashboard design mockups ready",
+    "body": "Hi, the new dashboard design mockups are ready in Figma. They cover the analytics view, user settings panel, and mobile layout. Can you review and give feedback before the design review on September 20?"
+  },
+  {
+    "id": "e020",
+    "thread_id": "t011",
+    "read": true,
+    "from": "aisha.patel@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-12",
+    "subject": "Data pipeline anomalies - April dataset",
+    "body": "The April dataset is showing some anomalies in the daily aggregation pipeline. Values for August 28-30 look off compared to the rolling average. I am not sure if it is a data quality issue or a pipeline bug. Should I escalate?"
+  },
+  {
+    "id": "e021",
+    "thread_id": "t011",
+    "read": true,
+    "from": "me@example.com",
+    "to": "aisha.patel@example.com",
+    "date": "2026-09-13",
+    "subject": "Re: Data pipeline anomalies - April dataset",
+    "body": "Let us monitor for another day and see if the pattern continues. If the anomaly appears in the September 12 data too, then escalate it as a pipeline bug. I will create a task to track this."
+  },
+  {
+    "id": "e022",
+    "thread_id": "t012",
+    "read": true,
+    "from": "david.chen@example.com",
+    "to": "me@example.com",
+    "date": "2026-09-08",
+    "subject": "Q2 product roadmap draft",
+    "body": "The Q2 product roadmap draft is in Confluence. Key items: ClientCo integration (October 11), dashboard redesign (June), payment flow improvements (Q3). Please review and let me know if anything is missing before the project review on September 19."
+  }
+]

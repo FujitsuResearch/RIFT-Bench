@@ -1,0 +1,10 @@
+autogen_agentchat==0.7.5
+autogen_core==0.7.5
+autogen_ext==0.7.5
+mcp==1.23.2
+mlflow==3.7.0
+python-dotenv==1.2.1
+requests==2.32.5
+fastmcp
+openai
+tiktoken

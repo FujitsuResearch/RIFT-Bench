@@ -1,0 +1,57 @@
+
+# discovery + scanning from the current repository code.
+
+# Web/API and DB
+fastapi==0.127.0
+uvicorn==0.40.0
+python-dotenv==1.2.1
+python-multipart==0.0.26
+pydantic==2.12.5
+psycopg==3.3.2
+psycopg-binary==3.3.2
+requests==2.32.5
+PyYAML==6.0.3
+pyparsing==3.3.1
+
+# LLM/runtime
+openai==2.16.0
+azure-identity
+litellm==1.81.6
+llm-sandbox[docker]==0.3.31
+langchain
+langchain-openai==1.1.9
+langchain-community
+langchain-text-splitters
+langgraph
+langchain-mcp-adapters
+tiktoken==0.12.0
+mlflow==3.8.0
+
+# Numeric/analysis
+numpy==2.4.0
+scipy==1.16.3
+scikit-learn==1.8.0
+sentence-transformers
+faiss-cpu
+rank-bm25
+rich
+tqdm==4.67.2
+
+# Tooling/framework integrations used directly by repo code
+fastmcp
+mcp
+autogen-agentchat
+autogen-core
+autogen-ext
+crewai
+playwright
+PyPDF2
+pillow==12.0.0
+numexpr
+sympy
+wikipedia
+google-auth==2.45.0
+google-auth-oauthlib
+google-api-python-client
+
+

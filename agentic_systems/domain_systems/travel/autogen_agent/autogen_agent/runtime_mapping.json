@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/travel_autogen_agent",
+  "nodespec_file": "external_artifacts/stages_outputs/travel_autogen_agent/final_nodespec_gt.py",
+  "expected_component_source": "nodespec_utility_methods",
+  "expected_agent_names": [
+    "travel_agent"
+  ],
+  "expected_tool_names": [
+    "book_attraction",
+    "book_flight",
+    "book_hotel",
+    "book_restaurant",
+    "check_attraction_availability",
+    "check_attraction_price",
+    "check_flight_availability",
+    "check_flight_price",
+    "check_hotel_availability",
+    "check_hotel_price",
+    "check_restaurant_availability",
+    "check_restaurant_price",
+    "search_attractions_serper",
+    "search_flights_serper",
+    "search_hotels_serper",
+    "search_restaurants_serper",
+    "write_travel_plan_document"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages",
+      "spanOutputs.messages",
+      "spanOutputs.inner_messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanInputs.messages[*].content[*].name",
+      "spanOutputs.messages[*].content[*].name",
+      "spanOutputs.inner_messages[*].content[*].name",
+      "spanInputs.messages[*].source",
+      "spanOutputs.messages[*].source",
+      "spanOutputs.content[*].name",
+      "spanOutputs.inner_messages[*].source",
+      "spanOutputs.chat_message.source"
+    ],
+    "role_paths": [
+      "spanInputs.tools[*].parameters.type",
+      "spanInputs.tools[*].parameters.properties.location.type",
+      "spanInputs.tools[*].parameters.properties.date.type",
+      "spanInputs.tools[*].parameters.properties.destination.type",
+      "spanInputs.messages[*].type",
+      "spanInputs.tools[*].parameters.properties.guests.type",
+      "spanInputs.tools[*].parameters.properties.user_details.type",
+      "spanInputs.tools[*].parameters.properties.origin.type",
+      "spanInputs.tools[*].parameters.properties.departure_date.type",
+      "spanInputs.tools[*].parameters.properties.return_date.type",
+      "spanInputs.tools[*].parameters.properties.passengers.type",
+      "spanInputs.tools[*].parameters.properties.time.type",
+      "spanInputs.tools[*].parameters.properties.party_size.type",
+      "spanInputs.tools[*].parameters.properties.hotel_name.type",
+      "spanInputs.tools[*].parameters.properties.check_in_date.type",
+      "spanInputs.tools[*].parameters.properties.check_out_date.type",
+      "spanInputs.tools[*].parameters.properties.restaurant_name.type",
+      "spanInputs.tools[*].parameters.properties.attraction_name.type",
+      "spanInputs.tools[*].parameters.properties.tickets.type",
+      "spanOutputs.messages[*].type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanInputs.messages[*].content[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.messages[*].content[*].content",
+      "spanOutputs.inner_messages[*].content[*].content",
+      "spanOutputs.inner_messages[*].content",
+      "spanOutputs.content",
+      "spanOutputs.chat_message.content"
+    ],
+    "tool_name_paths": []
+  },
+  "alias_registry": {
+    "agent": {
+      "travelagent": "travel_agent"
+    },
+    "tool": {
+      "bookflight": "book_flight",
+      "checkattractionavailability": "check_attraction_availability",
+      "checkattractionprice": "check_attraction_price",
+      "checkflightavailability": "check_flight_availability",
+      "checkflightprice": "check_flight_price",
+      "searchflightsserper": "search_flights_serper",
+      "writetravelplandocument": "write_travel_plan_document"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 17,
+    "num_agent_aliases": 1,
+    "num_tool_aliases": 7,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

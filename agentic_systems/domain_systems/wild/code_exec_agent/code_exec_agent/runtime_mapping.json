@@ -1,0 +1,71 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/code_exec_agent_outputs_0",
+  "nodespec_file": "external_artifacts/code_exec_agent_outputs_0/final_nodespec.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanOutputs.tasks_output[*].messages",
+      "spanOutputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanOutputs.tasks_output[*].name",
+      "spanOutputs.name",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].function.name",
+      "spanOutputs.tasks_output[*].messages[*].name",
+      "spanOutputs.messages[*].tool_calls[*].function.name",
+      "spanOutputs.messages[*].name"
+    ],
+    "role_paths": [
+      "spanOutputs.tasks_output[*].messages[*].role",
+      "spanOutputs.messages[*].role",
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].type",
+      "spanOutputs.messages[*].tool_calls[*].type"
+    ],
+    "content_paths": [
+      "spanOutputs.tasks_output[*].messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.raw",
+      "spanOutputs.tasks_output[*].raw",
+      "spanInputs.output.text"
+    ],
+    "tool_name_paths": [
+      "spanOutputs.tasks_output[*].messages[*].tool_calls[*].name",
+      "spanOutputs.messages[*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "codeact": "CodeAct",
+      "crewkickoff": "CodeAct"
+    },
+    "tool": {
+      "interpretertool": "InterpreterTool",
+      "websearch": "web_search"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 24,
+    "num_agent_aliases": 2,
+    "num_tool_aliases": 2,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 2,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {
+      "codeinterpreter": {
+        "InterpreterTool": 2,
+        "code_interpreter": 2
+      },
+      "pythonmcpslocalmcppysearchwebsearch": {
+        "web_search": 2,
+        "python_mcps_local_mcp_py_search_web_search": 2
+      }
+    },
+    "cross_type": {}
+  }
+}

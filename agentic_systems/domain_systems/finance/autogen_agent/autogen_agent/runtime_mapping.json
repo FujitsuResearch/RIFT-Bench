@@ -1,0 +1,123 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/finance_autogen_agent",
+  "nodespec_file": "external_artifacts/stages_outputs/finance_autogen_agent/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "finance_agent"
+  ],
+  "expected_tool_names": [
+    "buy_stock",
+    "calculate_portfolio_market_value",
+    "calculate_position_value",
+    "functions.get_analyst_estimates",
+    "functions.get_balance_sheet",
+    "functions.get_cash_flow_statement",
+    "functions.get_company_facts",
+    "functions.get_crypto_price",
+    "functions.get_crypto_prices",
+    "functions.get_earnings",
+    "functions.get_filing_items",
+    "functions.get_filings",
+    "functions.get_financial_metrics",
+    "functions.get_financial_metrics_snapshot",
+    "functions.get_income_statement",
+    "functions.get_insider_trades",
+    "functions.get_interest_rates",
+    "functions.get_kpi_guidance",
+    "functions.get_kpi_metrics",
+    "functions.get_kpi_non_gaap",
+    "functions.get_news",
+    "functions.get_segmented_financials",
+    "functions.get_stock_price",
+    "functions.get_stock_prices",
+    "functions.list_crypto_tickers",
+    "functions.list_filing_item_types",
+    "functions.list_stock_screener_filters",
+    "functions.screen_stocks",
+    "get_available_cash",
+    "get_stock_holding_details",
+    "list_owned_stocks",
+    "sell_stock"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages",
+      "spanOutputs.messages",
+      "spanOutputs.inner_messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].name",
+      "spanInputs.messages[*].content[*].name",
+      "spanOutputs.messages[*].content[*].name",
+      "spanOutputs.inner_messages[*].content[*].name",
+      "spanInputs.messages[*].source",
+      "spanOutputs.messages[*].source",
+      "spanOutputs.content[*].name",
+      "spanOutputs.inner_messages[*].source",
+      "spanInputs.tools[*].parameters.properties.name",
+      "spanOutputs.chat_message.source"
+    ],
+    "role_paths": [
+      "spanInputs.tools[*].parameters.type",
+      "spanInputs.tools[*].parameters.properties.ticker.type",
+      "spanInputs.tools[*].parameters.properties.limit.type",
+      "spanInputs.tools[*].parameters.properties.period.type",
+      "spanInputs.tools[*].parameters.properties.report_period_gte.type",
+      "spanInputs.tools[*].parameters.properties.report_period_lte.type",
+      "spanInputs.messages[*].type",
+      "spanInputs.tools[*].parameters.properties.report_period_gt.type",
+      "spanInputs.tools[*].parameters.properties.report_period_lt.type",
+      "spanInputs.tools[*].parameters.properties.report_period.type",
+      "spanInputs.tools[*].parameters.properties.start_date.type",
+      "spanInputs.tools[*].parameters.properties.end_date.type",
+      "spanInputs.tools[*].parameters.properties.metric_name.type",
+      "spanInputs.tools[*].parameters.properties.filters.items.properties.value.anyOf[*].type",
+      "spanOutputs.messages[*].type",
+      "spanInputs.tools[*].parameters.properties.cik.type",
+      "spanInputs.tools[*].parameters.properties.interval.type",
+      "spanInputs.tools[*].parameters.properties.interval_multiplier.type",
+      "spanInputs.tools[*].parameters.properties.filing_type.type",
+      "spanInputs.tools[*].parameters.properties.quantity.type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanInputs.messages[*].content[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.messages[*].content[*].content",
+      "spanOutputs.inner_messages[*].content[*].content",
+      "spanOutputs.inner_messages[*].content",
+      "spanOutputs.content",
+      "spanOutputs.chat_message.content"
+    ],
+    "tool_name_paths": []
+  },
+  "alias_registry": {
+    "agent": {
+      "financeagent": "finance_agent"
+    },
+    "tool": {
+      "buystock": "buy_stock",
+      "calculateportfoliomarketvalue": "calculate_portfolio_market_value",
+      "calculatepositionvalue": "calculate_position_value",
+      "getavailablecash": "get_available_cash",
+      "getstockholdingdetails": "get_stock_holding_details",
+      "listownedstocks": "list_owned_stocks",
+      "sellstock": "sell_stock"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 32,
+    "num_agent_aliases": 1,
+    "num_tool_aliases": 7,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

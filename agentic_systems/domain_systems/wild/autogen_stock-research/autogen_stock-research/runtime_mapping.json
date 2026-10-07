@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/autogen_Stock-Reserach_Oren",
+  "nodespec_file": "external_artifacts/stages_outputs/autogen_Stock-Reserach_Oren/final_spec.py",
+  "expected_component_source": "nodespec_utility_methods",
+  "expected_agent_names": [
+    "financial_analyst",
+    "news_analyst",
+    "planner",
+    "writer"
+  ],
+  "expected_tool_names": [
+    "get_news",
+    "get_stock_data"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages",
+      "spanOutputs.events[*].payload.context",
+      "spanOutputs.events[*].payload.messages[*].context",
+      "spanOutputs.events[*].payload.messages"
+    ],
+    "name_paths": [
+      "spanInputs.messages[*].name",
+      "spanOutputs.events[*].payload.source",
+      "spanOutputs.events[*].payload.messages[*].source",
+      "spanInputs.tools[*].function.name",
+      "spanOutputs.events[*].payload.content[*].name",
+      "spanOutputs.events[*].payload.messages[*].content[*].name",
+      "spanInputs.messages[*].tool_calls[*].function.name",
+      "spanOutputs.choices[*].message.tool_calls[*].function.name",
+      "spanOutputs.events[*].payload.context[*].source",
+      "spanOutputs.events[*].payload.messages[*].context[*].source",
+      "spanOutputs.events[*].payload.tool_calls[*].name",
+      "spanOutputs.events[*].payload.results[*].name",
+      "spanOutputs.events[*].payload.messages[*].tool_calls[*].name",
+      "spanOutputs.events[*].payload.messages[*].results[*].name"
+    ],
+    "role_paths": [
+      "spanInputs.messages[*].role",
+      "spanOutputs.events[*].type",
+      "spanOutputs.events[*].payload.type",
+      "spanOutputs.events[*].payload.messages[*].type",
+      "spanInputs.tools[*].type",
+      "spanInputs.tools[*].function.parameters.type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanOutputs.choices[*].message.role",
+      "spanOutputs.choices[*].message.tool_calls[*].type",
+      "spanOutputs.events[*].payload.context[*].type",
+      "spanOutputs.events[*].payload.messages[*].context[*].type",
+      "spanInputs.tools[*].function.parameters.properties.query.type",
+      "spanInputs.tools[*].function.parameters.properties.symbol.type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanOutputs.events[*].payload.content",
+      "spanOutputs.events[*].payload.messages[*].content",
+      "spanOutputs.choices[*].message",
+      "spanOutputs.choices[*].message.content",
+      "spanOutputs.events[*].payload.content[*].content",
+      "spanOutputs.events[*].payload.messages[*].content[*].content",
+      "spanOutputs.events[*].payload.context[*].content",
+      "spanOutputs.events[*].payload.messages[*].context[*].content",
+      "spanOutputs.events[*].payload.results[*].content",
+      "spanOutputs.events[*].payload.messages[*].results[*].content"
+    ],
+    "tool_name_paths": [
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanOutputs.choices[*].message.tool_calls[*].name",
+      "spanOutputs.events[*].payload.tool_calls[*].name",
+      "spanOutputs.events[*].payload.messages[*].tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {
+      "financialanalyst": "financial_analyst",
+      "newsanalyst": "news_analyst",
+      "planner": "planner",
+      "writer": "writer"
+    },
+    "tool": {
+      "getnews": "get_news",
+      "getstockdata": "get_stock_data"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 4,
+    "num_expected_tools": 2,
+    "num_agent_aliases": 4,
+    "num_tool_aliases": 2,
+    "num_agent_conflicts": 1,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {
+      "runswarm": {
+        "news_analyst": 1,
+        "planner": 1
+      }
+    },
+    "tool": {},
+    "cross_type": {}
+  }
+}

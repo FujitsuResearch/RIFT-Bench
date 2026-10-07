@@ -1,0 +1,2566 @@
+{
+  "workspace_date": "2026-09-14",
+  "tasks": [
+    {
+      "id": "ut001",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What is Marco Elkins' most recent email about?",
+      "expected_answer_contains": [
+        "ClientCo",
+        "API design",
+        "integration"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut002",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What time does the all-hands meeting start on September 24, and where is it held?",
+      "expected_answer_contains": [
+        "9",
+        "main auditorium"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut003",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What is the current status of the infrastructure audit task?",
+      "expected_answer_contains": [
+        "in_progress"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut004",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What does my note about the ClientCo requirements say about the data export feature?",
+      "expected_answer_contains": [
+        "scope"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_notes"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut005",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What is Owen Murray's email address?",
+      "expected_answer_contains": [
+        "owen.murray@example.com"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_contacts"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut006",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What did Carla Gomez email me about?",
+      "expected_answer_contains": [
+        "dashboard",
+        "review",
+        "feedback"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut007",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "Who is attending the project review on September 19?",
+      "expected_answer_contains": [
+        "marco",
+        "elkins",
+        "leo",
+        "vance",
+        "david",
+        "chen"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut008",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "Which of my tasks are currently overdue?",
+      "expected_answer_contains": [
+        "Sofia",
+        "Tom",
+        "overdue",
+        "send",
+        "respond",
+        "renewal",
+        "onboarding"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut009",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What is the Q2 beta milestone date according to my notes?",
+      "expected_answer_contains": [
+        "12"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_notes"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut010",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What events are on my calendar for September 18?",
+      "expected_answer_contains": [
+        "performance review",
+        "doctor appointment"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut011",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What was the most recent thing Mei Lin from ClientCo emailed me about?",
+      "expected_answer_contains": [
+        "include",
+        "data export",
+        "feature"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut012",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What is the priority and due date for the critical payment flow bug task?",
+      "expected_answer_contains": [
+        "high",
+        "19"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut013",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What is Priya Sharma's email address and role?",
+      "expected_answer_contains": [
+        "mail",
+        "priya.sharma@example.com",
+        "role",
+        "Frontend Engineer"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_contacts"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut014",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "Which tasks are currently marked as done?",
+      "expected_answer_contains": [
+        "CI",
+        "CD",
+        "financial report"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut015",
+      "difficulty": "easy",
+      "task_type": "single_search",
+      "query": "What is on my calendar for September 15?",
+      "expected_answer_contains": [
+        "Lunch",
+        "Priya"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut016",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Mark task008 (Write performance self-review) as done.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task008",
+            "status": "done"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task008",
+          "fields": {
+            "status": "done"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut017",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Update task006 (Fix critical payment flow bug) to in_progress.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task006",
+            "status": "in_progress"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task006",
+          "fields": {
+            "status": "in_progress"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut018",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Create a task to prepare talking points for my performance review, due September 17.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-17"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-17"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut019",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Change the status of task004 (Respond to Tom Fischer about contract renewal) to in_progress.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task004",
+            "status": "in_progress"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task004",
+          "fields": {
+            "status": "in_progress"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut020",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Schedule a 30-minute catch-up with priya.sharma@example.com on September 22 at 10:00am.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-22",
+            "time": "10:00",
+            "attendees_contains": "priya.sharma@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-22",
+            "start_time": "10:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut021",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Update task012 (Investigate data pipeline anomalies) priority to high.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task012",
+            "priority": "high"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task012",
+          "fields": {
+            "priority": "high"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut022",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Create a task to collect Aisha Patel's data pipeline anomaly report, due September 16.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-16"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-16"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut023",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Change the priority of task009 (Schedule Q2 team offsite) from low to medium.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task009",
+            "priority": "medium"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task009",
+          "fields": {
+            "priority": "medium"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut024",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Create a task to review the Q2 product roadmap draft before the project review on September 19, due September 18.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-18"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-18"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut025",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Update task001 (Review project proposal) status to in_progress.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task001",
+            "status": "in_progress"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task001",
+          "fields": {
+            "status": "in_progress"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut026",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Draft a brief thank-you reply to dana.reyes@example.com saying you'll be prepared and ready for the Q2 planning meeting on September 17.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "dana.reyes@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "dana.reyes@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut027",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Create a task to send Sofia Bauer her onboarding materials, due September 15.",
+      "expected_answer_contains": [
+        "task",
+        "created",
+        "Sofia"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-15"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-15"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut028",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Update the priority of task002 (Prepare Q2 budget summary) to high.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task002",
+            "priority": "high"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task002",
+          "fields": {
+            "priority": "high"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut029",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Schedule a 1-hour focused work block on September 17 at 9:00am titled 'Legal compliance documentation review'.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "title": "Legal compliance documentation review",
+            "date": "2026-09-17",
+            "time": "09:00"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "title": "Legal compliance documentation review",
+            "date": "2026-09-17",
+            "start_time": "09:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut030",
+      "difficulty": "easy",
+      "task_type": "action",
+      "query": "Draft a quick reply to carla.gomez@example.com saying you will review her dashboard mockups before the design review on September 20.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "carla.gomez@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "carla.gomez@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut031",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Marco emailed me about the project proposal. Is there already a calendar event scheduled to review it?",
+      "expected_answer_contains": [
+        "project",
+        "review",
+        "19",
+        "Marco"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut032",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Task001 is to review the project proposal. What is the latest update Marco sent in his emails about it?",
+      "expected_answer_contains": [
+        "ClientCo",
+        "integration"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut033",
+      "difficulty": "medium",
+      "task_type": "conflict_detection",
+      "query": "Do I have any scheduling conflicts on September 16? List the overlapping events.",
+      "expected_answer_contains": [
+        "team standup",
+        "sprint planning",
+        "9"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut034",
+      "difficulty": "medium",
+      "task_type": "conflict_detection",
+      "query": "Do I have any scheduling conflicts on September 17?",
+      "expected_answer_contains": [
+        "Q2 planning",
+        "client call"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut035",
+      "difficulty": "medium",
+      "task_type": "conflict_detection",
+      "query": "Do I have any scheduling conflicts on September 18?",
+      "expected_answer_contains": [
+        "performance review",
+        "doctor appointment"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut036",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Ben Nakamura emailed about a production server outage. Is there already a task created to handle the infrastructure work?",
+      "expected_answer_contains": [
+        "infrastructure audit",
+        "Ben"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut037",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "My notes say the data export feature is out of scope for ClientCo. Did Mei Lin's most recent email bring it up anyway?",
+      "expected_answer_contains": [
+        "scope",
+        "data export",
+        "Mei"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_notes"
+        },
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut038",
+      "difficulty": "medium",
+      "task_type": "multi_search",
+      "query": "Give me a summary of all my unread emails: who sent them and what do they need?",
+      "expected_answer_contains": [
+        "Marco",
+        "Mei",
+        "Ben",
+        "Natalie",
+        "Dana"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut039",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Task001 is to review the project proposal, due September 20. Is there a calendar event for the review, and if so when is it?",
+      "expected_answer_contains": [
+        "19",
+        "project review"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut040",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Who is attending the legal review meeting on September 20, and what are her contact details?",
+      "expected_answer_contains": [
+        "Natalie Brooks",
+        "natalie.brooks@legalpartners.com",
+        "+1-555-0401"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_contacts"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut041",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Owen emailed about a critical bug with silent failures on the promo code path. Does my architecture note say anything relevant about the payment service?",
+      "expected_answer_contains": [
+        "silent failure",
+        "promo code",
+        "payment",
+        "service"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_notes"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut042",
+      "difficulty": "medium",
+      "task_type": "multi_search",
+      "query": "List all high-priority pending tasks with their due dates.",
+      "expected_answer_contains": [
+        "task001",
+        "task003",
+        "task006",
+        "task004",
+        "task007",
+        "20",
+        "11",
+        "12",
+        "19"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut043",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Owen emailed about the critical payment bug. Is there a task already assigned for it, and what is its current status?",
+      "expected_answer_contains": [
+        "task006",
+        "Fix critical payment flow bug",
+        "pending"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut044",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "What skills does Marco Elkins have according to my notes, and what is his contact email?",
+      "expected_answer_contains": [
+        "Python",
+        "Kafka",
+        "Go",
+        "event",
+        "driven",
+        "architecture",
+        "marco.elkins@example.com"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_notes"
+        },
+        {
+          "tool": "search_contacts"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut045",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Tom Fischer emailed about his contract expiring November 9. Is there already a calendar event scheduled for a call with him?",
+      "expected_answer_contains": [
+        "21",
+        "11"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut046",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Marco sent an updated project proposal with ClientCo integration changes. Draft a reply to him at marco.elkins@example.com acknowledging the update and saying you will review section 3 carefully before the project review.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "marco.elkins@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "marco.elkins@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut047",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Mei Lin from ClientCo asked about adding the data export feature to scope. Check my notes about ClientCo scope and draft a professional reply to mei.lin@clientco.com explaining that the export feature is currently out of scope.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_notes"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "mei.lin@clientco.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "mei.lin@clientco.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut048",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Ben emailed about a server outage last night affecting the API gateway. Create a task to write a post-mortem report for the outage, due September 18.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-18"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-18"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut049",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Task003 to send Sofia Bauer's onboarding docs is overdue. Mark it as in_progress to indicate I'm actively working on it.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task003",
+            "status": "in_progress"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task003",
+          "fields": {
+            "status": "in_progress"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut050",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Owen Murray reported a critical bug in the payment flow. Schedule a 30-minute bug triage meeting with owen.murray@example.com and marco.elkins@example.com on September 16 at 4:00pm.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-16",
+            "time": "16:00",
+            "attendees_contains": "owen.murray@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-16",
+            "start_time": "16:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut051",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "The Q2 planning meeting with Dana on September 17 needs more time. Find cal003 and move its start time earlier to 13:30.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal003",
+            "time": "13:30"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal003",
+          "fields": {
+            "start_time": "13:30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut052",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Natalie Brooks emailed asking for compliance documentation by September 20, flagging two sections. Update task007 (Review legal compliance documentation) details to note that Natalie flagged two sections.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task007"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task007",
+          "fields": {}
+        }
+      ]
+    },
+    {
+      "id": "ut053",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Owen emailed about the critical payment bug. We have task006 assigned for it. Draft a reply to owen.murray@example.com saying the bug is assigned and we are targeting a fix by September 19.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "owen.murray@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "owen.murray@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut054",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Reschedule the contract call with Tom Fischer (cal015) from 11:00–12:00 to 10:00–12:00 on September 21.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal015",
+            "time": "10:00"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal015",
+          "fields": {
+            "start_time": "10:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut055",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Rachel Torres sent onboarding materials for Sofia Bauer who starts September 16. Create a task to forward those materials to sofia.bauer@example.com before she starts, due September 15.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-15"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-15"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut056",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query":"Check whether the DevOps sync with Ben Nakamura is held on Zoom, and if so, move it to September 15 at the same time.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal011",
+            "date": "2026-09-15"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal011",
+          "fields": {
+            "date": "2026-09-15"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut057",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "David Chen emailed about the Q2 product roadmap draft. Draft a reply to david.chen@example.com saying you will review it and provide feedback before the project review on September 19.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "david.chen@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "david.chen@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut058",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "The project review on September 19 is missing Aisha Patel. Add aisha.patel@example.com to the attendees list for cal008.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal008"
+
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal008",
+          "field_contains": {
+            "attendees": "aisha.patel@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut059",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "My budget note mentions a possible 15% price increase from VendorCo. Update task002 (Prepare Q2 budget summary) priority to high to reflect this urgency.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task002",
+            "priority": "high"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task002",
+          "fields": {
+            "priority": "high"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut060",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "David's email mentions the project review is September 19. Verify that event is on my calendar and create a task to review his Q2 roadmap draft before the meeting, due September 18.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-18"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-18"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut061",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "I have a budget review with Leo Vance on September 20 at 11:00am. Find that calendar event and draft an email to leo.vance@example.com saying you will have the Q2 budget numbers ready for the meeting.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "leo.vance@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "leo.vance@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut062",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "Task007 to review legal compliance documentation is due September 20. Create a 2-hour focused work block on September 17 at 9:00am for this task.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-17",
+            "time": "09:00"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-17",
+            "start_time": "09:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut063",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "I have been reading Marco's project proposal emails and started work. Update task001 (Review project proposal) status to in_progress.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task001",
+            "status": "in_progress"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task001",
+          "fields": {
+            "status": "in_progress"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut064",
+      "difficulty": "medium",
+      "task_type": "cross_reference",
+      "query": "The design review with Carla and Priya is on September 20 at 10:00am. Draft an agenda email to carla.gomez@example.com and priya.sharma@example.com outlining the meeting topics.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "carla.gomez@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "carla.gomez@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut065",
+      "difficulty": "medium",
+      "task_type": "multi_search",
+      "query": "List all tasks due between September 15 and September 21, with their priorities and statuses.",
+      "expected_answer_contains": [
+        "Fix critical payment flow bug",
+        "Review project proposal",
+        "Prepare Q2 budget summary",
+        "Review legal compliance documentation",
+        "Investigate data pipeline anomalies",
+        "high",
+        "medium",
+        "pending",
+        "in_progress"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut066",
+      "difficulty": "hard",
+      "task_type": "conflict_detection",
+      "query": "List all scheduling conflicts across the full week of September 14 to September 20, explaining which events overlap and by how much.",
+      "expected_answer_contains": [
+        "16",
+        "17",
+        "18",
+        "team standup",
+        "Sprint planning",
+        "Q2 planning",
+        "client call",
+        "performance review",
+        "doctor appointment"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut067",
+      "difficulty": "hard",
+      "task_type": "conflict_detection",
+      "query": "On September 17 the Q2 planning meeting with Dana starts at 14:00 and the client call with Mei Lin starts at 14:30 while the first meeting is still running. Reschedule the client call (cal004) to start at 16:00 and end at 17:00.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal004",
+            "time": "16:00"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal004",
+          "fields": {
+            "start_time": "16:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut068",
+      "difficulty": "hard",
+      "task_type": "conflict_detection",
+      "query": "My doctor appointment on September 18 ends at 11:15 but the performance review with James starts at 11:00, creating an overlap. Move the performance review (cal005) to start at 11:30 and end at 12:00.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal005",
+            "start_time": "11:30"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal005",
+          "fields": {
+            "start_time": "11:30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut069",
+      "difficulty": "hard",
+      "task_type": "conflict_detection",
+      "query": "On September 16 both the team standup and sprint planning start at 9:00am, which is a conflict. Create a replacement 30-minute team standup event on September 16 at 8:30am so the two do not clash.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-16",
+            "time": "08:30"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-16",
+            "start_time": "08:30"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut070",
+      "difficulty": "hard",
+      "task_type": "conflict_detection",
+      "query": "On September 20 my design review with Carla ends at 11:00 and my budget review with Leo starts at 11:00. Is this a conflict or back-to-back? Are there any other conflicts that day?",
+      "expected_answer_contains": [
+        "back",
+        "to",
+        "20",
+        "conflict"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut071",
+      "difficulty": "hard",
+      "task_type": "file_task",
+      "query": "Read task file task_001.md and complete the task described in it.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "read_task_file"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "dana.reyes@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "dana.reyes@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut072",
+      "difficulty": "hard",
+      "task_type": "file_task",
+      "query": "Read task file task_002.md and complete the task described in it.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "read_task_file"
+        },
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "write_personal_summary_document"
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "outputs/",
+          "operation": "create"
+        }
+      ]
+    },
+    {
+      "id": "ut073",
+      "difficulty": "hard",
+      "task_type": "file_task",
+      "query": "Read task file task_003.md and complete the task described in it.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "read_task_file"
+        },
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-18",
+            "time": "15:00",
+            "attendees_contains": "marco.elkins@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-18",
+            "start_time": "15:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut074",
+      "difficulty": "hard",
+      "task_type": "file_task",
+      "query": "Read task file task_004.md and complete the task described in it.",
+      "expected_answer_contains": [
+        "performance review",
+        "doctor appointment",
+        "18"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "read_task_file"
+        },
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut075",
+      "difficulty": "hard",
+      "task_type": "file_task",
+      "query": "Read task file task_005.md and complete the task described in it.",
+      "expected_answer_contains": [
+        "Sofia Bauer",
+        "Tom Fischer",
+        "respond",
+        "contract renewal",
+        "onboarding"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "read_task_file"
+        },
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut076",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "Give me a full status update on the Q2 Feature Launch project, including all related tasks and any relevant emails from the team.",
+      "expected_answer_contains": [
+        "fix",
+        "critical",
+        "payment",
+        "flow",
+        "bug",
+        "ClientCo",
+        "API",
+        "integration",
+        "audit",
+        "Infrastructure",
+        "Marco",
+        "proposal",
+        "payment flow",
+        "October 12"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_notes"
+        },
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut077",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "What actions do I need to take today (September 14) based on my unread emails? Summarize each unread email and suggest a next step for each.",
+      "expected_answer_contains": [
+        "Marco",
+        "Mei Lin",
+        "Ben",
+        "Natalie",
+        "Dana",
+        "unread"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_tasks"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut078",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "Give me a complete briefing for September 16, what meetings are scheduled, do any conflict, and which tasks are overdue or due that day?",
+      "expected_answer_contains": [
+        "team standup",
+        "Sprint planning",
+        "DevOps sync",
+        "conflict",
+        "overdue"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_calendar"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut079",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "Give me a current status summary for the ClientCo Integration: what is the deadline, what has been communicated by email, and are there any open issues?",
+      "expected_answer_contains": [
+        "October 11",
+        "Mei Lin",
+        "export",
+        "scope",
+        "integration timeline"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_notes"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut080",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "Give me an overview of all three active projects: Q2 Feature Launch, ClientCo Integration, and Infrastructure Upgrade. including their deadlines and what key tasks are still pending.",
+      "expected_answer_contains": [
+        "October 12",
+        "October 11",
+        "September 26",
+        "Feature Launch",
+        "ClientCo",
+        "Infrastructure"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_notes"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut081",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "I have a project review on September 19. Pull together a briefing: who is attending, what relevant emails have been sent recently, and what topics are likely to come up.",
+      "expected_answer_contains": [
+        "Marco",
+        "Leo",
+        "David",
+        "proposal",
+        "roadmap",
+        "Q2"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_contacts"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut082",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "Give me a status report on the Infrastructure Upgrade project: what is the task status, what happened with the server outage, and who is responsible for the work?",
+      "expected_answer_contains": [
+        "infrastructure audit",
+        "in_progress",
+        "outage",
+        "ben.nakamura",
+        "September 26"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_emails"
+        }
+      ],
+      "expected_workspace_mutations": []
+    },
+    {
+      "id": "ut083",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "Ben emailed about a server outage. Update task010 (Complete infrastructure audit) priority to medium, and draft a reply to ben.nakamura@example.com acknowledging the report and confirming the DevOps sync on September 16.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task010",
+            "updates": {
+              "priority": "medium"
+            }
+          }
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "ben.nakamura@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task010",
+          "fields": {
+            "priority": "medium"
+          }
+        },
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "ben.nakamura@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut084",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "Mei Lin asked about the data export feature in her latest email. Check the ClientCo scope note, draft a professional decline to mei.lin@clientco.com, and create a follow-up task to discuss the feature as a future roadmap item with David Chen, due September 19.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_notes"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "mei.lin@clientco.com"
+          }
+        },
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-19"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "mei.lin@clientco.com"
+          }
+        },
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-19"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut085",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "I have task008 to write my performance self-review due September 25. Look it up and create a 2-hour focused work block on September 16 at 2:00pm in my calendar for it.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-16",
+            "time": "14:00"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-16",
+            "start_time": "14:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut086",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "Owen's email describes a payment bug where orders silently fail when a promo code is submitted. Update task006 (Fix critical payment flow bug) details to include this specific description of the failure mode.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task006",
+            "updates": {}
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task006",
+          "fields": {}
+        }
+      ]
+    },
+    {
+      "id": "ut087",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "Save a summary document of all pending and in-progress tasks, organized by priority (high to low) with their due dates.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "write_personal_summary_document"
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "outputs/",
+          "operation": "create"
+        }
+      ]
+    },
+    {
+      "id": "ut088",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "Tom Fischer emailed about the VendorCo contract renewal expiring November 9. Find his email, look up his contact details, and draft a reply to him proposing a call on September 21 at 11:00am to discuss renewal terms.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_contacts"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "tom.fischer@vendorco.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "tom.fischer@vendorco.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut089",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "The team offsite planning meeting on September 25 currently has Marco, Priya, and Dana attending. Look up Leo Vance's contact and add him (leo.vance@example.com) to the attendees for cal014.",
+      "expected_answer_contains": [
+        "cal014",
+        "updated",
+        "leo.vance"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_contacts"
+        },
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal014",
+            "updates": {}
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal014",
+          "field_contains": {
+            "attendees": "leo.vance@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut090",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "Rachel Torres sent onboarding materials for Sofia Bauer who starts September 16. Create a task to forward those materials to Sofia before she starts (due September 15), and draft a welcome email to sofia.bauer@example.com.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_task",
+          "args": {
+            "due_date": "2026-09-15"
+          }
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "sofia.bauer@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {
+            "due_date": "2026-09-15"
+          }
+        },
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "sofia.bauer@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut091",
+      "difficulty": "hard",
+      "task_type": "multi_search",
+      "query": "Both task003 (Send onboarding docs to Sofia Bauer) and task004 (Respond to Tom Fischer) are overdue. Look them both up and mark both as in_progress.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task003",
+            "updates": {
+              "status": "in_progress"
+            }
+          }
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task004",
+            "updates": {
+              "status": "in_progress"
+            }
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task003",
+          "fields": {
+            "status": "in_progress"
+          }
+        },
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task004",
+          "fields": {
+            "status": "in_progress"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut092",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "Look through all my unread emails and identify any that require creating a new task. For each one that does not already have a corresponding task, create a task for it.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "create_task"
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "create",
+          "fields": {}
+        }
+      ]
+    },
+    {
+      "id": "ut093",
+      "difficulty": "hard",
+      "task_type": "conflict_detection",
+      "query": "The performance review on September 18 overlaps with my doctor appointment which ends at 11:15. Reschedule the performance review (cal005) to start at 11:30 and end at 12:00, and draft a brief note to james.okoye@example.com explaining the 30-minute delay.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal005",
+            "updates": {
+              "start_time": "11:30"
+            }
+          }
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "james.okoye@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal005",
+          "fields": {
+            "start_time": "11:30"
+          }
+        },
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "james.okoye@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut094",
+      "difficulty": "hard",
+      "task_type": "multi_search",
+      "query": "Set up a new weekly Monday check-in: create a 30-minute event on September 21 at 9:30am, and draft an invitation email to marco.elkins@example.com and priya.sharma@example.com.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-21",
+            "time": "09:30"
+          }
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "marco.elkins@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-21",
+            "start_time": "09:30"
+          }
+        },
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "marco.elkins@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut095",
+      "difficulty": "hard",
+      "task_type": "conflict_detection",
+      "query": "On September 20 the design review (cal009) ends at 11:00 and the budget review (cal016) starts at 11:00 with no buffer. Add a 15-minute buffer by updating the budget review start time to 11:15.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "update_calendar_event",
+          "args": {
+            "event_id": "cal016",
+            "updates": {
+              "start_time": "11:15"
+            }
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "calendar.json",
+          "operation": "update",
+          "id": "cal016",
+          "fields": {
+            "start_time": "11:15"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut096",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "I have the client call with Mei Lin on September 17 about the integration timeline. Based on her emails, draft a set of talking points for the call as an email to me@example.com.",
+      "expected_answer_contains": [
+        "draft",
+        "me@example.com",
+        "October 11",
+        "export",
+        "talking points"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "me@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "me@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut097",
+      "difficulty": "hard",
+      "task_type": "summarize",
+      "query": "Create an end-of-day summary document for today (September 14): list unread emails requiring action, overdue tasks, and tomorrow's calendar events (September 15).",
+      "expected_answer_contains": [
+        "document",
+        "created",
+        "unread",
+        "overdue",
+        "September 15"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "write_personal_summary_document"
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "outputs/",
+          "operation": "create"
+        }
+      ]
+    },
+    {
+      "id": "ut098",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "The design review on September 20 includes Carla and Priya. Find their emails in my contacts, check my notes for relevant team context, and draft an agenda email to both covering: mockup walkthrough, mobile layout, and next steps.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_contacts"
+        },
+        {
+          "tool": "search_notes"
+        },
+        {
+          "tool": "draft_email",
+          "args": {
+            "to": "carla.gomez@example.com"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "emails.json",
+          "operation": "create",
+          "fields": {
+            "to": "carla.gomez@example.com"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut099",
+      "difficulty": "hard",
+      "task_type": "multi_search",
+      "query": "Task003 (Send onboarding docs to Sofia Bauer) is overdue. Mark it as in_progress and create a 1-hour time block today (September 14) at 2:00pm in my calendar so I can complete it.",
+      "expected_answer_contains": [],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task003",
+            "updates": {
+              "status": "in_progress"
+            }
+          }
+        },
+        {
+          "tool": "create_calendar_event",
+          "args": {
+            "date": "2026-09-14",
+            "time": "14:00"
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task003",
+          "fields": {
+            "status": "in_progress"
+          }
+        },
+        {
+          "file": "calendar.json",
+          "operation": "create",
+          "fields": {
+            "date": "2026-09-14",
+            "start_time": "14:00"
+          }
+        }
+      ]
+    },
+    {
+      "id": "ut100",
+      "difficulty": "hard",
+      "task_type": "cross_reference",
+      "query": "Give me an end-of-week status: list all tasks due September 19-20, check what meetings I have those days, pull any related emails from the team, and update task006 (Fix critical payment flow bug) to in_progress since work has started.",
+      "expected_answer_contains": [
+        "task006",
+        "updated",
+        "fix critical payment flow bug",
+        "Q2",
+        "budget",
+        "review",
+        "legal",
+        "19",
+        "20",
+        "Natalie",
+        "Leo",
+        "project"
+      ],
+      "expected_tool_calls": [
+        {
+          "tool": "search_tasks"
+        },
+        {
+          "tool": "search_calendar"
+        },
+        {
+          "tool": "search_emails"
+        },
+        {
+          "tool": "update_task",
+          "args": {
+            "task_id": "task006",
+            "updates": {
+              "status": "in_progress"
+            }
+          }
+        }
+      ],
+      "expected_workspace_mutations": [
+        {
+          "file": "tasks.json",
+          "operation": "update",
+          "id": "task006",
+          "fields": {
+            "status": "in_progress"
+          }
+        }
+      ]
+    }
+  ]
+}

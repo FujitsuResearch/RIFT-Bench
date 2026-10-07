@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "outputs_dir": "stages_outputs/medical_autogen_orch",
+  "nodespec_file": "stages_outputs/medical_autogen_orch/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "calc_worker",
+    "drug_label_worker",
+    "final_agent",
+    "orchestrator",
+    "rag_worker",
+    "web_worker"
+  ],
+  "expected_tool_names": [
+    "age_from_date",
+    "answer_medical_question_from_rag",
+    "calculate_bmi",
+    "convert_medical_units",
+    "lookup_drug_label_openfda",
+    "search_medical_knowledge",
+    "summarize_medical_topic",
+    "web_search_serper"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages",
+      "spanOutputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.messages[*].source",
+      "spanInputs.messages[*].content[*].name",
+      "spanOutputs.messages[*].source",
+      "spanInputs.tools[*].name",
+      "spanOutputs.messages[*].content[*].name",
+      "spanOutputs.content[*].name"
+    ],
+    "role_paths": [
+      "spanInputs.messages[*].type",
+      "spanOutputs.messages[*].type",
+      "spanInputs.tools[*].parameters.type",
+      "spanInputs.tools[*].parameters.properties.top_k.type",
+      "spanInputs.tools[*].parameters.properties.topic.type",
+      "spanInputs.tools[*].parameters.properties.query.type",
+      "spanInputs.tools[*].parameters.properties.height.type",
+      "spanInputs.tools[*].parameters.properties.height_unit.type",
+      "spanInputs.tools[*].parameters.properties.weight.type",
+      "spanInputs.tools[*].parameters.properties.weight_unit.type",
+      "spanInputs.tools[*].parameters.properties.value.type",
+      "spanInputs.tools[*].parameters.properties.from_unit.type",
+      "spanInputs.tools[*].parameters.properties.to_unit.type",
+      "spanInputs.tools[*].parameters.properties.date_of_birth.type",
+      "spanInputs.tools[*].parameters.properties.reference_date.type",
+      "spanInputs.tools[*].parameters.properties.question_type.type",
+      "spanInputs.tools[*].parameters.properties.question.type",
+      "spanInputs.tools[*].parameters.properties.focus.type",
+      "spanInputs.tools[*].parameters.properties.drug_name.type",
+      "spanInputs.tools[*].parameters.properties.limit.type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content",
+      "spanOutputs.messages[*].content",
+      "spanOutputs.content",
+      "spanInputs.messages[*].content[*].content",
+      "spanOutputs.messages[*].content[*].content"
+    ],
+    "tool_name_paths": []
+  },
+  "alias_registry": {
+    "agent": {
+      "calcworker": "calc_worker",
+      "druglabelworker": "drug_label_worker",
+      "orchestrator": "orchestrator",
+      "ragworker": "rag_worker",
+      "webworker": "web_worker"
+    },
+    "tool": {
+      "answermedicalquestionfromrag": "answer_medical_question_from_rag",
+      "calculatebmi": "calculate_bmi",
+      "convertmedicalunits": "convert_medical_units",
+      "lookupdruglabelopenfda": "lookup_drug_label_openfda",
+      "summarizemedicaltopic": "summarize_medical_topic",
+      "websearchserper": "web_search_serper"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 6,
+    "num_expected_tools": 8,
+    "num_agent_aliases": 5,
+    "num_tool_aliases": 6,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}

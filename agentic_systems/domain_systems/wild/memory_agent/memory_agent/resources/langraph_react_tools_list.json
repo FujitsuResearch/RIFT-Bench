@@ -1,0 +1,9 @@
+[
+  "screenshot_tool",
+  
+  "pdf_metadata_tool",
+  "pdf_summary_tool",
+  "imagegen_tool",
+  "hash_tool",
+  "random_tool"
+]

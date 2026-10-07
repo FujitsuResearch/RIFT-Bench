@@ -1,0 +1,87 @@
+{
+  "version": 1,
+  "outputs_dir": "external_artifacts/stages_outputs/openhands_grep_example_Oren",
+  "nodespec_file": "external_artifacts/stages_outputs/openhands_grep_example_Oren/final_nodespec_gt.py",
+  "expected_component_source": "fallback_load_nodes_by_var",
+  "expected_agent_names": [
+    "agent"
+  ],
+  "expected_tool_names": [
+    "FileEditorTool",
+    "GrepTool",
+    "TerminalTool"
+  ],
+  "pointer_profile": {
+    "message_list_paths": [
+      "spanInputs.messages[*].content",
+      "spanInputs.messages"
+    ],
+    "name_paths": [
+      "spanInputs.tools[*].function.name",
+      "spanInputs.messages[*].tool_calls[*].function.name",
+      "spanInputs.messages[*].name",
+      "spanOutputs.choices[*].message.tool_calls[*].function.name"
+    ],
+    "role_paths": [
+      "spanInputs.messages[*].role",
+      "spanInputs.messages[*].content[*].type",
+      "spanInputs.tools[*].type",
+      "spanInputs.tools[*].function.parameters.type",
+      "spanInputs.tools[*].function.parameters.properties.summary.type",
+      "spanInputs.tools[*].function.parameters.properties.security_risk.type",
+      "spanInputs.tools[*].function.parameters.properties.command.type",
+      "spanInputs.tools[*].function.parameters.properties.path.type",
+      "spanInputs.messages[*].tool_calls[*].type",
+      "spanInputs.tools[*].function.parameters.properties.file_text.type",
+      "spanInputs.tools[*].function.parameters.properties.old_str.type",
+      "spanInputs.tools[*].function.parameters.properties.new_str.type",
+      "spanInputs.tools[*].function.parameters.properties.insert_line.type",
+      "spanInputs.tools[*].function.parameters.properties.view_range.type",
+      "spanInputs.tools[*].function.parameters.properties.view_range.items.type",
+      "spanInputs.tools[*].function.parameters.properties.is_input.type",
+      "spanInputs.tools[*].function.parameters.properties.timeout.type",
+      "spanInputs.tools[*].function.parameters.properties.reset.type",
+      "spanInputs.tools[*].function.parameters.properties.pattern.type",
+      "spanInputs.tools[*].function.parameters.properties.include.type"
+    ],
+    "content_paths": [
+      "spanInputs.messages[*].content[*].text",
+      "spanInputs.messages[*].content",
+      "spanInputs.tools[*].function.parameters.properties.message",
+      "spanOutputs.choices[*].message",
+      "spanOutputs.choices[*].message.content"
+    ],
+    "tool_name_paths": [
+      "spanInputs.messages[*].tool_calls[*].name",
+      "spanOutputs.choices[*].message.tool_calls[*].name"
+    ]
+  },
+  "alias_registry": {
+    "agent": {},
+    "tool": {
+      "fileeditortool": "FileEditorTool",
+      "fileeditor": "FileEditorTool",
+      "greptool": "GrepTool",
+      "grep": "GrepTool",
+      "terminaltool": "TerminalTool",
+      "terminal": "TerminalTool",
+      "finish": "finish",
+      "functionsthink": "functions.think",
+      "think": "functions.think"
+    }
+  },
+  "stats": {
+    "num_expected_agents": 1,
+    "num_expected_tools": 3,
+    "num_agent_aliases": 0,
+    "num_tool_aliases": 9,
+    "num_agent_conflicts": 0,
+    "num_tool_conflicts": 0,
+    "num_cross_type_conflicts": 0
+  },
+  "conflicts": {
+    "agent": {},
+    "tool": {},
+    "cross_type": {}
+  }
+}
